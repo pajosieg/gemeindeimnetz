@@ -1,23 +1,19 @@
 import * as React from "react";
-import { GermanMap, CONFESSION } from "../map/GermanMap";
-import { Link } from "react-router-dom";
+import {Card} from "../Card/Card";
+import {CategoryFilter} from "../CategoryFilter/CategoryFilter";
 
 export const Home = () => {
   return (
     <div className="App">
-      <h1>Gemeinde im Netz</h1>
-      <div className="choose-entry">
-        <div className="maps">
-          <GermanMap confession={CONFESSION.CATHOLIC} />
-          <GermanMap confession={CONFESSION.PROTESTANT} />
+      <CategoryFilter/>
+      <div className="grid">
+        <div className="col col-lg-6">
+          <Card/>
         </div>
-        <div className="all-bistums">
-          <Link to="germany">
-            <h2>Ganz Deutschland</h2>
-          </Link>
+        <div className="col col-lg-6">
+          <Card/>
         </div>
       </div>
-      <Link to="/user">Login</Link>
     </div>
   );
 };

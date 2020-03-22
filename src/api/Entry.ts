@@ -1,4 +1,4 @@
-export const createEntry = (entry: Entry) => {};
+export const createEntry = () => {};
 export const getFilteredEntries = () => {};
 export const readEntry = () => {};
 export const updateEntry = () => {};

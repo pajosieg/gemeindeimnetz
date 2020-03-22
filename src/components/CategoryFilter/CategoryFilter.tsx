@@ -16,18 +16,44 @@ export class CategoryFilter extends React.Component<
 
   public render() {
     return (
-      <div className="category-filter">
-        <label htmlFor="city">Ort/Stadt</label>
-        <select id="city">
-          <option>Mainz</option>
-          <option>Ingelheim</option>
-        </select>
-
-        <label htmlFor="category">Kategorie</label>
-        <select id="category">
-          <option>GoDi</option>
-          <option>Musik</option>
-        </select>
+      <div className="category-filter grid">
+        {/* 3 cols: 4 4 2 */}
+        <div className="col col-lg-4 col-lg-offset-1">
+          <div className="filter__input">
+            <label htmlFor="plz">Postleitzahl oder Ort</label>
+            <input type="text" id="plz" />
+          </div>
+          <div className="filter__input">
+            <label htmlFor="association">Bistum oder Landeskirche</label>
+            <select id="association">
+              <option>Bistum Mainz</option>
+              <option>Bistum Köln</option>
+            </select>
+          </div>
+        </div>
+        <div className="col col-lg-4">
+          <div className="filter__input">
+            <label htmlFor="name">Gemeindename</label>
+            <input type="text" id="name" />
+          </div>
+          <div className="filter__input">
+            <label htmlFor="date">Datum</label>
+            <div className="input__radio"><input type="radio" id="date" /> <span>Heute</span></div>
+            <div className="input__radio"><input type="radio" id="date" /> <span>Morgen</span></div>
+            <div className="input__radio"><input type="radio" id="date" /> <span>Nächste Woche</span></div>
+          </div>
+        </div>
+        <div className="col col-lg-2">
+          <div className="filter__input">
+            <label htmlFor="activity">Aktivitäten</label>
+            <div className="input__checkbox"><input type="checkbox" id="activity" /> <span>Gottesdienst</span></div>
+            <div className="input__checkbox"><input type="checkbox" id="activity" /> <span>Jugend</span></div>
+            <div className="input__checkbox"><input type="checkbox" id="activity" /> <span>Musik</span></div>
+            <div className="input__checkbox"><input type="checkbox" id="activity" /> <span>Gebete</span></div>
+            <div className="input__checkbox"><input type="checkbox" id="activity" /> <span>Senioren</span></div>
+            <div className="input__checkbox"><input type="checkbox" id="activity" /> <span>Kurse</span></div>
+          </div>
+        </div>
       </div>
     );
   }
