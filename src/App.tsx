@@ -1,32 +1,19 @@
 import React from "react";
-import { Switch, Route, BrowserRouter, Link } from "react-router-dom";
-import GermanMap from "./components/map/GermanMap";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.scss";
+import { Bistum } from "./components/Bistum/Bistum";
+import { Home } from "./components/Home/Home";
+import { Germany } from "./components/Germany/Germany";
+import { User } from "./components/User/User";
 
 function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/germany" render={() => <h1>germany</h1>}></Route>
-        <Route path="/*:bistum" render={() => <h1>bistum</h1>}></Route>
-        <Route
-          path="/"
-          render={() => (
-            <div className="App">
-              <header className="App-header">
-                <h1>Gemeinde im Netz</h1>
-                <div className="choose-entry">
-                  <GermanMap />
-                  <div className="all-bistums">
-                    <Link to="germany">
-                      <h2>Ganz Deutschland</h2>
-                    </Link>
-                  </div>
-                </div>
-              </header>
-            </div>
-          )}
-        ></Route>
+        <Route path="/" exact component={Home} />
+        <Route path="/user" component={User} />
+        <Route path="/germany" component={Germany} />
+        <Route path="/*:bistum" component={Bistum} />
       </Switch>
     </BrowserRouter>
   );
