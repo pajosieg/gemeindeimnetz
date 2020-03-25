@@ -1,11 +1,13 @@
+@import "../../scss/global-styles";
+
 .card {
-  background-color: #ffffff;
+  background-color: $white;
   box-shadow: 0 1px 8px -1px rgba(0, 0, 0, .5);
   padding: 20px 15px;
   position: relative;
 
   &__category {
-    background-color: #52B25E;
+    background-color: $green;
     color: #ffffff;
     padding: 5px 15px;
     font-weight: 600;
@@ -17,7 +19,7 @@
 
   &__community {
     font-weight: 700;
-    color: #AFAFAF;
+    color: $gray-light;
     font-size: 12px;
   }
 

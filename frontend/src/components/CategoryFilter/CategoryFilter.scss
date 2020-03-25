@@ -1,0 +1,106 @@
+@import "../../scss/global-styles";
+
+.category-filter {
+  margin: 40px 0 80px;
+}
+
+.filter__input {
+  margin-bottom: 30px;
+
+  label {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    border: 1px solid $gray-light;
+    border-radius: 4px;
+    @include font-size(16px);
+    @include line-height(27px);
+    padding: 5px;
+
+    &:focus {
+      border-color: $green;
+      box-shadow: none;
+      outline: none;
+    }
+  }
+}
+
+.input__radio,
+.input__checkbox {
+  label {
+    margin-bottom: 5px;
+    font-weight: 300;
+  }
+
+  input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+
+    & + label {
+      position: relative;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    // Box.
+    & + label:before {
+      content: '';
+      margin-right: 10px;
+      display: inline-block;
+      vertical-align: text-top;
+      width: 20px;
+      height: 20px;
+      border: 1px solid $gray-light;
+    }
+
+    &:checked + label:before {
+      background: $green;
+      border-color: $green;
+    }
+  }
+}
+
+.input__radio {
+
+  input + label:before {
+    border-radius: 100%;
+  }
+
+  // Checkmark. Could be replaced with an image
+  input:checked + label:after {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 9px;
+    background: white;
+    width: 6px;
+    height: 6px;
+    border-radius: 6px;
+  }
+}
+
+.input__checkbox {
+  // Checkmark. Could be replaced with an image
+  input:checked + label:after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 11px;
+    background: white;
+    width: 2px;
+    height: 2px;
+    box-shadow: 2px 0 0 white,
+    4px 0 0 white,
+    4px -2px 0 white,
+    4px -4px 0 white,
+    4px -6px 0 white,
+    4px -8px 0 white;
+    transform: rotate(45deg);
+  }
+
+}
