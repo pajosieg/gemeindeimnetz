@@ -30,13 +30,14 @@ export const Home = () => {
               ?.signInUserSession.accessToken.jwtToken;
             console.log(accessToken);
             fetch((window as any).env.apiUrl + "/time", {
-              method: "get",
+              method: "GET",
               headers: {
+                ...new Headers(),
                 Authorization: "Bearer " + (accessToken || "")
               }
-            } as any)
-              .then((res: any) => res.json())
-              .then((res: any) => console.log(res));
+            })
+              .then(res => res.json())
+              .then(res => console.log(res));
           }}
         >
           test time (authorized only)
