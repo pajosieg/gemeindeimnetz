@@ -32,7 +32,7 @@ export const Home = () => {
             fetch((window as any).env.apiUrl + "/time", {
               headers: {
                 Authorization: "Bearer " + (accessToken.toString() || ""),
-                Accept: "application/json"
+                "Content-Type": "application/x-www-form-urlencoded"
               }
             })
               .then(res => res.json())
