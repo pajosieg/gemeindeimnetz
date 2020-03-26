@@ -17,10 +17,11 @@ module.exports = {
       );
     });
 
-    if (authResponse.ok) {
-      return true;
-    } else {
-      return false;
-    }
+    return Promise.resolve(authResponse);
+    // if (authResponse.ok) {
+    //   return true;
+    // } else {
+    //   return false;
+    // }
   }
 };

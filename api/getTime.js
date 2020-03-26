@@ -2,17 +2,14 @@ const { checkAuthentication } = require("./auth/authenticator");
 const { response } = require("./globals/response");
 
 const getTime = async event => {
-  if (
-    await checkAuthentication(event.headers ? event.headers.Authorization : "")
-  ) {
-    return response(200, {
-      body: Date.now()
-    });
-  } else {
-    return response(200, {
-      body: "not authorized!"
-    });
-  }
+  const check = await checkAuthentication(
+    event.headers ? event.headers.Authorization : ""
+  );
+  return Promise.resolve(
+    response(200, {
+      body: { time: Date.now(), res: check }
+    })
+  );
 };
 
 module.exports.getTime = getTime;

@@ -21,6 +21,8 @@ Auth.currentAuthenticatedUser({
     Authentication.logout();
   });
 
+Auth.currentSession().then(session => console.log("current session:", session));
+
 const authenticationListener = (data: any) => {
   switch (data.payload.event) {
     case "signIn":
