@@ -4,10 +4,12 @@ const responseCors = {
   }
 };
 
-export const response = (statusCode, payload) => {
-  return {
-    ...responseCors,
-    statusCode,
-    ...payload
-  };
+module.exports = {
+  response: (statusCode, payload) => {
+    return {
+      ...responseCors,
+      statusCode,
+      ...payload
+    };
+  }
 };

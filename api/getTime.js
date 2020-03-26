@@ -1,7 +1,7 @@
-import { checkAuthentication } from "./auth/authenticator";
-import { response } from "./globals/response";
+const { checkAuthentication } = require("./auth/authenticator");
+const response = require("./globals/response");
 
-export const getTime = async event => {
+const getTime = async event => {
   event.request.headers;
 
   if (await checkAuthentication(event.request.headers)) {
@@ -14,3 +14,5 @@ export const getTime = async event => {
     });
   }
 };
+
+module.exports.getTime = getTime;

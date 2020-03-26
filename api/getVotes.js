@@ -1,4 +1,4 @@
-export const getVotes = async () => {
+const getVotes = async () => {
   return {
     statusCode: 200,
     headers: {
@@ -7,3 +7,5 @@ export const getVotes = async () => {
     body: '{ "votes": 99.3 }'
   };
 };
+
+module.exports.getVotes = getVotes;
