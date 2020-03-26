@@ -33,7 +33,7 @@ export const Home = () => {
               url: (window as any).env.apiUrl + "/time",
               method: "get",
               headers: {
-                Authorization: "Bearer test"
+                Authorization: "Bearer " + (accessToken || "")
               }
             } as any)
               .then((res: any) => res.json())
