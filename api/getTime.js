@@ -4,7 +4,7 @@ const response = require("./globals/response");
 const getTime = async event => {
   event.request.headers;
 
-  if (await checkAuthentication(event.request.headers)) {
+  if (await checkAuthentication(event.headers)) {
     return response(200, {
       body: Date.now()
     });

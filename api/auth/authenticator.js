@@ -1,11 +1,9 @@
 const userInfoUrl = process.env.USER_INFO_URL;
 
 module.exports = {
-  checkAuthentication: async auth_header => {
+  checkAuthentication: async auth_headers => {
     const authResponse = await fetch(userInfoUrl, {
-      headers: {
-        Authorization: auth_header
-      }
+      headers: auth_headers
     });
 
     if (authResponse.ok) {
