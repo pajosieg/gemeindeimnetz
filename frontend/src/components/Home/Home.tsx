@@ -26,12 +26,12 @@ export const Home = () => {
         <br />
         <button
           onClick={() => {
+            const accessToken = (Authentication.getUser()?.user as any)
+              ?.signInUserSession.accessToken;
+            console.log(accessToken);
             fetch((window as any).env.apiUrl + "/time", {
               headers: {
-                Authorization:
-                  "Bearer " +
-                  ((Authentication.getUser()?.user as any)?.signInUserSession
-                    .accessToken || ""),
+                Authorization: "Bearer " + (accessToken || ""),
                 Accept: "application/json"
               }
             })
