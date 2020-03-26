@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Card } from "../Card/Card";
 import { CategoryFilter } from "../CategoryFilter/CategoryFilter";
+import Authentication from "../../Stores/Authentication";
 
 export const Home = () => {
   return (
@@ -25,7 +26,15 @@ export const Home = () => {
         <br />
         <button
           onClick={() => {
-            fetch((window as any).env.apiUrl + "/time")
+            fetch((window as any).env.apiUrl + "/time", {
+              headers: {
+                Authorization:
+                  "Bearer " +
+                  ((Authentication.getUser()?.user as any).signInUserSession
+                    ?.accessToken || ""),
+                Accept: "application/json"
+              }
+            })
               .then(res => res.json())
               .then(res => console.log(res));
           }}
