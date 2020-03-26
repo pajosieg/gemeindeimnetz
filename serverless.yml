@@ -7,7 +7,6 @@ getVotes:
     region: eu-central-1
     code: ./api
     handler: getVotes.getVotes
-    runtime: nodejs10.15
 
 getTime:
   component: "@serverless/function"
@@ -16,7 +15,6 @@ getTime:
     region: eu-central-1
     code: ./api
     handler: getTime.getTime
-    runtime: nodejs10.15
 
 restApi:
   component: "@serverless/api"
