@@ -1,5 +1,5 @@
 const { checkAuthentication } = require("./auth/authenticator");
-const response = require("./globals/response");
+const { response } = require("./globals/response");
 
 const getTime = async event => {
   if (await checkAuthentication(event.headers)) {
