@@ -31,8 +31,7 @@ export const Home = () => {
             console.log(accessToken);
             fetch((window as any).env.apiUrl + "/time", {
               headers: {
-                Authorization: "Bearer " + (accessToken || ""),
-                "Content-Type": "application/x-www-form-urlencoded"
+                Authorization: "Bearer test"
               }
             })
               .then(res => res.json())
