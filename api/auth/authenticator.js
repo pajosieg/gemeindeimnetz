@@ -8,8 +8,10 @@ module.exports = {
         userInfoUrl,
         {
           headers: {
-            Authorization: auth_headers
-          }
+            Authorization: auth_headers || "",
+            Accept: "application/json"
+          },
+          "strict-ssl": false
         },
         res => resolve(res)
       );
