@@ -32,8 +32,7 @@ export const Home = () => {
             fetch((window as any).env.apiUrl + "/time", {
               method: "GET",
               headers: {
-                ...new Headers(),
-                Authorization: "Bearer " + (accessToken || "")
+                ...new Headers()
               }
             })
               .then(res => res.json())
