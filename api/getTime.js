@@ -1,11 +1,16 @@
-const getTime = async () => {
-  return {
-    statusCode: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*'
-    },
-    body: Date.now()
-  };
-};
+import { checkAuthentication } from "./auth/authenticator";
+import { response } from "./globals/response";
 
-module.exports.getTime = getTime;
+export const getTime = async event => {
+  event.request.headers;
+
+  if (await checkAuthentication(event.request.headers)) {
+    return response(200, {
+      body: Date.now()
+    });
+  } else {
+    return response(200, {
+      body: "not authorized!"
+    });
+  }
+};
