@@ -29,8 +29,7 @@ export const Home = () => {
             const accessToken = (Authentication.getUser()?.user as any)
               ?.signInUserSession.accessToken.jwtToken;
             console.log(accessToken);
-            fetch({
-              url: (window as any).env.apiUrl + "/time",
+            fetch((window as any).env.apiUrl + "/time", {
               method: "get",
               headers: {
                 Authorization: "Bearer " + (accessToken || "")
