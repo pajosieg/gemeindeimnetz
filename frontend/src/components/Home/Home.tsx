@@ -29,13 +29,15 @@ export const Home = () => {
             const accessToken = (Authentication.getUser()?.user as any)
               ?.signInUserSession.accessToken.jwtToken;
             console.log(accessToken);
-            fetch((window as any).env.apiUrl + "/time", {
+            fetch({
+              url: (window as any).env.apiUrl + "/time",
+              method: "get",
               headers: {
                 Authorization: "Bearer test"
               }
-            })
-              .then(res => res.json())
-              .then(res => console.log(res));
+            } as any)
+              .then((res: any) => res.json())
+              .then((res: any) => console.log(res));
           }}
         >
           test time (authorized only)
