@@ -30,8 +30,8 @@ export const Home = () => {
               headers: {
                 Authorization:
                   "Bearer " +
-                  ((Authentication.getUser()?.user as any).signInUserSession
-                    ?.accessToken || ""),
+                  ((Authentication.getUser()?.user as any)?.signInUserSession
+                    .accessToken || ""),
                 Accept: "application/json"
               }
             })
