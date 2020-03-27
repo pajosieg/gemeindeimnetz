@@ -30,7 +30,9 @@ export const Home = () => {
               ?.signInUserSession.accessToken.jwtToken;
             console.log(accessToken);
             fetch((window as any).env.apiUrl + "/time", {
+              method: "GET",
               headers: {
+                ...new Headers(),
                 authorization: "Bearer " + (accessToken || ""),
                 "content-type": "application/x-www-form-urlencoded"
               }
