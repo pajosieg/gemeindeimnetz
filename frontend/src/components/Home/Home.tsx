@@ -2,6 +2,7 @@ import * as React from "react";
 import { Card } from "../Card/Card";
 import { CategoryFilter } from "../CategoryFilter/CategoryFilter";
 import Authentication from "../../Stores/Authentication";
+import axios from "axios";
 
 export const Home = () => {
   return (
@@ -29,15 +30,13 @@ export const Home = () => {
             const accessToken = (Authentication.getUser()?.user as any)
               ?.signInUserSession.accessToken.jwtToken;
             console.log(accessToken);
-            fetch((window as any).env.apiUrl + "/time", {
-              method: "GET",
+            axios({
+              url: (window as any).env.apiUrl + "/time",
+              method: "get",
               headers: {
-                ...new Headers(),
                 Authorization: "Bearer 123"
               }
-            })
-              .then(res => res.json())
-              .then(res => console.log(res));
+            }).then(res => console.log(res.data));
           }}
         >
           test time (authorized only)
