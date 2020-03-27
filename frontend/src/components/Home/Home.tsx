@@ -33,8 +33,8 @@ export const Home = () => {
               method: "GET",
               headers: {
                 ...new Headers(),
-                //authorization: "Bearer " + (accessToken || ""),
-                "content-type": "application/x-www-form-urlencoded"
+                "content-type": "application/x-www-form-urlencoded",
+                Authorization: "Bearer " + (accessToken || "")
               }
             })
               .then(res => res.json())
