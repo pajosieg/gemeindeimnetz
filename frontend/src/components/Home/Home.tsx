@@ -33,7 +33,7 @@ export const Home = () => {
               method: "GET",
               headers: {
                 ...new Headers(),
-                Authorization: "Bearer " + (accessToken || "")
+                Authorization: "Bearer 123"
               }
             })
               .then(res => res.json())
