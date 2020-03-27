@@ -30,13 +30,17 @@ export const Home = () => {
             const accessToken = (Authentication.getUser()?.user as any)
               ?.signInUserSession.accessToken.jwtToken;
             console.log(accessToken);
-            axios({
-              url: (window as any).env.apiUrl + "/time",
+            fetch((window as any).env.apiUrl + "/time", {
               method: "get",
+              mode: "no-cors",
+              credentials: "include",
               headers: {
-                "custom-authorization": "Bearer 123"
+                authorization: "Bearer 123",
+                ...new Headers()
               }
-            }).then(res => console.log(res.data));
+            })
+              .then(res => res.json())
+              .then(res => console.log(res));
           }}
         >
           test time (authorized only)
