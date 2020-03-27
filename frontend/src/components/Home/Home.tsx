@@ -34,7 +34,7 @@ export const Home = () => {
               url: (window as any).env.apiUrl + "/time",
               method: "get",
               headers: {
-                Authorization: "Bearer 123"
+                "custom-authorization": "Bearer 123"
               }
             }).then(res => console.log(res.data));
           }}
