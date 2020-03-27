@@ -33,7 +33,6 @@ export const Home = () => {
               method: "GET",
               headers: {
                 ...new Headers(),
-                "content-type": "application/x-www-form-urlencoded",
                 Authorization: "Bearer " + (accessToken || "")
               }
             })
