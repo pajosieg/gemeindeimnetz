@@ -7,7 +7,7 @@ const getTime = async event => {
   );
   return Promise.resolve(
     response(200, {
-      body: { time: Date.now(), res: check.statusCode }
+      body: JSON.stringify({ time: Date.now(), res: check.statusCode })
     })
   );
 };

@@ -29,7 +29,12 @@ export const Home = () => {
             const accessToken = (Authentication.getUser()?.user as any)
               ?.signInUserSession.accessToken.jwtToken;
             console.log(accessToken);
-            fetch((window as any).env.apiUrl + "/time")
+            fetch((window as any).env.apiUrl + "/time", {
+              headers: {
+                authorization: "Bearer " + (accessToken || ""),
+                "content-type": "application/x-www-form-urlencoded"
+              }
+            })
               .then(res => res.json())
               .then(res => console.log(res));
           }}
