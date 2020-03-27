@@ -35,8 +35,7 @@ export const Home = () => {
               mode: "no-cors",
               credentials: "include",
               headers: {
-                authorization: "Bearer 123",
-                ...new Headers()
+                Authorization: "Bearer 123"
               }
             })
               .then(res => res.json())
