@@ -2,6 +2,7 @@ import * as React from "react";
 import "./CategoryFilter.scss";
 import { Checkbox } from '../Checkbox/Checkbox';
 import { RadioInput } from '../RadioInput/RadioInput';
+import { Select } from '../Select/Select';
 
 export interface ICategoryFilterProps {}
 
@@ -18,6 +19,12 @@ export class CategoryFilter extends React.Component<
   }
 
   public render() {
+    const bistumLandeskirche = [
+      "Bistum Mainz",
+      "Bistum Köln",
+      "Hessen-Nassau"
+    ];
+
     return (
       <div className="category-filter grid">
         {/* 3 cols: 4 4 2 */}
@@ -26,13 +33,7 @@ export class CategoryFilter extends React.Component<
             <label htmlFor="plz">Postleitzahl oder Ort</label>
             <input type="text" id="plz" />
           </div>
-          <div className="filter__input">
-            <label htmlFor="association">Bistum oder Landeskirche</label>
-            <select id="association">
-              <option>Bistum Mainz</option>
-              <option>Bistum Köln</option>
-            </select>
-          </div>
+          <Select name="association" headline="Bistum oder Landeskirche" options={bistumLandeskirche} />
         </div>
         <div className="col col-lg-4">
           <div className="filter__input">
