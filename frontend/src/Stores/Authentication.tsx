@@ -30,6 +30,8 @@ class Authentication {
     this.emitChanges();
   };
 
+  getUser = () => (this.state.authenticated ? this.state : null);
+
   private emitChanges = () => {
     this.subscribers.forEach(subscriber => subscriber(this.state));
   };
