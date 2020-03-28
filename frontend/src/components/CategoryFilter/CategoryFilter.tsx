@@ -1,5 +1,7 @@
 import * as React from "react";
 import "./CategoryFilter.scss";
+import { Checkbox } from '../Checkbox/Checkbox';
+import { RadioInput } from '../RadioInput/RadioInput';
 
 export interface ICategoryFilterProps {}
 
@@ -39,20 +41,20 @@ export class CategoryFilter extends React.Component<
           </div>
           <div className="filter__input">
             <label htmlFor="date">Datum</label>
-            <div className="input__radio"><input type="radio" name="date" id="today" /> <label htmlFor="today">Heute</label></div>
-            <div className="input__radio"><input type="radio" name="date" id="tomorrow" /> <label htmlFor="tomorrow">Morgen</label></div>
-            <div className="input__radio"><input type="radio" name="date" id="week" /> <label htmlFor="week">Nächste Woche</label></div>
+            <RadioInput name="date" id="today" label="Heute"/>
+            <RadioInput name="date" id="tomorrow" label="Morgen"/>
+            <RadioInput name="date" id="week" label="Nächste Woche"/>
           </div>
         </div>
         <div className="col col-lg-3">
           <div className="filter__input">
             <label htmlFor="activity">Aktivitäten</label>
-            <div className="input__checkbox"><input type="checkbox" id="activity-1" value="Gottesdienst" /> <label htmlFor="activity-1">Gottesdienst</label></div>
-            <div className="input__checkbox"><input type="checkbox" id="activity-2" value="Jugend" />  <label htmlFor="activity-2">Jugend</label></div>
-            <div className="input__checkbox"><input type="checkbox" id="activity-3" value="Musik" />  <label htmlFor="activity-3">Musik</label></div>
-            <div className="input__checkbox"><input type="checkbox" id="activity-4" value="Gebete" />  <label htmlFor="activity-4">Gebete</label></div>
-            <div className="input__checkbox"><input type="checkbox" id="activity-5" value="Senioren" />  <label htmlFor="activity-5">Senioren</label></div>
-            <div className="input__checkbox"><input type="checkbox" id="activity-6" value="Kurse" />  <label htmlFor="activity-6">Kurse</label></div>
+            <Checkbox id="activity-1" name="Gottesdienst" />
+            <Checkbox id="activity-2" name="Jugend" />
+            <Checkbox id="activity-3" name="Musik" />
+            <Checkbox id="activity-4" name="Gebete" />
+            <Checkbox id="activity-5" name="Senioren" />
+            <Checkbox id="activity-6" name="Kurse" />
           </div>
         </div>
       </div>
