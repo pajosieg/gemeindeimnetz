@@ -1,4 +1,8 @@
 import * as React from "react";
+import "./CategoryFilter.scss";
+import { Checkbox } from '../Checkbox/Checkbox';
+import { RadioInput } from '../RadioInput/RadioInput';
+import { Select } from '../Select/Select';
 
 export interface ICategoryFilterProps {}
 
@@ -15,6 +19,12 @@ export class CategoryFilter extends React.Component<
   }
 
   public render() {
+    const bistumLandeskirche = [
+      "Bistum Mainz",
+      "Bistum Köln",
+      "Hessen-Nassau"
+    ];
+
     return (
       <div className="category-filter grid">
         {/* 3 cols: 4 4 2 */}
@@ -23,13 +33,7 @@ export class CategoryFilter extends React.Component<
             <label htmlFor="plz">Postleitzahl oder Ort</label>
             <input type="text" id="plz" />
           </div>
-          <div className="filter__input">
-            <label htmlFor="association">Bistum oder Landeskirche</label>
-            <select id="association">
-              <option>Bistum Mainz</option>
-              <option>Bistum Köln</option>
-            </select>
-          </div>
+          <Select name="association" headline="Bistum oder Landeskirche" options={bistumLandeskirche} />
         </div>
         <div className="col col-lg-4">
           <div className="filter__input">
@@ -38,20 +42,20 @@ export class CategoryFilter extends React.Component<
           </div>
           <div className="filter__input">
             <label htmlFor="date">Datum</label>
-            <div className="input__radio"><input type="radio" id="date" /> <span>Heute</span></div>
-            <div className="input__radio"><input type="radio" id="date" /> <span>Morgen</span></div>
-            <div className="input__radio"><input type="radio" id="date" /> <span>Nächste Woche</span></div>
+            <RadioInput name="date" id="today" label="Heute"/>
+            <RadioInput name="date" id="tomorrow" label="Morgen"/>
+            <RadioInput name="date" id="week" label="Nächste Woche"/>
           </div>
         </div>
-        <div className="col col-lg-2">
+        <div className="col col-lg-3">
           <div className="filter__input">
             <label htmlFor="activity">Aktivitäten</label>
-            <div className="input__checkbox"><input type="checkbox" id="activity" /> <span>Gottesdienst</span></div>
-            <div className="input__checkbox"><input type="checkbox" id="activity" /> <span>Jugend</span></div>
-            <div className="input__checkbox"><input type="checkbox" id="activity" /> <span>Musik</span></div>
-            <div className="input__checkbox"><input type="checkbox" id="activity" /> <span>Gebete</span></div>
-            <div className="input__checkbox"><input type="checkbox" id="activity" /> <span>Senioren</span></div>
-            <div className="input__checkbox"><input type="checkbox" id="activity" /> <span>Kurse</span></div>
+            <Checkbox id="activity-1" name="Gottesdienst" />
+            <Checkbox id="activity-2" name="Jugend" />
+            <Checkbox id="activity-3" name="Musik" />
+            <Checkbox id="activity-4" name="Gebete" />
+            <Checkbox id="activity-5" name="Senioren" />
+            <Checkbox id="activity-6" name="Kurse" />
           </div>
         </div>
       </div>
