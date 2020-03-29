@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import "./Checkbox.scss";
 
 interface CbState {
@@ -9,35 +9,25 @@ interface CbState {
 interface CbProps {
   name: string;
   id: string;
+  checked: boolean;
+  onCheckboxChange: (name: string, checked: boolean) => void;
 }
 
-export class Checkbox extends React.Component<CbProps> {
-  state: CbState;
+export const Checkbox = (props: CbProps) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    props.onCheckboxChange(props.id, event.target.checked);
+  };
 
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      value: '',
-      checked: false,
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event: any) {
-    this.setState({checked: event.target.checked});
-  }
-
-  public render() {
-    return (
-      <div className="input__checkbox">
-        <input type="checkbox"
-               id={this.props.id}
-               name={this.props.name}
-               checked={this.state.checked}
-               onChange={this.handleChange}/>
-        <label htmlFor={this.props.id}>{this.props.name}</label>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="input__checkbox">
+      <input
+        type="checkbox"
+        id={props.id}
+        name={props.name}
+        checked={props.checked}
+        onChange={handleChange}
+      />
+      <label htmlFor={props.id}>{props.name}</label>
+    </div>
+  );
+};

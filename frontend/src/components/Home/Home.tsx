@@ -1,12 +1,19 @@
 import * as React from "react";
 import { Card } from "../Card/Card";
-import { CategoryFilter } from "../CategoryFilter/CategoryFilter";
+import {
+  CategoryFilter,
+  CategoryFilterType
+} from "../CategoryFilter/CategoryFilter";
 import { Auth, API } from "aws-amplify";
 
 export const Home = () => {
+  const handleFilterChange = (filter: CategoryFilterType) => {
+    console.log(filter);
+  };
+
   return (
     <div className="App">
-      <CategoryFilter />
+      <CategoryFilter onFilterChange={handleFilterChange} />
       <div className="grid">
         <div className="col col-lg-6">
           <Card />

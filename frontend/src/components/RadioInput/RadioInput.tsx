@@ -1,44 +1,29 @@
-import * as React from 'react';
+import * as React from "react";
 import "./RadioInput.scss";
-
-interface RIState {
-  value: string;
-  checked: boolean;
-}
 
 interface RIProps {
   name: string;
   id: string;
   label: string;
+  checked: boolean;
+  onChangeRadioInput: (id: string, checked: boolean) => void;
 }
 
-export class RadioInput extends React.Component<RIProps> {
-  state: RIState;
+export const RadioInput = (props: RIProps) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    props.onChangeRadioInput(props.id, event.target.checked);
+  };
 
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      value: '',
-      checked: false,
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  private handleChange(event: any) {
-    this.setState({checked: event.target.checked});
-  }
-
-  public render() {
-    return (
-      <div className="input__radio">
-        <input type="radio"
-               name={this.props.name}
-               id={this.props.id}
-               checked={this.state.checked}
-               onChange={this.handleChange} />
-        <label htmlFor={this.props.id}>{this.props.label}</label>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="input__radio">
+      <input
+        type="radio"
+        name={props.name}
+        id={props.id}
+        checked={props.checked}
+        onChange={handleChange}
+      />
+      <label htmlFor={props.id}>{props.label}</label>
+    </div>
+  );
+};
