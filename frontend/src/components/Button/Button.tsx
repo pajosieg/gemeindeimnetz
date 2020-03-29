@@ -8,11 +8,11 @@ export interface ButtonInterface {
 }
 
 export const Button = ({ text, icon, link }: ButtonInterface) => {
-  return(
+  return (
     <button className="btn">
       {/*iconsvg rein*/}
-      { text }
+      {text}
       {/*link rein*/}
     </button>
-  )
+  );
 };
