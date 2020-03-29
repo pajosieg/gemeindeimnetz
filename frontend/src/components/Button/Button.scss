@@ -1,6 +1,8 @@
+@import "../../scss/global-styles";
+
 .btn {
-  background-color: #52B25E;
-  color: #ffffff;
+  background-color: $green;
+  color: $white;
   font-weight: 600;
   padding: 10px 15px;
   font-size: 14px;

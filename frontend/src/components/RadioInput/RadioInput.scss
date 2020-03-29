@@ -1,0 +1,52 @@
+@import "../../scss/global-styles";
+
+.input__radio {
+  label {
+    margin-bottom: 5px;
+    font-weight: 300;
+  }
+
+  input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+
+    & + label {
+      position: relative;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    // Box.
+    & + label:before {
+      content: '';
+      margin-right: 10px;
+      display: inline-block;
+      vertical-align: text-top;
+      width: 20px;
+      height: 20px;
+      border: 1px solid $gray-light;
+    }
+
+    &:checked + label:before {
+      background: $green;
+      border-color: $green;
+    }
+  }
+
+  input + label:before {
+    border-radius: 100%;
+  }
+
+  // Checkmark. Could be replaced with an image
+  input:checked + label:after {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 9px;
+    background: white;
+    width: 6px;
+    height: 6px;
+    border-radius: 6px;
+  }
+}
