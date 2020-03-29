@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Card } from "../Card/Card";
 import { CategoryFilter } from "../CategoryFilter/CategoryFilter";
-import Authentication from "../../Stores/Authentication";
-import axios from "axios";
+import { Auth, API } from "aws-amplify";
 
 export const Home = () => {
   return (
@@ -26,20 +25,22 @@ export const Home = () => {
         </button>
         <br />
         <button
-          onClick={() => {
-            const accessToken = (Authentication.getUser()?.user as any)
-              ?.signInUserSession.accessToken.jwtToken;
-            console.log(accessToken);
-            fetch((window as any).env.apiUrl + "/time", {
-              method: "get",
-              mode: "no-cors",
-              credentials: "include",
+          onClick={async () => {
+            let token = "";
+            try {
+              token = `Bearer ${(await Auth.currentSession())
+                .getIdToken()
+                .getJwtToken()}`;
+            } catch (e) {
+              console.error(e);
+            }
+            API.get("k7gezen-wnyytoj", "/time", {
               headers: {
-                Authorization: "Bearer 123"
+                Authorization: token
               }
             })
-              .then(res => res.json())
-              .then(res => console.log(res));
+              .then(res => console.log(res))
+              .catch(e => console.error(e.message));
           }}
         >
           test time (authorized only)
