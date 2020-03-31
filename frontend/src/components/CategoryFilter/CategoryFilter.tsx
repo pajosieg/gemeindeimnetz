@@ -47,17 +47,19 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
   );
   const [association, setAssociation] = React.useState("");
 
-  const setCategory = (identifier: string, checked: boolean) => {
-    const newCategories = checkedCategories.map(category =>
-      category.name === identifier ? { ...category, checked } : { ...category }
+  const setCategories = (identifier: string, checked: boolean) => {
+    setCheckedCategory(previousCheckedCategories =>
+      previousCheckedCategories.map(category =>
+        category.name === identifier
+          ? { ...category, checked }
+          : { ...category }
+      )
     );
-
-    setCheckedCategory(newCategories);
   };
 
-  const getCategory = (cName: string) => {
+  const getCategory = (categoryName: string) => {
     return checkedCategories.some(
-      ({ name, checked }) => name === cName && checked
+      ({ name, checked }) => name === categoryName && checked
     );
   };
 
@@ -68,7 +70,7 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
         categories: checkedCategories,
         date: checkedDate
       });
-  }, [association, checkedCategories, checkedDate]);
+  }, [onFilterChange, association, checkedCategories, checkedDate]);
 
   return (
     <div className="category-filter grid">
@@ -114,7 +116,7 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
               id={name}
               name={name}
               checked={getCategory(name)}
-              onCheckboxChange={setCategory}
+              onCheckboxChange={setCategories}
             />
           ))}
         </div>

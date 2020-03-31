@@ -10,10 +10,11 @@ import { getFilteredEntries } from "../../api/Entry";
 
 export const Home = () => {
   const [filteredEntries, setFilteredEntries] = React.useState<Entry[]>([]);
-  const handleFilterChange = (filter: CategoryFilterType) => {
+
+  const handleFilterChange = React.useCallback((filter: CategoryFilterType) => {
     console.log("load filtered entries");
     setFilteredEntries(getFilteredEntries(filter));
-  };
+  }, []);
 
   return (
     <div className="App">
