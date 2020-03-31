@@ -42,7 +42,7 @@ export interface ICategoryFilterProps {
 
 export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
   const [checkedDate, setDate] = React.useState(defaultDates[0].id);
-  const [checkedCategories, checkCategory] = React.useState<Category[]>(
+  const [checkedCategories, setCheckedCategory] = React.useState<Category[]>(
     categories
   );
   const [association, setAssociation] = React.useState("");
@@ -52,7 +52,7 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
       category.name === identifier ? { ...category, checked } : { ...category }
     );
 
-    checkCategory(newCategories);
+    setCheckedCategory(newCategories);
   };
 
   const getCategory = (cName: string) => {
@@ -68,7 +68,7 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
         categories: checkedCategories,
         date: checkedDate
       });
-  }, [onFilterChange, association, checkedCategories, checkedDate]);
+  }, [association, checkedCategories, checkedDate]);
 
   return (
     <div className="category-filter grid">

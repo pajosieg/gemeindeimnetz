@@ -1,15 +1,8 @@
 import React from "react";
 import "./Card.scss";
 import { Button } from "../Button/Button";
+import { Entry } from "../../models/Entry";
 
-interface ICardProps {
-  category: string;
-  association: string;
-  community: string;
-  title: string;
-  description: string;
-  link: string;
-}
 export const Card = ({
   category,
   association,
@@ -17,7 +10,7 @@ export const Card = ({
   title,
   description,
   link
-}: ICardProps) => (
+}: Entry) => (
   <div className="card">
     <div className="card__category">{category}</div>
     <div className="card__community">{community}</div>
