@@ -1,0 +1,197 @@
+# name: fullstack-application
+
+# getVotes:
+#   component: "@serverless/function"
+#   inputs:
+#     name: getVotes
+#     region: eu-central-1
+#     code: ./api
+#     handler: getVotes.getVotes
+
+# getTime:
+#   component: "@serverless/function"
+#   inputs:
+#     name: getTime
+#     region: eu-central-1
+#     code: ./api
+#     handler: getTime.getTime
+
+# restApi:
+#   component: "@serverless/api"
+#   inputs:
+#     name: "rest-test-api"
+#     region: eu-central-1
+#     endpoints:
+#       - path: /time
+#         method: GET
+#         function: ${getTime}
+#         origins:
+#           - "*"
+#         headers:
+#           - Content-Type
+#           - X-Amz-Date
+#           - Authorization
+#           - X-Api-Key
+#           - X-Amz-Security-Token
+#           - X-Amz-User-Agent
+#         authorizer: arn:aws:cognito-idp:eu-central-1:953031679657:userpool/eu-central-1_6WjHy69OW
+#         cors: true
+#       - path: /votes
+#         method: GET
+#         function: ${getVotes}
+
+# frontend:
+#   component: "@serverless/website"
+#   inputs:
+#     name: react-frontend
+#     region: eu-central-1
+#     code:
+#       src: build
+#       root: frontend
+#       hook: npm run build
+#     env:
+#       apiUrl: ${restApi.url}
+# domain: www.serverlessmetrics.com # Insert your custom domain here after registering it on Route53
+
+###################
+service: gemeinde-im-netz
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+
+custom:
+  headers:
+    - Content-Type
+    - X-Amz-Date
+    - Authorization
+    - X-Api-Key
+    - X-Amz-Security-Token
+    - X-Amz-User-Agent
+  authorizer:
+    name: cognito-authorizer
+    arn: arn:aws:cognito-idp:eu-central-1:953031679657:userpool/eu-central-1_6WjHy69OW
+    identitySource: method.request.header.Authorization
+  output:
+    handle: scripts/output.process
+    file: output.json
+
+functions:
+  time:
+    handler: getTime.getTime
+    events:
+      - http:
+          path: time
+          method: get
+          authorizer: ${self:custom.authorizer}
+          headers: ${self:custom.headers}
+          cors: true
+          origins:
+            - "*"
+  user:
+    handler: user.getUser
+    events:
+      - http:
+          path: user
+          method: get
+          authorizer: ${self:custom.authorizer}
+          headers: ${self:custom.headers}
+          cors: true
+          origins:
+            - "*"
+  # community:
+  #   handler: community.getCommunity
+  #   events:
+  #     - http:
+  #         path: community
+  #         method: get
+  #         authorizer: ${self:custom.authorizer}
+  #         headers: ${self:custom.headers}
+  #         cors: true
+  #         origins:
+  #           - "*"
+  #     - http:
+  #         path: allCommunities
+  #         method: get
+  #         authorizer: ${self:custom.authorizer}
+  #         headers: ${self:custom.headers}
+  #         cors: true
+  #         origins:
+  #           - "*"
+  # time:
+  #   handler: getTime.getTime
+  #   events:
+  #     - http:
+  #         path: time
+  #         method: get
+  #         authorizer: ${self:custom.authorizer}
+  #         headers: ${self:custom.headers}
+  #         cors: true
+  #         origins:
+  #           - "*"
+  # time:
+  #   handler: getTime.getTime
+  #   events:
+  #     - http:
+  #         path: time
+  #         method: get
+  #         authorizer: ${self:custom.authorizer}
+  #         headers: ${self:custom.headers}
+  #         cors: true
+  #         origins:
+  #           - "*"
+  # time:
+  #   handler: getTime.getTime
+  #   events:
+  #     - http:
+  #         path: time
+  #         method: get
+  #         authorizer: ${self:custom.authorizer}
+  #         headers: ${self:custom.headers}
+  #         cors: true
+  #         origins:
+  #           - "*"
+  # time:
+  #   handler: getTime.getTime
+  #   events:
+  #     - http:
+  #         path: time
+  #         method: get
+  #         authorizer: ${self:custom.authorizer}
+  #         headers: ${self:custom.headers}
+  #         cors: true
+  #         origins:
+  #           - "*"
+  # time:
+  #   handler: getTime.getTime
+  #   events:
+  #     - http:
+  #         path: time
+  #         method: get
+  #         authorizer: ${self:custom.authorizer}
+  #         headers: ${self:custom.headers}
+  #         cors: true
+  #         origins:
+  #           - "*"
+
+  votes:
+    handler: getVotes.getVotes
+    events:
+      - http:
+          path: votes
+          method: get
+
+resources:
+  Resources:
+    GatewayResponseDefault4XX:
+      Type: "AWS::ApiGateway::GatewayResponse"
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: "ApiGatewayRestApi"
+
+plugins:
+  - serverless-stack-output

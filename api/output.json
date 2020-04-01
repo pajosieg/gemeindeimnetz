@@ -1,0 +1,7 @@
+{
+  "VotesLambdaFunctionQualifiedArn": "arn:aws:lambda:eu-central-1:953031679657:function:gemeinde-im-netz-dev-votes:13",
+  "UserLambdaFunctionQualifiedArn": "arn:aws:lambda:eu-central-1:953031679657:function:gemeinde-im-netz-dev-user:6",
+  "TimeLambdaFunctionQualifiedArn": "arn:aws:lambda:eu-central-1:953031679657:function:gemeinde-im-netz-dev-time:13",
+  "ServiceEndpoint": "https://ly1bd4rpe3.execute-api.eu-central-1.amazonaws.com/dev",
+  "ServerlessDeploymentBucketName": "gemeinde-im-netz-dev-serverlessdeploymentbucket-q967on8fc9tq"
+}
