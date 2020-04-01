@@ -2,17 +2,24 @@ const strapiRequest = require("./globals/strapiRequest");
 const { response } = require("./globals/response");
 
 const getUser = async event => {
-  console.log(event.path);
   const user = await strapiRequest(
-    "frontend-users?CognitoId=" + event.path.id
-  ).then(response => {
-    console.log("responsed user data", response.data);
-    return response.data;
-  });
+    "frontend-users?CognitoId=" + event.pathParameters.id
+  )
+    .then(response => {
+      console.log("responsed user data", response.data);
+      return response.data;
+    })
+    .catch(e => {
+      console.error(e);
+    });
 
-  return response(200, {
-    body: JSON.stringify(user)
-  });
+  if (user) {
+    return response(200, {
+      body: JSON.stringify(user)
+    });
+  } else {
+    return response(500, {});
+  }
 };
 
 module.exports = {

@@ -6,10 +6,15 @@ interface CbState {
   checked: boolean;
 }
 
+export type SelectOptionType = {
+  label: string;
+  value: string;
+};
+
 interface CbProps {
   name: string;
   headline: string;
-  options: { label: string; value: string }[];
+  options: SelectOptionType[];
   value: string;
   onChangeSelect: (value: string) => void;
 }

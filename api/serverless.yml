@@ -19,6 +19,15 @@ custom:
   output:
     handle: scripts/output.process
     file: output.json
+  env:
+    STRAPI_BASE_URL: ${env:STRAPI_BASE_URL}
+    STRAPI_PASSWORD: ${env:STRAPI_PASSWORD}
+    STRAPI_LOGIN: ${env:STRAPI_LOGIN}
+  dotenv:
+    exclude:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_REGION
 
 functions:
   time:
@@ -47,6 +56,7 @@ functions:
           cors: true
           origins:
             - "*"
+    env: ${self:custom.env}
   community:
     handler: community.getCommunity
     events:
@@ -146,3 +156,4 @@ resources:
 
 plugins:
   - serverless-stack-output
+  - serverless-dotenv-plugin

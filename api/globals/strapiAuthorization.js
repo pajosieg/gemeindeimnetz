@@ -1,10 +1,13 @@
 const axios = require("axios");
+const login = process.env.STRAPI_LOGIN || "";
+const password = process.env.STRAPI_PASSWORD || "";
+const baseUrl = process.env.STRAPI_BASE_URL || "";
 
 const getToken = () => {
   return axios
-    .post("https://cms.gemeinde-im-netz.de/auth/local", {
-      identifier: "frontend",
-      password: "12345678"
+    .post(`${baseUrl}/auth/local`, {
+      identifier: login,
+      password: password
     })
     .then(response => {
       console.log(response.data);

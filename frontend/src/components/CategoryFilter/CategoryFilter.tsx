@@ -2,32 +2,16 @@ import * as React from "react";
 import "./CategoryFilter.scss";
 import { Checkbox } from "../Checkbox/Checkbox";
 import { RadioInput } from "../RadioInput/RadioInput";
-import { Select } from "../Select/Select";
-
-const associations = [
-  { label: "Bistum Mainz", value: "bistumMainz" },
-  { label: "Bistum Köln", value: "bistumKoeln" },
-  { label: "Hessen-Nassau", value: "hessenNassau" }
-];
+import { Select, SelectOptionType } from "../Select/Select";
+import { Category } from "../../models/Category";
+import { getAllCategories } from "../../api/Category";
+import { getAllAssociations } from "../../api/Association";
+import { Association } from "../../models/Association";
 
 const defaultDates = [
   { id: "today", name: "Heute" },
   { id: "tomorrow", name: "Morgen" },
   { id: "week", name: "Nächste Woche" }
-];
-
-type Category = {
-  name: string;
-  checked?: boolean;
-};
-
-const categories: Category[] = [
-  { name: "Gottesdienst" },
-  { name: "Jugend" },
-  { name: "Musik" },
-  { name: "Gebet" },
-  { name: "Senioren" },
-  { name: "Kurs" }
 ];
 
 export type CategoryFilterType = {
@@ -43,11 +27,15 @@ export interface ICategoryFilterProps {
 export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
   const [checkedDate, setDate] = React.useState(defaultDates[0].id);
   const [checkedCategories, setCheckedCategory] = React.useState<Category[]>(
-    categories
+    []
   );
-  const [association, setAssociation] = React.useState("");
 
-  const setCategories = (identifier: string, checked: boolean) => {
+  const [association, setAssociation] = React.useState("");
+  const [associations, setAssociations] = React.useState<SelectOptionType[]>(
+    []
+  );
+
+  const handleCategoriesChange = (identifier: string, checked: boolean) => {
     setCheckedCategory(previousCheckedCategories =>
       previousCheckedCategories.map(category =>
         category.name === identifier
@@ -57,9 +45,26 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
     );
   };
 
-  const getCategory = (categoryName: string) => {
-    return checkedCategories.some(
-      ({ name, checked }) => name === categoryName && checked
+  React.useEffect(() => {
+    loadAssociations();
+    loadCategories();
+  }, []);
+
+  const loadAssociations = async () => {
+    setAssociations(
+      (await getAllAssociations()).map((a: Association) => ({
+        label: a.Name,
+        value: a.Name.toLowerCase()
+      }))
+    );
+  };
+
+  const loadCategories = async () => {
+    setCheckedCategory(
+      (await getAllCategories()).map(category => ({
+        name: category.name,
+        checked: false
+      }))
     );
   };
 
@@ -110,13 +115,13 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
       <div className="col col-lg-3">
         <div className="filter__input">
           <label htmlFor="activity">Aktivitäten</label>
-          {categories.map(({ name }, index) => (
+          {checkedCategories.map(({ name, checked }, index) => (
             <Checkbox
               key={index}
               id={name}
               name={name}
-              checked={getCategory(name)}
-              onCheckboxChange={setCategories}
+              checked={checked ?? false}
+              onCheckboxChange={handleCategoriesChange}
             />
           ))}
         </div>
