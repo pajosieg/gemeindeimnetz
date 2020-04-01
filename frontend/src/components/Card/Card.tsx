@@ -6,18 +6,20 @@ import { Entry } from "../../models/Entry";
 export const Card = ({
   category,
   association,
-  community,
-  title,
-  description,
-  link
+  Community,
+  date,
+  Title,
+  Description,
+  Link
 }: Entry) => (
   <div className="card">
-    <div className="card__category">{category}</div>
-    <div className="card__community">{community}</div>
-    <div className="card__title">{title}</div>
-    <div className="card__description">{description}</div>
+    <div className="card__category">{category.name}</div>
+    <div className="card__community">{Community.Name}</div>
+    <div className="card__title">{Title}</div>
+    <div className="card__description">{new Date(date).toDateString()}</div>
+    <div className="card__description">{Description}</div>
     <div className="card__action">
-      <Button text="Ansehen" icon="arrow-left" link={link} />
+      <Button text="Ansehen" icon="arrow-left" link={Link} />
     </div>
   </div>
 );

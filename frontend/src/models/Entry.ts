@@ -1,8 +1,12 @@
+import { Community } from "./Community";
+import { Category } from "./Category";
+
 export type Entry = {
-  category: string;
+  category: Category;
+  date: Date;
   association: string;
-  community: string;
-  title: string;
-  description: string;
-  link: string;
+  Community: Community;
+  Title: string;
+  Description: string;
+  Link: string;
 };

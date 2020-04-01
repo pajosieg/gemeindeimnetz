@@ -7,14 +7,18 @@ import {
   CategoryFilterType
 } from "../CategoryFilter/CategoryFilter";
 import { getFilteredEntries } from "../../api/Entry";
+import Authentication from "../../Stores/Authentication";
 
 export const Home = () => {
   const [filteredEntries, setFilteredEntries] = React.useState<Entry[]>([]);
 
-  const handleFilterChange = React.useCallback((filter: CategoryFilterType) => {
-    console.log("load filtered entries");
-    setFilteredEntries(getFilteredEntries(filter));
-  }, []);
+  const handleFilterChange = React.useCallback(
+    async (filter: CategoryFilterType) => {
+      console.log("load filtered entries");
+      setFilteredEntries(await getFilteredEntries(filter));
+    },
+    []
+  );
 
   return (
     <div className="App">
@@ -39,6 +43,8 @@ export const Home = () => {
       <button
         onClick={async () => {
           let token = "";
+          const cognitoId = (Authentication.getUser()?.user as any)?.attributes
+            .sub;
           try {
             token = `Bearer ${(await Auth.currentSession())
               .getIdToken()
@@ -46,7 +52,7 @@ export const Home = () => {
           } catch (e) {
             console.error(e);
           }
-          API.get("k7gezen-wnyytoj", "/time", {
+          API.get("gemeinde-im-netz-api", "/user/" + cognitoId, {
             headers: {
               Authorization: token
             }
@@ -55,7 +61,7 @@ export const Home = () => {
             .catch(e => console.error(e.message));
         }}
       >
-        test time (authorized only)
+        get user account with community infos (auth only)
       </button>
     </div>
   );

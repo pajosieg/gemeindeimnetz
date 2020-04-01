@@ -36,13 +36,13 @@ const authenticationListener = (data: any) => {
   }
 };
 
-interface IUserProps {
+interface ICommunityOverviewProps {
   authData: any;
   authState: any;
 }
 
-export const Community = withAuthenticator(
-  ({ authState, authData }: IUserProps) => {
+export const CommunityOverview = withAuthenticator(
+  ({ authState, authData }: ICommunityOverviewProps) => {
     Hub.listen("auth", authenticationListener);
     // React.useEffect(() => {
     //   Auth.currentAuthenticatedUser({

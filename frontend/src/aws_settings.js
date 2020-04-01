@@ -21,7 +21,7 @@ export default {
   API: {
     endpoints: [
       {
-        name: "k7gezen-wnyytoj",
+        name: "gemeinde-im-netz-api",
         endpoint: window.env.apiUrl
       }
     ]
