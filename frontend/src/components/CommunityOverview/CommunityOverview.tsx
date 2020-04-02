@@ -1,45 +1,18 @@
-import * as React from "react";
 import { withAuthenticator } from "aws-amplify-react"; // or 'aws-amplify-react-native';
-import Amplify, { Auth, Hub, API } from "aws-amplify";
-import Authentication from "../../Stores/Authentication";
-import aws_settings from "../../aws_settings";
-import { getLoggedInCommunity } from "../../api/Community";
-import { Community } from "../../models/Community";
-import { Card } from "../Card/Card";
-import { Entry } from "../../models/Entry";
+import * as React from "react";
+import { getAllAssociations } from "../../api/Association";
+import {
+  getCommunitiesForAssociation,
+  getLoggedInCommunity
+} from "../../api/Community";
 import { getEntriesForCommunity } from "../../api/Entry";
-
-Amplify.configure(aws_settings);
-
-// You can get the current config object
-// const currentConfig = Auth.configure(null);
-// console.log(currentConfig);
-
-Auth.currentAuthenticatedUser({
-  bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-})
-  .then(user => {
-    console.log("auth user:", user);
-    Authentication.authenticate(user);
-  })
-  .catch(err => {
-    Authentication.logout();
-  });
-
-Auth.currentSession().then(session => console.log("current session:", session));
-
-const authenticationListener = (data: any) => {
-  switch (data.payload.event) {
-    case "signIn":
-      console.log("signIn event data:", data.payload);
-      Authentication.authenticate(data.payload.data);
-      break;
-    case "signOut":
-      console.log("signOut event data:", data.payload);
-      Authentication.logout();
-      break;
-  }
-};
+import { createUser } from "../../api/User";
+import { Association } from "../../models/Association";
+import { Entry } from "../../models/Entry";
+import { Button } from "../Button/Button";
+import { Card } from "../Card/Card";
+import { Select } from "../Select/Select";
+import { Community } from "../../models/Community";
 
 interface ICommunityOverviewProps {
   authData: any;
@@ -47,38 +20,41 @@ interface ICommunityOverviewProps {
 }
 
 export const CommunityOverview = withAuthenticator(
-  ({ authState, authData }: ICommunityOverviewProps) => {
+  (_: ICommunityOverviewProps) => {
     const [community, setCommunity] = React.useState<null | Community>(null);
     const [entries, setEntries] = React.useState<Entry[]>([]);
+    const [noCommunityRegistered, setNoCommunityRegistered] = React.useState(
+      false
+    );
 
-    Hub.listen("auth", authenticationListener);
-
-    React.useEffect(() => {
-      console.log("authState:", authState);
-      console.log("authData:", authData);
-    }, [authState, authData]);
+    const loadCommunity = React.useCallback(() => {
+      getLoggedInCommunity().then(community => {
+        if (community) {
+          setCommunity(community);
+          setNoCommunityRegistered(false);
+        } else {
+          setNoCommunityRegistered(true);
+        }
+      });
+    }, [community]);
 
     React.useEffect(() => {
       loadCommunity();
     }, []);
 
-    const loadCommunity = async () => {
-      setCommunity(await getLoggedInCommunity());
-    };
-
-    const loadEntries = async () => {
-      if (community) {
-        setEntries(await getEntriesForCommunity(community.id));
-      }
-    };
-
     React.useEffect(() => {
-      loadEntries();
+      if (community) {
+        getEntriesForCommunity(community.id).then(setEntries);
+      }
     }, [community]);
 
-    return (
+    const handleViewRefresh = () => {
+      setTimeout(loadCommunity, 1000);
+    };
+
+    return [
       community && (
-        <div>
+        <div key="community">
           <dl>
             <dt>Gemeinde</dt>
             <dd>{community.Name}</dd>
@@ -96,7 +72,83 @@ export const CommunityOverview = withAuthenticator(
             ))}
           </div>
         </div>
+      ),
+      noCommunityRegistered && (
+        <SelectCommunity
+          key="registerCommunity"
+          refreshCommunityView={handleViewRefresh}
+        />
       )
-    );
+    ];
   }
 );
+
+type SelectCommunityProps = {
+  refreshCommunityView: Function;
+};
+
+const SelectCommunity = ({ refreshCommunityView }: SelectCommunityProps) => {
+  const [associations, setAssociations] = React.useState<Association[]>([]);
+  const [selectedAssociation, selectAssociation] = React.useState<
+    string | null
+  >(null);
+  const [communities, setCommunities] = React.useState<Association[]>([]);
+  const [selectedCommunity, selectCommunity] = React.useState<string | null>(
+    null
+  );
+
+  React.useEffect(() => {
+    getAllAssociations().then(setAssociations);
+  }, []);
+
+  React.useEffect(() => {
+    selectCommunity(null);
+    getCommunitiesForAssociation(selectedAssociation || "").then(
+      setCommunities
+    );
+  }, [selectedAssociation]);
+
+  const registerUserToCommunity = () => {
+    console.log("resigter user with:", selectedCommunity);
+    if (selectedCommunity !== null) {
+      createUser(parseInt(selectedCommunity));
+      refreshCommunityView();
+    }
+  };
+
+  return associations.length ? (
+    <div className="grid">
+      <div className="col col-lg-12">
+        <h1>Wähle deine Gemeinde aus</h1>
+      </div>
+      <div className="col col-lg-6">
+        <Select
+          name="association"
+          headline="Bistum oder Landeskirche auswählen"
+          options={associations.map(({ Name, id }) => ({
+            label: Name,
+            value: id.toString()
+          }))}
+          value={selectedAssociation || ""}
+          onChangeSelect={selectAssociation}
+        />
+        <Select
+          name="association"
+          headline="Gemeinde"
+          options={communities.map(({ Name, id }) => ({
+            label: Name,
+            value: id.toString()
+          }))}
+          value={selectedCommunity || ""}
+          onChangeSelect={comms => {
+            console.log(comms);
+            selectCommunity(comms);
+          }}
+        />
+        <Button onClick={registerUserToCommunity}>
+          Für diese Gemeinde Veröffentlichen
+        </Button>
+      </div>
+    </div>
+  ) : null;
+};

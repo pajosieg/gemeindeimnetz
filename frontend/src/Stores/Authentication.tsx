@@ -15,6 +15,7 @@ class Authentication {
   };
 
   authenticate = (user: any) => {
+    console.log("add user to authentication store", user);
     this.state = {
       user: user,
       authenticated: true
@@ -23,6 +24,7 @@ class Authentication {
   };
 
   logout = () => {
+    console.log("remove user from authentication store");
     this.state = {
       user: null,
       authenticated: false

@@ -2,14 +2,19 @@ import React from "react";
 import "./Button.scss";
 
 export interface ButtonInterface {
-  text: string;
-  icon: string;
+  icon?: string;
   link?: string;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export const Button = ({ text, icon, link }: ButtonInterface) => {
+export const Button: React.FC<ButtonInterface> = ({
+  children: text,
+  icon,
+  link,
+  onClick
+}) => {
   return (
-    <button className="btn">
+    <button className="btn" onClick={onClick}>
       {/*iconsvg rein*/}
       {text}
       {/*link rein*/}

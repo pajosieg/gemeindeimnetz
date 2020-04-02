@@ -1,9 +1,35 @@
 import "./env.js";
+// first import ./env.js
+import Amplify, { Hub, Auth } from "aws-amplify";
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
+import aws_settings from "./aws_settings.js";
+import "./index.css";
 import * as serviceWorker from "./serviceWorker";
+import Authentication from "./Stores/Authentication";
+
+Amplify.configure(aws_settings);
+
+const authenticationListener = (data: any) => {
+  console.log("listener");
+  switch (data.payload.event) {
+    case "signIn":
+      Authentication.authenticate(data.payload.data);
+      break;
+    case "signOut":
+      Authentication.logout();
+      break;
+  }
+};
+
+Auth.currentAuthenticatedUser()
+  .then(user => {
+    Authentication.authenticate(user);
+  })
+  .catch(() => console.log("no user is logged in"));
+
+Hub.listen("auth", authenticationListener);
 
 ReactDOM.render(
   <React.StrictMode>

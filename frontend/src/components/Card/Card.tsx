@@ -19,7 +19,9 @@ export const Card = ({
     <div className="card__description">{new Date(date).toDateString()}</div>
     <div className="card__description">{Description}</div>
     <div className="card__action">
-      <Button text="Ansehen" icon="arrow-left" link={Link} />
+      <Button icon="arrow-left" link={Link}>
+        Ansehen
+      </Button>
     </div>
   </div>
 );

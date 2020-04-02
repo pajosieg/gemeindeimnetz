@@ -57,6 +57,18 @@ functions:
           origins:
             - "*"
     env: ${self:custom.env}
+  createUser:
+    handler: user.createUser
+    events:
+      - http:
+          path: user
+          method: post
+          authorizer: ${self:custom.authorizer}
+          headers: ${self:custom.headers}
+          cors: true
+          origins:
+            - "*"
+    env: ${self:custom.env}
   community:
     handler: community.getCommunity
     events:

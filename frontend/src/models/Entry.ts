@@ -9,4 +9,5 @@ export type Entry = {
   Title: string;
   Description: string;
   Link: string;
+  id: number;
 };

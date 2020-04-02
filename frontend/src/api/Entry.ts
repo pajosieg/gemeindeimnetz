@@ -32,5 +32,5 @@ const convertCategoryToQuery = ({ categories }: CategoryFilterType) => {
   return queries.length ? queries : [""];
 };
 
-export const getEntriesForCommunity = async (communityId: string) =>
+export const getEntriesForCommunity = async (communityId: number) =>
   await strapiGet("entries?Community.id=" + communityId);

@@ -1,4 +1,3 @@
-import { API } from "aws-amplify";
 import { AuthenticationService } from "../services/Auth";
 import { getRequestWithAuth, postRequestWithAuth } from "./AWSGateway";
 
@@ -8,18 +7,23 @@ export const getUser = async () => {
 
   return getRequestWithAuth("/user/" + cognitoId, token)
     .then(res => {
-      if (res.length) {
+      if (res && res.length) {
         return res[0];
+      } else {
+        return null;
       }
     })
     .catch(e => console.error(e.message));
 };
 
-export const createUser = async () => {
+export const createUser = async (communityId: number) => {
   const token = await AuthenticationService.getToken();
   const cognitoId = AuthenticationService.getCognitoId();
 
-  return postRequestWithAuth("/user/" + cognitoId, token, { cognitoId })
+  return postRequestWithAuth("/user", token, {
+    CognitoId: cognitoId,
+    Community: communityId
+  })
     .then(res => {
       if (res.length) {
         return res[0];

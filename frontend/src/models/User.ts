@@ -1,7 +1,7 @@
 import { Community } from "./Community";
 
 export type User = {
-  id: string;
+  id: number;
   Community: Community;
   CognitoId: string;
 };

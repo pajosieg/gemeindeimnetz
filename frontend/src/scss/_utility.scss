@@ -1,6 +1,6 @@
 %clearfix {
   &::after {
-    content: '';
+    content: "";
     display: block;
     clear: both;
   }
@@ -8,7 +8,7 @@
 
 @mixin clearfix() {
   &::after {
-    content: '';
+    content: "";
     display: block;
     clear: both;
   }
