@@ -8,11 +8,11 @@ import {
 import { getEntriesForCommunity } from "../../api/Entry";
 import { createUser } from "../../api/User";
 import { Association } from "../../models/Association";
+import { Community } from "../../models/Community";
 import { Entry } from "../../models/Entry";
 import { Button } from "../Button/Button";
 import { Card } from "../Card/Card";
 import { Select } from "../Select/Select";
-import { Community } from "../../models/Community";
 
 interface ICommunityOverviewProps {
   authData: any;
@@ -36,11 +36,11 @@ export const CommunityOverview = withAuthenticator(
           setNoCommunityRegistered(true);
         }
       });
-    }, [community]);
+    }, []);
 
     React.useEffect(() => {
       loadCommunity();
-    }, []);
+    }, [loadCommunity]);
 
     React.useEffect(() => {
       if (community) {

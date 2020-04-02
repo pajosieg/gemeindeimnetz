@@ -1,9 +1,6 @@
-import { API, Auth } from "aws-amplify";
-import axios from "axios";
 import * as React from "react";
 import { getFilteredEntries } from "../../api/Entry";
 import { Entry } from "../../models/Entry";
-import Authentication from "../../Stores/Authentication";
 import { Card } from "../Card/Card";
 import {
   CategoryFilter,
