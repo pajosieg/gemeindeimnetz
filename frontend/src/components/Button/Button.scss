@@ -8,4 +8,13 @@
   font-size: 14px;
   outline: 0;
   border: none;
+  cursor: pointer;
+
+  &:not(:first-of-type) {
+    margin-left: 1em;
+  }
+}
+button[disabled].btn {
+  opacity: 0.5;
+  cursor: not-allowed;
 }

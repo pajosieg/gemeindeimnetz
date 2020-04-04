@@ -1,11 +1,6 @@
 import * as React from "react";
 import "./Select.scss";
 
-interface CbState {
-  value: string;
-  checked: boolean;
-}
-
 export type SelectOptionType = {
   label: string;
   value: string;

@@ -1,10 +1,36 @@
 import { getUser } from "./User";
 import { strapiGet } from "./strapiRequest";
+import { Community } from "../models/Community";
+import { postRequestWithAuth } from "./AWSGateway";
+import { AuthenticationService } from "../services/Auth";
 
-export const createCommunity = () => {};
+export const createCommunity = async (community: Community) => {
+  const token = await AuthenticationService.getToken();
+  const cognitoId = AuthenticationService.getCognitoId();
 
-export const getCommunitiesForAssociation = async (associationId: string) =>
-  strapiGet("communities?Association.id=" + (associationId || "-1")) ?? [];
+  return postRequestWithAuth("/communities", token, {
+    community: {
+      Name: community.Name,
+      Association: community.AssociationId,
+      ZipCode: community.ZipCode,
+      City: ""
+    },
+    user: {
+      CognitoId: cognitoId
+    }
+  })
+    .then(res => {
+      if (res.length) {
+        return res[0];
+      }
+    })
+    .catch(e => console.error(e.message));
+};
+
+export const getCommunitiesForAssociation = async (associationId: number) =>
+  strapiGet<Community[]>(
+    "communities?Association.id=" + (associationId || -1)
+  ) ?? [];
 
 export const getAllCommunities = async () => strapiGet("communities");
 

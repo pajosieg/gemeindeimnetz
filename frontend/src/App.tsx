@@ -4,7 +4,7 @@ import "./App.scss";
 import { Bistum } from "./components/Bistum/Bistum";
 import { Home } from "./components/Home/Home";
 import { Germany } from "./components/Germany/Germany";
-import { CommunityOverview } from "./components/CommunityOverview/CommunityOverview";
+import { CommunityOverview } from "./components/Community/CommunityOverview";
 import { Header } from "./components/Header/Header";
 
 const App = () => {

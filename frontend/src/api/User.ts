@@ -8,6 +8,8 @@ export const getUser = async () => {
   return getRequestWithAuth("/user/" + cognitoId, token)
     .then(res => {
       if (res && res.length) {
+        const user = res[0];
+        user.Community = user.Community.id ? user.Community : null;
         return res[0];
       } else {
         return null;

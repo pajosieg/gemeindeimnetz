@@ -30,17 +30,6 @@ custom:
       - AWS_REGION
 
 functions:
-  time:
-    handler: getTime.getTime
-    events:
-      - http:
-          path: time
-          method: get
-          authorizer: ${self:custom.authorizer}
-          headers: ${self:custom.headers}
-          cors: true
-          origins:
-            - "*"
   user:
     handler: user.getUser
     events:
@@ -69,90 +58,61 @@ functions:
           origins:
             - "*"
     env: ${self:custom.env}
-  community:
-    handler: community.getCommunity
+  createEntry:
+    handler: entries.createEntry
     events:
       - http:
-          path: community/{id}
-          method: get
+          path: entries
+          method: post
           authorizer: ${self:custom.authorizer}
           headers: ${self:custom.headers}
           cors: true
           origins:
             - "*"
-  allCommunities:
-    handler: community.getAllCommunities
+    env: ${self:custom.env}
+  updateEntry:
+    handler: entries.updateEntry
     events:
       - http:
-          path: allCommunities
-          method: get
+          path: entries/{id}
+          method: put
+          request:
+            parameters:
+              paths:
+                id: true
           authorizer: ${self:custom.authorizer}
           headers: ${self:custom.headers}
           cors: true
           origins:
             - "*"
-  # time:
-  #   handler: getTime.getTime
-  #   events:
-  #     - http:
-  #         path: time
-  #         method: get
-  #         authorizer: ${self:custom.authorizer}
-  #         headers: ${self:custom.headers}
-  #         cors: true
-  #         origins:
-  #           - "*"
-  # time:
-  #   handler: getTime.getTime
-  #   events:
-  #     - http:
-  #         path: time
-  #         method: get
-  #         authorizer: ${self:custom.authorizer}
-  #         headers: ${self:custom.headers}
-  #         cors: true
-  #         origins:
-  #           - "*"
-  # time:
-  #   handler: getTime.getTime
-  #   events:
-  #     - http:
-  #         path: time
-  #         method: get
-  #         authorizer: ${self:custom.authorizer}
-  #         headers: ${self:custom.headers}
-  #         cors: true
-  #         origins:
-  #           - "*"
-  # time:
-  #   handler: getTime.getTime
-  #   events:
-  #     - http:
-  #         path: time
-  #         method: get
-  #         authorizer: ${self:custom.authorizer}
-  #         headers: ${self:custom.headers}
-  #         cors: true
-  #         origins:
-  #           - "*"
-  # time:
-  #   handler: getTime.getTime
-  #   events:
-  #     - http:
-  #         path: time
-  #         method: get
-  #         authorizer: ${self:custom.authorizer}
-  #         headers: ${self:custom.headers}
-  #         cors: true
-  #         origins:
-  #           - "*"
-
-  votes:
-    handler: getVotes.getVotes
+    env: ${self:custom.env}
+  deleteEntry:
+    handler: entries.deleteEntry
     events:
       - http:
-          path: votes
-          method: get
+          path: entries/{id}
+          method: delete
+          request:
+            parameters:
+              paths:
+                id: true
+          authorizer: ${self:custom.authorizer}
+          headers: ${self:custom.headers}
+          cors: true
+          origins:
+            - "*"
+    env: ${self:custom.env}
+  createCommunity:
+    handler: community.createCommunity
+    events:
+      - http:
+          path: communities
+          method: post
+          authorizer: ${self:custom.authorizer}
+          headers: ${self:custom.headers}
+          cors: true
+          origins:
+            - "*"
 
 resources:
   Resources:

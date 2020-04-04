@@ -7,6 +7,7 @@ import { Category } from "../../models/Category";
 import { getAllCategories } from "../../api/Category";
 import { getAllAssociations } from "../../api/Association";
 import { Association } from "../../models/Association";
+import { TextInput } from "../TextInput/TextInput";
 
 const defaultDates = [
   { id: "today", name: "Heute" },
@@ -14,14 +15,14 @@ const defaultDates = [
   { id: "week", name: "Nächste Woche" }
 ];
 
-export type CategoryFilterType = {
+export type FilterType = {
   association: string;
   date: string;
   categories: Category[];
 };
 
 export interface ICategoryFilterProps {
-  onFilterChange?: (filter: CategoryFilterType) => void;
+  onFilterChange?: (filter: FilterType) => void;
 }
 
 export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
@@ -63,7 +64,8 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
     setCheckedCategory(
       (await getAllCategories()).map(category => ({
         name: category.name,
-        checked: false
+        checked: false,
+        id: category.id
       }))
     );
   };
@@ -81,10 +83,12 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
     <div className="category-filter grid">
       {/* 3 cols: 4 4 2 */}
       <div className="col col-lg-4 col-lg-offset-1">
-        <div className="filter__input">
-          <label htmlFor="plz">Postleitzahl oder Ort</label>
-          <input type="text" id="plz" />
-        </div>
+        <TextInput
+          value=""
+          id="plz"
+          label="Postleitzahl oder Ort"
+          onTextChange={() => null}
+        />
         <Select
           name="association"
           headline="Bistum oder Landeskirche"
@@ -94,10 +98,12 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
         />
       </div>
       <div className="col col-lg-4">
-        <div className="filter__input">
-          <label htmlFor="name">Gemeindename</label>
-          <input type="text" id="name" />
-        </div>
+        <TextInput
+          value=""
+          id="name"
+          label="Gemeindename"
+          onTextChange={() => null}
+        />
         <div className="filter__input">
           <label htmlFor="date">Datum</label>
           {defaultDates.map(({ id, name }, index) => (

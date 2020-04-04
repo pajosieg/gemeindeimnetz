@@ -2,21 +2,15 @@ import * as React from "react";
 import { getFilteredEntries } from "../../api/Entry";
 import { Entry } from "../../models/Entry";
 import { Card } from "../Card/Card";
-import {
-  CategoryFilter,
-  CategoryFilterType
-} from "../CategoryFilter/CategoryFilter";
+import { CategoryFilter, FilterType } from "../CategoryFilter/CategoryFilter";
 
 export const Home = () => {
   const [filteredEntries, setFilteredEntries] = React.useState<Entry[]>([]);
 
-  const handleFilterChange = React.useCallback(
-    async (filter: CategoryFilterType) => {
-      console.log("load filtered entries");
-      setFilteredEntries(await getFilteredEntries(filter));
-    },
-    []
-  );
+  const handleFilterChange = React.useCallback(async (filter: FilterType) => {
+    console.log("load filtered entries");
+    setFilteredEntries(await getFilteredEntries(filter));
+  }, []);
 
   return (
     <div className="App">
