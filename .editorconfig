@@ -7,6 +7,9 @@ end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
+max_line_length = 80
+space_before_brackets = true
+spaces_around_brackets = inside
 
 [{package.json,*.yml}]
 indent_style = space
@@ -14,3 +17,6 @@ indent_size = 2
 
 [*.md]
 trim_trailing_whitespace = false
+
+[COMMIT_EDITMSG]
+max_line_length = 0
