@@ -1,17 +1,14 @@
-import * as React from "react";
-import { Association } from "../../models/Association";
-import { getAllAssociations } from "../../api/Association";
-import {
-  getCommunitiesForAssociation,
-  createCommunity
-} from "../../api/Community";
-import { createUser } from "../../api/User";
-import { Select } from "../Select/Select";
-import { Button } from "../Button/Button";
-import { Checkbox } from "../Checkbox/Checkbox";
-import { TextInput } from "../TextInput/TextInput";
-import { Community } from "../../models/Community";
-import { NumberInput } from "../TextInput/NumberInput";
+import * as React from 'react';
+import { Association } from '../../models/Association';
+import { getAllAssociations } from '../../api/Association';
+import { getCommunitiesForAssociation, createCommunity } from '../../api/Community';
+import { createUser } from '../../api/User';
+import { Select } from '../Select/Select';
+import { Button } from '../Button/Button';
+import { Checkbox } from '../Checkbox/Checkbox';
+import { TextInput } from '../TextInput/TextInput';
+import { Community } from '../../models/Community';
+import { NumberInput } from '../TextInput/NumberInput';
 
 type RegisterToCommunityProps = {
   onRegistered: () => void;
@@ -24,20 +21,20 @@ const createCommunityObject = (
 ): Community => ({
   id: -1,
   Name: name,
-  Association: "-1",
+  Association: '-1',
   AssociationId: association,
-  ZipCode: zip
+  ZipCode: zip,
 });
 
 export const RegisterToCommunity = ({
-  onRegistered: refreshCommunityView
+  onRegistered: refreshCommunityView,
 }: RegisterToCommunityProps) => {
   const [associations, setAssociations] = React.useState<Association[]>([]);
   const [selectedAssociation, selectAssociation] = React.useState<number>(-1);
   const [communities, setCommunities] = React.useState<Association[]>([]);
   const [selectedCommunity, selectCommunity] = React.useState<number>(-1);
   const [registerNewCommunity, setRegisterNewCommunity] = React.useState(false);
-  const [communityName, setCommunityName] = React.useState("");
+  const [communityName, setCommunityName] = React.useState('');
   const [zipCode, setZipCode] = React.useState<number>(-1);
 
   React.useEffect(() => {
@@ -46,13 +43,11 @@ export const RegisterToCommunity = ({
 
   React.useEffect(() => {
     selectCommunity(-1);
-    getCommunitiesForAssociation(selectedAssociation || -1).then(
-      setCommunities
-    );
+    getCommunitiesForAssociation(selectedAssociation || -1).then(setCommunities);
   }, [selectedAssociation]);
 
   const registerUserToCommunity = async () => {
-    console.log("resigter user with:", selectedCommunity);
+    console.log('resigter user with:', selectedCommunity);
     if (selectedCommunity !== null) {
       await createUser(selectedCommunity);
       refreshCommunityView();
@@ -80,11 +75,11 @@ export const RegisterToCommunity = ({
           headline="Bistum oder Landeskirche auswählen"
           options={associations.map(({ Name, id }) => ({
             label: Name,
-            value: id.toString()
+            value: id.toString(),
           }))}
-          value={selectedAssociation >= 0 ? selectedAssociation.toString() : ""}
-          onChangeSelect={v => {
-            console.log("ausgewählt", v);
+          value={selectedAssociation >= 0 ? selectedAssociation.toString() : ''}
+          onChangeSelect={(v) => {
+            console.log('ausgewählt', v);
             selectAssociation(parseInt(v));
           }}
         />
@@ -94,10 +89,10 @@ export const RegisterToCommunity = ({
           headline="Gemeinde"
           options={communities.map(({ Name, id }) => ({
             label: Name,
-            value: id.toString()
+            value: id.toString(),
           }))}
-          value={selectedCommunity >= 0 ? selectedCommunity.toString() : ""}
-          onChangeSelect={community => {
+          value={selectedCommunity >= 0 ? selectedCommunity.toString() : ''}
+          onChangeSelect={(community) => {
             selectCommunity(parseInt(community));
           }}
           disabled={registerNewCommunity}
@@ -114,33 +109,31 @@ export const RegisterToCommunity = ({
               checked={registerNewCommunity}
               name={
                 <span>
-                  Neue Gemeinde anlegen:{" "}
+                  Neue Gemeinde anlegen:{' '}
                   <b>
-                    {associations.find(a => a.id === selectedAssociation)
-                      ?.Name || ""}
+                    {associations.find((a) => a.id === selectedAssociation)?.Name ||
+                      ''}
                   </b>
                 </span>
               }
               id="newCommunity"
-              onCheckboxChange={(_, checked) =>
-                setRegisterNewCommunity(checked)
-              }
+              onCheckboxChange={(_, checked) => setRegisterNewCommunity(checked)}
             />
             {registerNewCommunity ? (
               <div>
                 <TextInput
                   disabled={!registerNewCommunity}
                   label="Name"
-                  onTextChange={e => setCommunityName(e.target.value)}
+                  onTextChange={(e) => setCommunityName(e.target.value)}
                   id="newCommunityName"
                   value={communityName}
                 />
                 <NumberInput
                   disabled={!registerNewCommunity}
                   label="PLZ"
-                  onBlur={e => setZipCode(e.target.valueAsNumber)}
+                  onBlur={(e) => setZipCode(e.target.valueAsNumber)}
                   id="newCommunityZipCode"
-                  defaultValue={zipCode >= 0 ? zipCode.toString() : ""}
+                  defaultValue={zipCode >= 0 ? zipCode.toString() : ''}
                 />
                 <Button
                   disabled={!registerNewCommunity}

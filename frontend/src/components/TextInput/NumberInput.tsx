@@ -1,5 +1,5 @@
-import * as React from "react";
-import "./TextInput.scss";
+import * as React from 'react';
+import './TextInput.scss';
 
 interface INumberInputProps {
   onBlur: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -14,7 +14,7 @@ export const NumberInput: React.FunctionComponent<INumberInputProps> = ({
 }) => {
   return (
     <div className="text-input">
-      <label htmlFor={restProps.id ?? ""}>{label}</label>
+      <label htmlFor={restProps.id ?? ''}>{label}</label>
       <input type="number" onBlur={onBlur} {...restProps} />
     </div>
   );

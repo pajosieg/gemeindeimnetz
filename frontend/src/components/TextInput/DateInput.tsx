@@ -1,5 +1,5 @@
-import * as React from "react";
-import "./TextInput.scss";
+import * as React from 'react';
+import './TextInput.scss';
 
 interface IDateInputProps {
   onDateChange: (d: string) => void;
@@ -20,10 +20,10 @@ export const DateInput: React.FunctionComponent<IDateInputProps> = ({
 }) => {
   return (
     <div className="date-input">
-      <label htmlFor={restProps.id ?? ""}>{label}</label>
+      <label htmlFor={restProps.id ?? ''}>{label}</label>
       <input
         type="date"
-        onChange={e => {
+        onChange={(e) => {
           onDateChange(e.target.value);
         }}
         defaultValue={date}
@@ -31,7 +31,7 @@ export const DateInput: React.FunctionComponent<IDateInputProps> = ({
       />
       <input
         type="time"
-        onChange={e => {
+        onChange={(e) => {
           onTimeChange(e.target.value);
         }}
         defaultValue={time}

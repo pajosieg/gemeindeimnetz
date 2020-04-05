@@ -1,13 +1,11 @@
-import { Auth } from "aws-amplify";
-import Authentication from "../Stores/Authentication";
+import { Auth } from 'aws-amplify';
+import Authentication from '../stores/Authentication';
 
 export class AuthenticationService {
   public static getToken = async () => {
-    let token = "";
+    let token = '';
     try {
-      token = `Bearer ${(await Auth.currentSession())
-        .getIdToken()
-        .getJwtToken()}`;
+      token = `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`;
     } catch (e) {
       console.error(e);
     }

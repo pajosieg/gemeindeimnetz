@@ -1,5 +1,5 @@
-import * as React from "react";
-import "./RadioInput.scss";
+import * as React from 'react';
+import './RadioInput.scss';
 
 interface RIProps {
   name: string;

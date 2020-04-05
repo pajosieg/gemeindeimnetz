@@ -1,8 +1,8 @@
-import * as React from "react";
-import { getFilteredEntries } from "../../api/Entry";
-import { Entry } from "../../models/Entry";
-import { Card } from "../Card/Card";
-import { CategoryFilter, FilterType } from "../CategoryFilter/CategoryFilter";
+import * as React from 'react';
+import { getFilteredEntries } from '../../api/Entry';
+import { Entry } from '../../models/Entry';
+import { Card } from '../Card/Card';
+import { CategoryFilter, FilterType } from '../CategoryFilter/CategoryFilter';
 
 export const Home = () => {
   const [filteredEntries, setFilteredEntries] = React.useState<Entry[]>([]);

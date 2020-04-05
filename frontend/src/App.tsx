@@ -1,11 +1,9 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import "./App.scss";
-import { Bistum } from "./components/Bistum/Bistum";
-import { Home } from "./components/Home/Home";
-import { Germany } from "./components/Germany/Germany";
-import { CommunityOverview } from "./components/Community/CommunityOverview";
-import { Header } from "./components/Header/Header";
+import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import './App.scss';
+import { CommunityOverview } from './components/Community/CommunityOverview';
+import { Header } from './components/Header/Header';
+import { Home } from './components/Home/Home';
 
 const App = () => {
   return (
@@ -15,8 +13,6 @@ const App = () => {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/community" component={CommunityOverview} />
-          <Route path="/germany" component={Germany} />
-          <Route path="/*:bistum" component={Bistum} />
         </Switch>
       </div>
     </BrowserRouter>

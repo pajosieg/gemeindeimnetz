@@ -1,5 +1,5 @@
-import * as React from "react";
-import "./Checkbox.scss";
+import * as React from 'react';
+import './Checkbox.scss';
 import { Icon } from '../Icon/Icon';
 
 interface CbState {

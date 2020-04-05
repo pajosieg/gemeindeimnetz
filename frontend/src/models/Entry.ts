@@ -1,6 +1,6 @@
-import { Community } from "./Community";
-import { Category } from "./Category";
-import { User } from "./User";
+import { Community } from './Community';
+import { Category } from './Category';
+import { User } from './User';
 
 export type Entry = {
   category: Category;

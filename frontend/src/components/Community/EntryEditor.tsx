@@ -17,10 +17,10 @@ type EntryEditorProps = {
 };
 
 export const EntryEditor = ({
-                              entry,
-                              onSave: onCreateEntry,
-                              onCancel
-                            }: EntryEditorProps) => {
+  entry,
+  onSave: onCreateEntry,
+  onCancel,
+}: EntryEditorProps) => {
   const [date, setDate] = React.useState(entry.date);
   const [time, setTime] = React.useState(entry.time);
   const [title, setTitle] = React.useState(entry.Title);
@@ -48,7 +48,7 @@ export const EntryEditor = ({
       Description: description,
       Title: title,
       date,
-      time
+      time,
     });
   };
 

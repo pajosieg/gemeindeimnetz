@@ -1,9 +1,9 @@
-import React from "react";
-import "./Card.scss";
-import { Button } from "../Button/Button";
-import { Entry } from "../../models/Entry";
-import { ButtonDefault } from "../Button/ButtonDefault";
-import { ButtonDanger } from "../Button/ButtonDanger";
+import React from 'react';
+import './Card.scss';
+import { Button } from '../Button/Button';
+import { Entry } from '../../models/Entry';
+import { ButtonDefault } from '../Button/ButtonDefault';
+import { ButtonDanger } from '../Button/ButtonDanger';
 import { Icon } from '../Icon/Icon';
 
 type EditableCardProps = {
@@ -22,7 +22,7 @@ export const Card = ({
   Link,
   editable,
   onEdit,
-  onDelete
+  onDelete,
 }: Entry & EditableCardProps) => (
   <div className="card">
     <div className="card__category" title={category.name}>
@@ -31,10 +31,10 @@ export const Card = ({
     <div className="card__community">{Community.Name}</div>
     <div className="card__title">{Title}</div>
     <div className="card__description">
-      {`${new Date(date).toLocaleDateString("de-DE", {
-        year: "numeric",
-        month: "short",
-        day: "numeric"
+      {`${new Date(date).toLocaleDateString('de-DE', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
       })} - ${time} Uhr`}
     </div>
     <div className="card__description">{Description}</div>

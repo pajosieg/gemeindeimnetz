@@ -2,7 +2,7 @@ class Authentication {
   private subscribers: ((state: any) => void)[] = [];
   private state = {
     authenticated: false,
-    user: null
+    user: null,
   };
 
   subscribe = (subscriber: (state: any) => void) => {
@@ -15,19 +15,19 @@ class Authentication {
   };
 
   authenticate = (user: any) => {
-    console.log("add user to authentication store", user);
+    console.log('add user to authentication store', user);
     this.state = {
       user: user,
-      authenticated: true
+      authenticated: true,
     };
     this.emitChanges();
   };
 
   logout = () => {
-    console.log("remove user from authentication store");
+    console.log('remove user from authentication store');
     this.state = {
       user: null,
-      authenticated: false
+      authenticated: false,
     };
     this.emitChanges();
   };
@@ -35,7 +35,7 @@ class Authentication {
   getUser = () => (this.state.authenticated ? this.state : null);
 
   private emitChanges = () => {
-    this.subscribers.forEach(subscriber => subscriber(this.state));
+    this.subscribers.forEach((subscriber) => subscriber(this.state));
   };
 }
 

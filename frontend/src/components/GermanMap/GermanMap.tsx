@@ -1,11 +1,11 @@
-import * as React from "react";
-import { ReactComponent as CatholicsMapSVG } from "../../assets/svg/cath_map.svg";
-import { ReactComponent as ProtestantsMapSVG } from "../../assets/svg/prot_map.svg";
-import "./GermanMap.scss";
+import * as React from 'react';
+import { ReactComponent as CatholicsMapSVG } from '../../assets/svg/cath_map.svg';
+import { ReactComponent as ProtestantsMapSVG } from '../../assets/svg/prot_map.svg';
+import './GermanMap.scss';
 
 export enum CONFESSION {
   CATHOLIC,
-  PROTESTANT
+  PROTESTANT,
 }
 
 export interface IGermanMapProps {

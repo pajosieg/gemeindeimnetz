@@ -1,13 +1,13 @@
 export default {
   Auth: {
     // REQUIRED - Amazon Cognito Region
-    region: "eu-central-1",
+    region: 'eu-central-1',
 
     // OPTIONAL - Amazon Cognito User Pool ID
     userPoolId: process.env.REACT_APP_USER_POOL_ID,
 
     // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-    userPoolWebClientId: process.env.REACT_APP_USER_POOL_CLIENT_ID
+    userPoolWebClientId: process.env.REACT_APP_USER_POOL_CLIENT_ID,
 
     // OPTIONAL - Hosted UI configuration
     // oauth: {
@@ -21,9 +21,9 @@ export default {
   API: {
     endpoints: [
       {
-        name: "gemeinde-im-netz-api",
-        endpoint: window.env.apiUrl
-      }
-    ]
-  }
+        name: 'gemeinde-im-netz-api',
+        endpoint: window.env.apiUrl,
+      },
+    ],
+  },
 };
