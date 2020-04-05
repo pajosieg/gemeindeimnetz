@@ -1,17 +1,17 @@
-import * as React from 'react';
-import { Association } from '../../models/Association';
-import { getAllAssociations } from '../../api/Association';
+import * as React from "react";
+import { Association } from "../../models/Association";
+import { getAllAssociations } from "../../api/Association";
 import {
   getCommunitiesForAssociation,
   createCommunity
-} from '../../api/Community';
-import { createUser } from '../../api/User';
-import { Select } from '../Select/Select';
-import { Button } from '../Button/Button';
-import { Checkbox } from '../Checkbox/Checkbox';
-import { TextInput } from '../TextInput/TextInput';
-import { Community } from '../../models/Community';
-import { NumberInput } from '../TextInput/NumberInput';
+} from "../../api/Community";
+import { createUser } from "../../api/User";
+import { Select } from "../Select/Select";
+import { Button } from "../Button/Button";
+import { Checkbox } from "../Checkbox/Checkbox";
+import { TextInput } from "../TextInput/TextInput";
+import { Community } from "../../models/Community";
+import { NumberInput } from "../TextInput/NumberInput";
 
 type RegisterToCommunityProps = {
   onRegistered: () => void;
@@ -24,63 +24,49 @@ const createCommunityObject = (
 ): Community => ({
   id: -1,
   Name: name,
-  Association: '-1',
+  Association: "-1",
   AssociationId: association,
   ZipCode: zip
 });
 
 export const RegisterToCommunity = ({
-                                      onRegistered: refreshCommunityView
-                                    }: RegisterToCommunityProps) => {
+  onRegistered: refreshCommunityView
+}: RegisterToCommunityProps) => {
   const [associations, setAssociations] = React.useState<Association[]>([]);
-  const [selectedAssociation, selectAssociation] = React.useState<number | null>(null);
+  const [selectedAssociation, selectAssociation] = React.useState<number>(-1);
   const [communities, setCommunities] = React.useState<Association[]>([]);
-  const [selectedCommunity, selectCommunity] = React.useState<string | null>(
-    null
-  );
-  const [checkedNewCommunity, setCheckedNewCommunity] = React.useState(false);
-  const [newCommunityName, setNewCommunityName] = React.useState('');
-  const [newCommunityZipCode, setNewCommunityZipCode] = React.useState<number | null>(null);
+  const [selectedCommunity, selectCommunity] = React.useState<number>(-1);
+  const [registerNewCommunity, setRegisterNewCommunity] = React.useState(false);
+  const [communityName, setCommunityName] = React.useState("");
+  const [zipCode, setZipCode] = React.useState<number>(-1);
 
   React.useEffect(() => {
     getAllAssociations().then(setAssociations);
   }, []);
 
   React.useEffect(() => {
-    selectCommunity(null);
+    selectCommunity(-1);
     getCommunitiesForAssociation(selectedAssociation || -1).then(
       setCommunities
     );
   }, [selectedAssociation]);
 
   const registerUserToCommunity = async () => {
-    console.log('resigter user with:', selectedCommunity);
+    console.log("resigter user with:", selectedCommunity);
     if (selectedCommunity !== null) {
-      await createUser(parseInt(selectedCommunity));
+      await createUser(selectedCommunity);
       refreshCommunityView();
     }
   };
 
   const handleCreateNewCommunity = async () => {
     const newCommunity = createCommunityObject(
-      newCommunityName,
-      newCommunityZipCode ?? 0,
-      selectedAssociation || -1
+      communityName,
+      zipCode,
+      selectedAssociation
     );
     await createCommunity(newCommunity);
     refreshCommunityView();
-  };
-
-  const submitExistingCommunity = (sc: any) => {
-    console.log(sc);
-    if (sc) {
-      return <Button
-        onClick={registerUserToCommunity}
-        disabled={selectedCommunity === null}
-      >
-        Für diese Gemeinde Veröffentlichen
-      </Button>;
-    }
   };
 
   return associations.length ? (
@@ -92,66 +78,80 @@ export const RegisterToCommunity = ({
         <Select
           name="association"
           headline="Bistum oder Landeskirche auswählen"
-          options={associations.map(({Name, id}) => ({
+          options={associations.map(({ Name, id }) => ({
             label: Name,
             value: id.toString()
           }))}
-          value={selectedAssociation?.toString() || ''}
-          onChangeSelect={v => selectAssociation(parseInt(v))}
+          value={selectedAssociation >= 0 ? selectedAssociation.toString() : ""}
+          onChangeSelect={v => {
+            console.log("ausgewählt", v);
+            selectAssociation(parseInt(v));
+          }}
         />
+
         <Select
           name="association"
           headline="Gemeinde"
-          options={communities.map(({Name, id}) => ({
+          options={communities.map(({ Name, id }) => ({
             label: Name,
             value: id.toString()
           }))}
-          value={selectedCommunity || ''}
-          onChangeSelect={comms => {
-            console.log(comms);
-            selectCommunity(comms);
+          value={selectedCommunity >= 0 ? selectedCommunity.toString() : ""}
+          onChangeSelect={community => {
+            selectCommunity(parseInt(community));
           }}
+          disabled={registerNewCommunity}
         />
-        {selectedCommunity && !checkedNewCommunity ? (
-          <Button
-            onClick={registerUserToCommunity}
-            disabled={selectedCommunity === null}
-          >
-            Für diese Gemeinde anmelden
-          </Button>
-        ) : null
-        }
-        <Checkbox
-          checked={checkedNewCommunity}
-          name="Neue Gemeinde zu diesem Bistum/Landeskirche anlegen"
-          id="newCommunity"
-          onCheckboxChange={(_, checked) => setCheckedNewCommunity(checked)}
-        />
-        { checkedNewCommunity ? (
-          <div>
-            <TextInput
-              disabled={!checkedNewCommunity}
-              label="Name"
-              onTextChange={e => setNewCommunityName(e.target.value)}
-              id="newCommunityName"
-              value={newCommunityName}
+        <Button
+          onClick={registerUserToCommunity}
+          disabled={selectedCommunity < 0 || registerNewCommunity}
+        >
+          Für diese Gemeinde anmelden
+        </Button>
+        {selectedAssociation >= 0 && (
+          <>
+            <Checkbox
+              checked={registerNewCommunity}
+              name={
+                <span>
+                  Neue Gemeinde anlegen:{" "}
+                  <b>
+                    {associations.find(a => a.id === selectedAssociation)
+                      ?.Name || ""}
+                  </b>
+                </span>
+              }
+              id="newCommunity"
+              onCheckboxChange={(_, checked) =>
+                setRegisterNewCommunity(checked)
+              }
             />
-            <NumberInput
-            disabled={!checkedNewCommunity}
-            label="PLZ"
-            onBlur={e => setNewCommunityZipCode(e.target.valueAsNumber)}
-            id="newCommunityZipCode"
-            value={newCommunityZipCode?.toString() || ''}
-            />
-            <Button
-            disabled={!checkedNewCommunity}
-            onClick={handleCreateNewCommunity}
-            >
-            Neue Gemeinde anlegen
-            </Button>
-          </div>
-        ) : null
-        }
+            {registerNewCommunity ? (
+              <div>
+                <TextInput
+                  disabled={!registerNewCommunity}
+                  label="Name"
+                  onTextChange={e => setCommunityName(e.target.value)}
+                  id="newCommunityName"
+                  value={communityName}
+                />
+                <NumberInput
+                  disabled={!registerNewCommunity}
+                  label="PLZ"
+                  onBlur={e => setZipCode(e.target.valueAsNumber)}
+                  id="newCommunityZipCode"
+                  defaultValue={zipCode >= 0 ? zipCode.toString() : ""}
+                />
+                <Button
+                  disabled={!registerNewCommunity}
+                  onClick={handleCreateNewCommunity}
+                >
+                  Neue Gemeinde anlegen
+                </Button>
+              </div>
+            ) : null}
+          </>
+        )}
       </div>
     </div>
   ) : null;

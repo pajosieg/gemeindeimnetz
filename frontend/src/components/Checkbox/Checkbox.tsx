@@ -7,7 +7,7 @@ interface CbState {
 }
 
 interface CbProps {
-  name: string;
+  name: React.ReactChild;
   id: string;
   checked: boolean;
   onCheckboxChange: (name: string, checked: boolean) => void;
@@ -23,7 +23,7 @@ export const Checkbox = (props: CbProps) => {
       <input
         type="checkbox"
         id={props.id}
-        name={props.name}
+        name={props.name.toString()}
         checked={props.checked}
         onChange={handleChange}
       />
