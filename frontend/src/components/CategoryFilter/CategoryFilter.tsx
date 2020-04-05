@@ -19,7 +19,7 @@ export type FilterType = {
   association: string;
   date: string;
   categories: Category[];
-  parish: string;
+  community: string;
   location: string;
 };
 
@@ -38,7 +38,7 @@ export const CategoryFilter = ({onFilterChange}: ICategoryFilterProps) => {
     []
   );
 
-  const [parish, setParish] = React.useState("");
+  const [community, setCommunity] = React.useState("");
   const [location, setLocation] = React.useState("");
 
   const handleCategoriesChange = (identifier: string, checked: boolean) => {
@@ -81,10 +81,10 @@ export const CategoryFilter = ({onFilterChange}: ICategoryFilterProps) => {
       association,
       categories: checkedCategories,
       date: checkedDate,
-      parish: parish,
+      community: community,
       location: location,
     });
-  }, [onFilterChange, association, checkedCategories, checkedDate, parish, location]);
+  }, [onFilterChange, association, checkedCategories, checkedDate, community, location]);
 
   return (
     <div className="category-filter grid">
@@ -94,7 +94,7 @@ export const CategoryFilter = ({onFilterChange}: ICategoryFilterProps) => {
           value=""
           id="plz"
           label="Postleitzahl oder Ort"
-          onTextChange={() => location}
+          onTextChange={(e) => setLocation(e.target.value)}
         />
         <Select
           name="association"
@@ -106,10 +106,10 @@ export const CategoryFilter = ({onFilterChange}: ICategoryFilterProps) => {
       </div>
       <div className="col col-lg-4">
         <TextInput
-          value={parish}
+          value={community}
           id="name"
           label="Gemeindename"
-          onTextChange={() => setParish}
+          onTextChange={(e) => setCommunity(e.target.value)}
         />
         <div className="filter__input">
           <label htmlFor="date">Datum</label>
