@@ -30,4 +30,8 @@ export class AuthenticationService {
     container: { fontFamily: "'Poppins', sans-serif", color: '#494949' },
     a: { color: colors.green },
   });
+
+  public static getSignUpConfig = () => ({
+    hiddenDefaults: ['phone_number'],
+  });
 }

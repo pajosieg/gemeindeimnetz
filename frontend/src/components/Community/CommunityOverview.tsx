@@ -89,5 +89,6 @@ export const CommunityOverview = withAuthenticator(
   false,
   [],
   null,
-  AuthenticationService.getTheme()
+  AuthenticationService.getTheme(),
+  AuthenticationService.getSignUpConfig()
 );
