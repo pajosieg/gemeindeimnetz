@@ -10,22 +10,24 @@ import { Association } from "../../models/Association";
 import { TextInput } from "../TextInput/TextInput";
 
 const defaultDates = [
-  { id: "today", name: "Heute" },
-  { id: "tomorrow", name: "Morgen" },
-  { id: "week", name: "Nächste Woche" }
+  {id: "today", name: "Heute"},
+  {id: "tomorrow", name: "Morgen"},
+  {id: "week", name: "Nächste Woche"}
 ];
 
 export type FilterType = {
   association: string;
   date: string;
   categories: Category[];
+  parish: string;
+  location: string;
 };
 
 export interface ICategoryFilterProps {
   onFilterChange?: (filter: FilterType) => void;
 }
 
-export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
+export const CategoryFilter = ({onFilterChange}: ICategoryFilterProps) => {
   const [checkedDate, setDate] = React.useState(defaultDates[0].id);
   const [checkedCategories, setCheckedCategory] = React.useState<Category[]>(
     []
@@ -36,12 +38,15 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
     []
   );
 
+  const [parish, setParish] = React.useState("");
+  const [location, setLocation] = React.useState("");
+
   const handleCategoriesChange = (identifier: string, checked: boolean) => {
     setCheckedCategory(previousCheckedCategories =>
       previousCheckedCategories.map(category =>
         category.name === identifier
-          ? { ...category, checked }
-          : { ...category }
+          ? {...category, checked}
+          : {...category}
       )
     );
   };
@@ -72,12 +77,14 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
 
   React.useEffect(() => {
     onFilterChange &&
-      onFilterChange({
-        association,
-        categories: checkedCategories,
-        date: checkedDate
-      });
-  }, [onFilterChange, association, checkedCategories, checkedDate]);
+    onFilterChange({
+      association,
+      categories: checkedCategories,
+      date: checkedDate,
+      parish: parish,
+      location: location,
+    });
+  }, [onFilterChange, association, checkedCategories, checkedDate, parish, location]);
 
   return (
     <div className="category-filter grid">
@@ -87,7 +94,7 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
           value=""
           id="plz"
           label="Postleitzahl oder Ort"
-          onTextChange={() => null}
+          onTextChange={() => location}
         />
         <Select
           name="association"
@@ -99,14 +106,14 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
       </div>
       <div className="col col-lg-4">
         <TextInput
-          value=""
+          value={parish}
           id="name"
           label="Gemeindename"
-          onTextChange={() => null}
+          onTextChange={() => setParish}
         />
         <div className="filter__input">
           <label htmlFor="date">Datum</label>
-          {defaultDates.map(({ id, name }, index) => (
+          {defaultDates.map(({id, name}, index) => (
             <RadioInput
               key={index}
               name="date"
@@ -121,7 +128,7 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
       <div className="col col-lg-3">
         <div className="filter__input">
           <label htmlFor="activity">Aktivitäten</label>
-          {checkedCategories.map(({ name, checked }, index) => (
+          {checkedCategories.map(({name, checked}, index) => (
             <Checkbox
               key={index}
               id={name}
