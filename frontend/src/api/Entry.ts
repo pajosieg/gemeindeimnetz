@@ -48,13 +48,13 @@ const createQueryFromFilter = ({
   if (association >= 0) query.push('Community.Association.id=' + association);
   if (community >= 0) query.push('Community.id=' + community);
   if (location >= 0) query.push('Community.ZipCode=' + location);
-  categories.forEach((category) => query.push(`category.id=${category.id}`));
+  categories.forEach(category => query.push(`category.id=${category.id}`));
 
   return query.join('&');
 };
 
 const addIdsToEntries = (entries: Entry[]): Entry[] => {
-  return entries.map((entry) => ({
+  return entries.map(entry => ({
     ...entry,
     communityId: entry.Community.id,
     accountId: entry.account?.id ?? -1,

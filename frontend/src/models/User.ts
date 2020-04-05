@@ -5,3 +5,5 @@ export type User = {
   Community: Community | null;
   CognitoId: string;
 };
+
+export type UserWithCommunity = User & { Community: Community };

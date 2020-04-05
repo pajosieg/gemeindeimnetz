@@ -30,9 +30,7 @@ export const Checkbox = (props: CbProps) => {
         onChange={handleChange}
       />
       <label htmlFor={props.id}>
-        { props.showIcon ? (
-          <Icon name={props.name.toString()} />
-        ): null}
+        {props.showIcon ? <Icon name={props.name.toString()} /> : null}
         {props.name}
       </label>
     </div>

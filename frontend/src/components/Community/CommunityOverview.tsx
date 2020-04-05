@@ -2,25 +2,25 @@ import { withAuthenticator } from 'aws-amplify-react'; // or 'aws-amplify-react-
 import * as React from 'react';
 import { getUser } from '../../api/User';
 import { Community } from '../../models/Community';
-import { User } from '../../models/User';
-import { CommunityEntryList } from './CommunityEntryList';
-import { RegisterToCommunity } from './ResigtserToCommunity';
+import { User, UserWithCommunity } from '../../models/User';
 import { AuthenticationService } from '../../services/AuthenticationService';
+import { EntryList } from './EntryList';
+import { RegisterToCommunity } from './RegisterToCommunity';
+import { LoadingAnimation } from '../Loader/LoadingAnimation';
 
 interface ICommunityOverviewProps {
   authData: any;
   authState: any;
 }
 
-export type UserWithCommunity = User & { Community: Community };
-
 export const CommunityOverview = withAuthenticator(
   (_: ICommunityOverviewProps) => {
     const [account, setAccount] = React.useState<null | User>(null);
     const [noCommunityRegistered, setNoCommunityRegistered] = React.useState(false);
+    const [loadingAnimation, setLoadingAnimation] = React.useState(true);
 
-    const loadAccount = React.useCallback(() => {
-      getUser().then((user) => {
+    const loadAccount = React.useCallback(async () => {
+      await getUser().then(user => {
         if (user) {
           setAccount(user);
           setNoCommunityRegistered(false);
@@ -31,42 +31,59 @@ export const CommunityOverview = withAuthenticator(
     }, []);
 
     React.useEffect(() => {
+      setLoadingAnimation(true);
       loadAccount();
+      setLoadingAnimation(false);
     }, [loadAccount]);
 
     const handleViewRefresh = () => {
-      setTimeout(loadAccount, 1000);
+      setLoadingAnimation(true);
+      setTimeout(async () => {
+        await loadAccount();
+        setLoadingAnimation(false);
+      }, 1000);
     };
+
+    const handleLoading = React.useCallback((loading: boolean) => {
+      setLoadingAnimation(loading);
+    }, []);
 
     const communityInfos = (community: Community | null) =>
       community && <h4>Gemeinde {community.Name}</h4>;
 
-    return account ? (
-      account.Community ? (
-        <div key="community">
-          <div className="grid">
-            <div className="col col-lg-6">
-              {communityInfos(account.Community)}
-              <h2>Willkommen</h2>
+    return (
+      <>
+        {account ? (
+          account.Community ? (
+            <div key="community">
+              <div className="grid">
+                <div className="col col-lg-6">
+                  {communityInfos(account.Community)}
+                  <h2>Willkommen</h2>
+                </div>
+              </div>
+              <EntryList
+                account={account as UserWithCommunity}
+                onFinish={handleViewRefresh}
+                loading={handleLoading}
+              />
             </div>
-          </div>
-          <CommunityEntryList
-            account={account as UserWithCommunity}
-            onFinish={handleViewRefresh}
+          ) : (
+            <div>
+              <h3>
+                Gemeinde konnte nicht geladen werden. Bitte wenden Sie sich an den
+                Support.
+              </h3>
+            </div>
+          )
+        ) : noCommunityRegistered ? (
+          <RegisterToCommunity
+            onRegistered={handleViewRefresh}
+            loading={handleLoading}
           />
-        </div>
-      ) : (
-        <div>
-          <h3>
-            Gemeinde konnte nicht geladen werden. Bitte wenden Sie sich an den
-            Support.
-          </h3>
-        </div>
-      )
-    ) : noCommunityRegistered ? (
-      <RegisterToCommunity onRegistered={handleViewRefresh} />
-    ) : (
-      <div>Loading Data</div>
+        ) : null}
+        {loadingAnimation && <LoadingAnimation />}
+      </>
     );
   },
   false,

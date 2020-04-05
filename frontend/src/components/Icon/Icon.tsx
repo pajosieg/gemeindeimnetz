@@ -13,34 +13,29 @@ export interface IconProps {
   name: string;
 }
 
-export const Icon = ({name}: IconProps) => {
-
-  const iconSelect = (name: string) => {
+export const Icon = ({ name }: IconProps) => {
+  const iconSelect = (name: string = 'sonstiges') => {
     switch (name.toLowerCase()) {
       case 'jugend':
-        return <Jugend/>;
+        return <Jugend />;
       case 'gottesdienst':
-        return <Gottesdienst/>;
+        return <Gottesdienst />;
       case 'musik':
-        return <Musik/>;
+        return <Musik />;
       case 'gebet':
-        return <Gebet/>;
+        return <Gebet />;
       case 'senioren':
-        return <Senioren/>;
+        return <Senioren />;
       case 'kurse':
       case 'kurs':
-        return <Kurse/>;
+        return <Kurse />;
       case 'konzert':
-        return <Konzert/>;
+        return <Konzert />;
       case 'sonstiges':
       default:
-        return <Sonstiges/>;
+        return <Sonstiges />;
     }
   };
 
-  return (
-    <>
-      {iconSelect(name)}
-    </>
-  );
+  return <>{iconSelect(name)}</>;
 };

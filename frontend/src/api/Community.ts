@@ -19,12 +19,12 @@ export const createCommunity = async (community: Community) => {
       CognitoId: cognitoId,
     },
   })
-    .then((res) => {
+    .then(res => {
       if (res.length) {
         return res[0];
       }
     })
-    .catch((e) => console.error(e.message));
+    .catch(e => console.error(e.message));
 };
 
 export const getCommunitiesForAssociation = async (associationId: number) =>

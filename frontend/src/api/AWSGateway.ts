@@ -5,7 +5,7 @@ export const getRequestWithAuth = async (path: string, token: string) => {
     headers: {
       Authorization: token,
     },
-  }).catch((e) =>
+  }).catch(e =>
     console.error('Error while requesting aws GET with auth:', path, e.message)
   );
 };
@@ -20,7 +20,7 @@ export const postRequestWithAuth = async (
       Authorization: token,
     },
     body,
-  }).catch((e) =>
+  }).catch(e =>
     console.error(
       'Error while requesting aws POST with auth:',
       path,
@@ -40,7 +40,7 @@ export const putRequestWithAuth = async (
       Authorization: token,
     },
     body,
-  }).catch((e) =>
+  }).catch(e =>
     console.error(
       'Error while requesting aws POST with auth:',
       path,
@@ -55,7 +55,7 @@ export const deleteRequestWithAuth = async (path: string, token: string) => {
     headers: {
       Authorization: token,
     },
-  }).catch((e) =>
+  }).catch(e =>
     console.error('Error while requesting aws DELETE with auth:', path, e.message)
   );
 };

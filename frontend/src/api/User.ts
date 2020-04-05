@@ -6,7 +6,7 @@ export const getUser = async () => {
   const cognitoId = AuthenticationService.getCognitoId();
 
   return getRequestWithAuth('/user/' + cognitoId, token)
-    .then((res) => {
+    .then(res => {
       if (res && res.length) {
         const user = res[0];
         user.Community = user.Community.id ? user.Community : null;
@@ -15,7 +15,7 @@ export const getUser = async () => {
         return null;
       }
     })
-    .catch((e) => console.error(e.message));
+    .catch(e => console.error(e.message));
 };
 
 export const createUser = async (communityId: number) => {
@@ -27,6 +27,6 @@ export const createUser = async (communityId: number) => {
   };
 
   return postRequestWithAuth('/user', token, data)
-    .then((res) => (res.length ? res[0] : null))
-    .catch((e) => console.error(e.message));
+    .then(res => (res.length ? res[0] : null))
+    .catch(e => console.error(e.message));
 };

@@ -1,6 +1,6 @@
-import './env.js';
 // first import ./env.js
-import Amplify, { Hub, Auth } from 'aws-amplify';
+import './env.js';
+import Amplify, { Auth, Hub } from 'aws-amplify';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
@@ -12,7 +12,6 @@ import Authentication from './stores/Authentication';
 Amplify.configure(aws_settings);
 
 const authenticationListener = (data: any) => {
-  console.log('listener');
   switch (data.payload.event) {
     case 'signIn':
       Authentication.authenticate(data.payload.data);
@@ -24,7 +23,7 @@ const authenticationListener = (data: any) => {
 };
 
 Auth.currentAuthenticatedUser()
-  .then((user) => {
+  .then(user => {
     Authentication.authenticate(user);
   })
   .catch(() => console.log('no user is logged in'));

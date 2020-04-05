@@ -23,7 +23,7 @@ export const DateInput: React.FunctionComponent<IDateInputProps> = ({
       <label htmlFor={restProps.id ?? ''}>{label}</label>
       <input
         type="date"
-        onChange={(e) => {
+        onChange={e => {
           onDateChange(e.target.value);
         }}
         defaultValue={date}
@@ -31,7 +31,7 @@ export const DateInput: React.FunctionComponent<IDateInputProps> = ({
       />
       <input
         type="time"
-        onChange={(e) => {
+        onChange={e => {
           onTimeChange(e.target.value);
         }}
         defaultValue={time}

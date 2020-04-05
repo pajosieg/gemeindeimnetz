@@ -16,11 +16,7 @@ type EntryEditorProps = {
   onCancel: () => void;
 };
 
-export const EntryEditor = ({
-  entry,
-  onSave: onCreateEntry,
-  onCancel,
-}: EntryEditorProps) => {
+export const EntryEditor = ({ entry, onSave, onCancel }: EntryEditorProps) => {
   const [date, setDate] = React.useState(entry.date);
   const [time, setTime] = React.useState(entry.time);
   const [title, setTitle] = React.useState(entry.Title);
@@ -41,7 +37,7 @@ export const EntryEditor = ({
   }, []);
 
   const handleCreateEntry = () => {
-    onCreateEntry({
+    onSave({
       ...entry,
       categoryId: selectedCategory,
       Link: link,
@@ -54,8 +50,7 @@ export const EntryEditor = ({
 
   return (
     <>
-
-      <h2>Neuer Eintrag</h2>
+      {entry.id === -1 ? <h2>Aktivität anlegen</h2> : <h2>Aktivität bearbeiten</h2>}
 
       <TextInput
         label="Titel"
@@ -81,7 +76,7 @@ export const EntryEditor = ({
         headline="Kategorie"
         options={categories.map(c => ({
           value: c.id.toString() ?? '-1',
-          label: c.name
+          label: c.name,
         }))}
         value={selectedCategory.toString()}
         onChangeSelect={value => selectCategory(parseInt(value))}

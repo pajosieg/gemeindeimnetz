@@ -1,50 +1,38 @@
 import * as React from 'react';
 import {
   createEntry,
+  deleteEntry,
   getEntriesForCommunity,
   updateEntry,
-  deleteEntry,
 } from '../../api/Entry';
-import { Entry } from '../../models/Entry';
+import { ReactComponent as IconPlus } from '../../assets/icons/plus.svg';
+import { createEmptyEntry, Entry } from '../../models/Entry';
+import { UserWithCommunity } from '../../models/User';
+import Authentication from '../../stores/Authentication';
 import { Button } from '../Button/Button';
 import { Card } from '../Card/Card';
-import { UserWithCommunity } from './CommunityOverview';
-import { EntryEditor } from './EntryEditor';
-import Authentication from '../../Stores/Authentication';
 import { Modal } from '../Modal/Modal';
+import { EntryEditor } from './EntryEditor';
 
-type CommunityEntryListProps = {
+type EntryListProps = {
   account: UserWithCommunity;
   onFinish: () => void;
+  loading: (flag: boolean) => void;
 };
 
-const createEmptyEntry = (account: UserWithCommunity) => ({
-  Title: '',
-  Description: '',
-  category: { name: '', id: -1 },
-  categoryId: -1,
-  Community: account.Community,
-  communityId: account.Community.id,
-  account: account,
-  accountId: account.id,
-  date: new Date().toISOString().substring(0, 10),
-  time: '12:00',
-  Link: '',
-  id: -1,
-});
-
-export const CommunityEntryList = ({
-  account,
-  onFinish,
-}: CommunityEntryListProps) => {
+export const EntryList = ({ account, onFinish, loading }: EntryListProps) => {
   const [entries, setEntries] = React.useState<Entry[]>([]);
   const [entryToEdit, setEntryToEdit] = React.useState<Entry | null>(null);
 
   React.useEffect(() => {
     if (account) {
-      getEntriesForCommunity(account.Community?.id || -1).then(setEntries);
+      loading(true);
+      getEntriesForCommunity(account.Community?.id || -1).then(entries => {
+        setEntries(entries);
+        loading(false);
+      });
     }
-  }, [account]);
+  }, [account, loading]);
 
   const handleEntryEditClick = (entry: Entry) => {
     openEntryEditor(entry);
@@ -58,12 +46,13 @@ export const CommunityEntryList = ({
   };
 
   const handleCreateEntry = async (entry: Entry) => {
+    loading(true);
+    setEntryToEdit(null);
     if (entry.id === -1) {
       await createEntry(entry);
     } else {
       await updateEntry(entry);
     }
-    setEntryToEdit(null);
     onFinish();
   };
 
@@ -72,6 +61,7 @@ export const CommunityEntryList = ({
   };
 
   const handleEntryDelete = async (entry: Entry) => {
+    loading(true);
     await deleteEntry(entry.id);
     onFinish();
   };
@@ -85,17 +75,7 @@ export const CommunityEntryList = ({
       <div className="grid">
         <div className="col col-lg-3">
           <Button icon="plus" onClick={() => openEntryEditor()}>
-            <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg">
-              <g fill="none" fillRule="evenodd">
-                <path fill="#52B25E" d="M-12-14h138v40H-12z" />
-                <path
-                  d="M11 4.478H7.522V1H4.478v3.478H1v3.044h3.478V11h3.044V7.522H11z"
-                  stroke="#FFF"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </g>
-            </svg>
+            <IconPlus />
             Neuer Eintrag
           </Button>
         </div>

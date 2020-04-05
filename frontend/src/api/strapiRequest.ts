@@ -8,7 +8,7 @@ export const strapiGet = async <T>(
   return await axios
     .get(`${baseUrl}/${path}`)
     .then(({ data }) => data)
-    .catch((e) =>
+    .catch(e =>
       console.log(`Error while loading ${requestTypeForErrorMessage} from strapi`, e)
     );
 };

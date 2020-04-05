@@ -40,8 +40,8 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
   const [location, setLocation] = React.useState(-1);
 
   const handleCategoriesChange = (identifier: string, checked: boolean) => {
-    setCheckedCategory((previousCheckedCategories) =>
-      previousCheckedCategories.map((category) =>
+    setCheckedCategory(previousCheckedCategories =>
+      previousCheckedCategories.map(category =>
         category.name === identifier ? { ...category, checked } : { ...category }
       )
     );
@@ -81,7 +81,7 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
 
   const loadCategories = async () => {
     setCheckedCategory(
-      (await getAllCategories()).map((category) => ({
+      (await getAllCategories()).map(category => ({
         name: category.name,
         checked: false,
         id: category.id,
@@ -93,7 +93,7 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
     onFilterChange &&
       onFilterChange({
         association,
-        categories: checkedCategories.filter((c) => c.checked),
+        categories: checkedCategories.filter(c => c.checked),
         date: checkedDate,
         community,
         location,
@@ -115,21 +115,21 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
           defaultValue={location >= 0 ? location.toString() : ''}
           id="plz"
           label="Postleitzahl oder Ort"
-          onBlur={(e) => setLocation(e.target.valueAsNumber)}
+          onBlur={e => setLocation(e.target.valueAsNumber)}
         />
         <Select
           name="association"
           headline="Bistum oder Landeskirche"
           options={associations}
           value={association === -1 ? '-1' : association.toString()}
-          onChangeSelect={(v) => setAssociation(parseInt(v))}
+          onChangeSelect={v => setAssociation(parseInt(v))}
         />
         <Select
           name="community"
           headline="Gemeinde"
           options={communities}
           value={community === -1 ? '-1' : community.toString()}
-          onChangeSelect={(v) => setCommunity(parseInt(v))}
+          onChangeSelect={v => setCommunity(parseInt(v))}
         />
       </div>
       <div className="col col-lg-4">

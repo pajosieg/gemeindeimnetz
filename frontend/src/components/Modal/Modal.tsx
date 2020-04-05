@@ -1,25 +1,35 @@
 import * as React from 'react';
-import './modal.scss';
+import { ReactComponent as IconCross } from '../../assets/icons/cross.svg';
+import './Modal.scss';
 
 interface ModalProps {
-  children: any;
-  onClose: (close: boolean) => void;
+  onClose?: (close: boolean) => void;
+  transparent?: boolean;
 }
 
-export const Modal = (props: ModalProps) => {
-
+export const Modal: React.FC<ModalProps> = ({
+  onClose,
+  transparent = false,
+  children,
+}) => {
   const handleClose = () => {
-    props.onClose(true);
+    onClose && onClose(true);
   };
 
   return (
     <div className="modal">
-      <div className="modal__content">
-        <button className="modal__close" onClick={handleClose}>
-          <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg"><g fill="none" fillRule="evenodd"><path d="M0 0h24v24H0z"/><path d="M7.5 12l-7 7L5 23.5l7-7 7 7 4.5-4.5-7-7 7-7L19 .5l-7 7-7-7L.5 5z" stroke="#52b25e" fill="#52b25e" strokeLinecap="round" strokeLinejoin="round"/></g></svg>
-        </button>
-        {props.children}
-      </div>
+      {transparent ? (
+        children
+      ) : (
+        <div className="modal__content">
+          {onClose && (
+            <button className="modal__close" onClick={handleClose}>
+              <IconCross />
+            </button>
+          )}
+          {children}
+        </div>
+      )}
     </div>
   );
 };
