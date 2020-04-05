@@ -29,12 +29,14 @@
 
   &__title {
     font-weight: 600;
-    font-size: 24px;
+    @include font-size(24px);
+    @include line-height(40px);
   }
 
   &__description {
     font-weight: 300;
-    font-size: 14px;
+    @include font-size(14px);
+    @include line-height(22px);
   }
 
   &__action {
