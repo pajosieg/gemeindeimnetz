@@ -165,6 +165,7 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
               name={name}
               checked={checked ?? false}
               onCheckboxChange={handleCategoriesChange}
+              showIcon={true}
             />
           ))}
         </div>

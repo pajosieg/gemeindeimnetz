@@ -5,6 +5,11 @@
 }
 
 .filter__input {
+  > label {
+    margin-bottom: 10px;
+    display: block;
+  }
+
   .input__checkbox {
     margin-bottom: 5px;
   }
