@@ -1,4 +1,4 @@
-@import "../../scss/global-styles";
+@import '../../scss/global-styles';
 
 .text-input,
 .date-input {
@@ -34,13 +34,13 @@
     display: inline-block;
   }
 
-  input[type="date"] {
+  input[type='date'] {
     display: inline-block;
     width: 60%;
     margin-right: 6%;
   }
 
-  input[type="time"] {
+  input[type='time'] {
     width: 33%;
   }
 }

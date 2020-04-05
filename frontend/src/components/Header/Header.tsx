@@ -1,36 +1,36 @@
-import React, { useState } from "react";
-import { Link, withRouter } from "react-router-dom";
-import Authentication from "../../Stores/Authentication";
-import "./Header.scss";
-import { Auth } from "aws-amplify";
+import React, { useState } from 'react'
+import { Link, withRouter } from 'react-router-dom'
+import Authentication from '../../Stores/Authentication'
+import './Header.scss'
+import { Auth } from 'aws-amplify'
 
 export const Header = withRouter(({ history }) => {
-  const [authenticated, setAuthenticated] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [authenticated, setAuthenticated] = useState(false)
+  const [user, setUser] = useState<any>(null)
 
   const changeAuthentication = (authenticationState: any) => {
-    setAuthenticated(authenticationState.authenticated);
-    setUser(authenticationState.user);
-  };
+    setAuthenticated(authenticationState.authenticated)
+    setUser(authenticationState.user)
+  }
 
-  Authentication.subscribe(changeAuthentication);
+  Authentication.subscribe(changeAuthentication)
 
   const logout = () => {
     Auth.signOut().then(() => {
-      Authentication.logout();
-      history.push("/");
-    });
-  };
+      Authentication.logout()
+      history.push('/')
+    })
+  }
 
   return (
     <div className="header">
       <div className="header__slogan">
-        <Link to={"/"}>Gemeinde im Netz</Link>
+        <Link to={'/'}>Gemeinde im Netz</Link>
       </div>
       <div className="header__login">
         {authenticated && user ? (
           <span>
-            <Link to={"/community"}>{user.username}</Link> |
+            <Link to={'/community'}>{user.username}</Link> |
             <button onClick={logout}>
               Logout
               <svg width="24" height="22" xmlns="http://www.w3.org/2000/svg">
@@ -58,5 +58,5 @@ export const Header = withRouter(({ history }) => {
         )}
       </div>
     </div>
-  );
-});
+  )
+})

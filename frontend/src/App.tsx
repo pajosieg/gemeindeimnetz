@@ -1,11 +1,11 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import "./App.scss";
-import { Bistum } from "./components/Bistum/Bistum";
-import { Home } from "./components/Home/Home";
-import { Germany } from "./components/Germany/Germany";
-import { CommunityOverview } from "./components/Community/CommunityOverview";
-import { Header } from "./components/Header/Header";
+import React from 'react'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import './App.scss'
+import { Bistum } from './components/Bistum/Bistum'
+import { Home } from './components/Home/Home'
+import { Germany } from './components/Germany/Germany'
+import { CommunityOverview } from './components/Community/CommunityOverview'
+import { Header } from './components/Header/Header'
 
 const App = () => {
   return (
@@ -20,7 +20,7 @@ const App = () => {
         </Switch>
       </div>
     </BrowserRouter>
-  );
-};
+  )
+}
 
-export default App;
+export default App

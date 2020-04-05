@@ -1,5 +1,5 @@
-import * as React from "react";
-import { CategoryFilter } from "../CategoryFilter/CategoryFilter";
+import * as React from 'react'
+import { CategoryFilter } from '../CategoryFilter/CategoryFilter'
 
 export const Germany = () => {
   return (
@@ -7,5 +7,5 @@ export const Germany = () => {
       <h1>germany</h1>
       <CategoryFilter />
     </>
-  );
-};
+  )
+}

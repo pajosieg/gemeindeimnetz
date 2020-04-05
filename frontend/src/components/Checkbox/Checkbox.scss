@@ -1,4 +1,4 @@
-@import "../../scss/global-styles";
+@import '../../scss/global-styles';
 
 .input__checkbox {
   margin-bottom: 30px;
@@ -21,7 +21,7 @@
 
     // Box.
     & + label:before {
-      content: "";
+      content: '';
       margin-right: 10px;
       display: inline-block;
       vertical-align: text-top;
@@ -43,7 +43,7 @@
 
   // Checkmark. Could be replaced with an image
   input:checked + label:after {
-    content: "";
+    content: '';
     position: absolute;
     left: 5px;
     top: 11px;

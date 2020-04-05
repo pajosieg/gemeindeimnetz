@@ -1,69 +1,65 @@
-import { FilterType } from "../components/CategoryFilter/CategoryFilter";
-import { Entry } from "../models/Entry";
-import { AuthenticationService } from "../services/AuthenticationService";
+import { FilterType } from '../components/CategoryFilter/CategoryFilter'
+import { Entry } from '../models/Entry'
+import { AuthenticationService } from '../services/AuthenticationService'
 import {
   deleteRequestWithAuth,
   postRequestWithAuth,
-  putRequestWithAuth
-} from "./AWSGateway";
-import { strapiGet } from "./strapiRequest";
+  putRequestWithAuth,
+} from './AWSGateway'
+import { strapiGet } from './strapiRequest'
 
 export const deleteEntry = async (entryId: number) => {
-  const token = await AuthenticationService.getToken();
-  return deleteRequestWithAuth("/entries/" + entryId, token);
-};
+  const token = await AuthenticationService.getToken()
+  return deleteRequestWithAuth('/entries/' + entryId, token)
+}
 
 export const createEntry = async (entry: Entry) => {
-  const token = await AuthenticationService.getToken();
-  return postRequestWithAuth(
-    "/entries",
-    token,
-    removeUnusedIdsFromEntry(entry)
-  );
-};
+  const token = await AuthenticationService.getToken()
+  return postRequestWithAuth('/entries', token, removeUnusedIdsFromEntry(entry))
+}
 
 export const updateEntry = async (entry: Entry) => {
-  const token = await AuthenticationService.getToken();
+  const token = await AuthenticationService.getToken()
   return putRequestWithAuth(
-    "/entries/" + entry.id,
+    '/entries/' + entry.id,
     token,
     removeUnusedIdsFromEntry(entry)
-  );
-};
+  )
+}
 
 export const getEntriesForCommunity = async (communityId: number) =>
-  await strapiGet<Entry[]>("entries?Community.id=" + communityId).then(
+  await strapiGet<Entry[]>('entries?Community.id=' + communityId).then(
     addIdsToEntries
-  );
+  )
 
 export const getFilteredEntries = async (filter: FilterType) => {
-  const query = createQueryFromFilter(filter);
-  return await strapiGet<Entry[]>("entries?" + query);
-};
+  const query = createQueryFromFilter(filter)
+  return await strapiGet<Entry[]>('entries?' + query)
+}
 
 const createQueryFromFilter = ({
   association,
   community,
   location,
-  categories
+  categories,
 }: FilterType) => {
-  const query = [];
-  if (association >= 0) query.push("Community.Association.id=" + association);
-  if (community >= 0) query.push("Community.id=" + community);
-  if (location >= 0) query.push("Community.ZipCode=" + location);
-  categories.forEach(category => query.push(`category.id=${category.id}`));
+  const query = []
+  if (association >= 0) query.push('Community.Association.id=' + association)
+  if (community >= 0) query.push('Community.id=' + community)
+  if (location >= 0) query.push('Community.ZipCode=' + location)
+  categories.forEach((category) => query.push(`category.id=${category.id}`))
 
-  return query.join("&");
-};
+  return query.join('&')
+}
 
 const addIdsToEntries = (entries: Entry[]): Entry[] => {
-  return entries.map(entry => ({
+  return entries.map((entry) => ({
     ...entry,
     communityId: entry.Community.id,
     accountId: entry.account?.id ?? -1,
-    categoryId: entry.category.id
-  }));
-};
+    categoryId: entry.category.id,
+  }))
+}
 
 const removeUnusedIdsFromEntry = (entry: Entry) => ({
   Community: entry.communityId,
@@ -73,5 +69,5 @@ const removeUnusedIdsFromEntry = (entry: Entry) => ({
   Title: entry.Title,
   Description: entry.Description,
   Link: entry.Link,
-  account: entry.accountId
-});
+  account: entry.accountId,
+})

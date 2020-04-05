@@ -1,5 +1,5 @@
-import * as React from "react";
-import { CategoryFilter } from "../CategoryFilter/CategoryFilter";
+import * as React from 'react'
+import { CategoryFilter } from '../CategoryFilter/CategoryFilter'
 
 export const Bistum = () => {
   return (
@@ -7,5 +7,5 @@ export const Bistum = () => {
       <h1>bistum</h1>
       <CategoryFilter />
     </>
-  );
-};
+  )
+}
