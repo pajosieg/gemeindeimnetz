@@ -1,27 +1,24 @@
-import * as React from 'react'
-import './Select.scss'
+import * as React from 'react';
+import './Select.scss';
 
 export type SelectOptionType = {
-  label: string
-  value: string
-}
+  label: string;
+  value: string;
+};
 
 interface CbProps {
-  name: string
-  headline: string
-  options: SelectOptionType[]
-  value: string
-  onChangeSelect: (value: string) => void
-  disabled?: boolean
+  name: string;
+  headline: string;
+  options: SelectOptionType[];
+  value: string;
+  onChangeSelect: (value: string) => void;
+  disabled?: boolean;
 }
 
 export const Select = (props: CbProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    props.onChangeSelect(event.target.value)
-  }
-  React.useEffect(() => {
-    console.log(props.value)
-  })
+    props.onChangeSelect(event.target.value);
+  };
 
   const items =
     props.value === ''
@@ -30,15 +27,15 @@ export const Select = (props: CbProps) => {
             Bitte wählen
           </option>,
         ]
-      : []
+      : [];
 
   props.options.forEach(({ label, value }, index) => {
     items.push(
       <option key={index} value={value}>
         {label}
       </option>
-    )
-  })
+    );
+  });
 
   return (
     <div className="select-wrapper">
@@ -52,5 +49,5 @@ export const Select = (props: CbProps) => {
         {items}
       </select>
     </div>
-  )
-}
+  );
+};

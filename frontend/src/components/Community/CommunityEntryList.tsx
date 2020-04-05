@@ -1,21 +1,21 @@
-import * as React from 'react'
+import * as React from 'react';
 import {
   createEntry,
   getEntriesForCommunity,
   updateEntry,
   deleteEntry,
-} from '../../api/Entry'
-import { Entry } from '../../models/Entry'
-import { Button } from '../Button/Button'
-import { Card } from '../Card/Card'
-import { UserWithCommunity } from './CommunityOverview'
-import { EntryEditor } from './EntryEditor'
-import Authentication from '../../Stores/Authentication'
+} from '../../api/Entry';
+import { Entry } from '../../models/Entry';
+import { Button } from '../Button/Button';
+import { Card } from '../Card/Card';
+import { UserWithCommunity } from './CommunityOverview';
+import { EntryEditor } from './EntryEditor';
+import Authentication from '../../Stores/Authentication';
 
 type CommunityEntryListProps = {
-  account: UserWithCommunity
-  onFinish: () => void
-}
+  account: UserWithCommunity;
+  onFinish: () => void;
+};
 
 const createEmptyEntry = (account: UserWithCommunity) => ({
   Title: '',
@@ -30,54 +30,54 @@ const createEmptyEntry = (account: UserWithCommunity) => ({
   time: '12:00',
   Link: '',
   id: -1,
-})
+});
 
 export const CommunityEntryList = ({
   account,
   onFinish,
 }: CommunityEntryListProps) => {
-  const [entries, setEntries] = React.useState<Entry[]>([])
-  const [entryToEdit, setEntryToEdit] = React.useState<Entry | null>(null)
+  const [entries, setEntries] = React.useState<Entry[]>([]);
+  const [entryToEdit, setEntryToEdit] = React.useState<Entry | null>(null);
 
   React.useEffect(() => {
     if (account) {
-      getEntriesForCommunity(account.Community?.id || -1).then(setEntries)
+      getEntriesForCommunity(account.Community?.id || -1).then(setEntries);
     }
-  }, [account])
+  }, [account]);
 
   const handleEntryEditClick = (entry: Entry) => {
-    openEntryEditor(entry)
-  }
+    openEntryEditor(entry);
+  };
 
   const openEntryEditor = (entry?: Entry) => {
     if (account !== null && account.Community) {
-      entry = entry ?? createEmptyEntry(account)
-      setEntryToEdit(entry)
+      entry = entry ?? createEmptyEntry(account);
+      setEntryToEdit(entry);
     }
-  }
+  };
 
   const handleCreateEntry = async (entry: Entry) => {
     if (entry.id === -1) {
-      await createEntry(entry)
+      await createEntry(entry);
     } else {
-      await updateEntry(entry)
+      await updateEntry(entry);
     }
-    setEntryToEdit(null)
-    onFinish()
-  }
+    setEntryToEdit(null);
+    onFinish();
+  };
 
   const handleCancelEditing = () => {
-    setEntryToEdit(null)
-  }
+    setEntryToEdit(null);
+  };
 
   const handleEntryDelete = async (entry: Entry) => {
-    await deleteEntry(entry.id)
-    onFinish()
-  }
+    await deleteEntry(entry.id);
+    onFinish();
+  };
 
   React.useEffect(() => {
-    console.log(entries)
-  }, [entries])
+    console.log(entries);
+  }, [entries]);
 
   return (
     <div key="community">
@@ -112,7 +112,7 @@ export const CommunityEntryList = ({
         {entries.map((entry, index) => {
           const editable =
             entry.account?.CognitoId ===
-            (Authentication.getUser()?.user as any).attributes.sub
+            (Authentication.getUser()?.user as any).attributes.sub;
           return (
             <div className="col col-lg-6" key={index}>
               <Card
@@ -122,7 +122,7 @@ export const CommunityEntryList = ({
                 onDelete={() => editable && handleEntryDelete(entry)}
               />
             </div>
-          )
+          );
         })}
       </div>
       {entryToEdit && (
@@ -133,5 +133,5 @@ export const CommunityEntryList = ({
         />
       )}
     </div>
-  )
-}
+  );
+};

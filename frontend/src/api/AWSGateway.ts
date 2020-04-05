@@ -1,4 +1,4 @@
-import { API } from 'aws-amplify'
+import { API } from 'aws-amplify';
 
 export const getRequestWithAuth = async (path: string, token: string) => {
   return API.get('gemeinde-im-netz-api', path, {
@@ -7,8 +7,8 @@ export const getRequestWithAuth = async (path: string, token: string) => {
     },
   }).catch((e) =>
     console.error('Error while requesting aws GET with auth:', path, e.message)
-  )
-}
+  );
+};
 
 export const postRequestWithAuth = async (
   path: string,
@@ -27,8 +27,8 @@ export const postRequestWithAuth = async (
       body,
       e.message
     )
-  )
-}
+  );
+};
 
 export const putRequestWithAuth = async (
   path: string,
@@ -47,8 +47,8 @@ export const putRequestWithAuth = async (
       body,
       e.message
     )
-  )
-}
+  );
+};
 
 export const deleteRequestWithAuth = async (path: string, token: string) => {
   return API.del('gemeinde-im-netz-api', path, {
@@ -57,5 +57,5 @@ export const deleteRequestWithAuth = async (path: string, token: string) => {
     },
   }).catch((e) =>
     console.error('Error while requesting aws DELETE with auth:', path, e.message)
-  )
-}
+  );
+};

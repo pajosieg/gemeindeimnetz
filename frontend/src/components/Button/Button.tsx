@@ -1,11 +1,11 @@
-import React from 'react'
-import './Button.scss'
+import React from 'react';
+import './Button.scss';
 
 export interface ButtonInterface {
-  icon?: string
-  link?: string
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
-  [key: string]: any
+  icon?: string;
+  link?: string;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  [key: string]: any;
 }
 
 export const Button: React.FC<ButtonInterface> = ({
@@ -21,5 +21,5 @@ export const Button: React.FC<ButtonInterface> = ({
       {text}
       {/*link rein*/}
     </button>
-  )
-}
+  );
+};

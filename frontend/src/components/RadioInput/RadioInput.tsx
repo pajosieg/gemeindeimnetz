@@ -1,18 +1,18 @@
-import * as React from 'react'
-import './RadioInput.scss'
+import * as React from 'react';
+import './RadioInput.scss';
 
 interface RIProps {
-  name: string
-  id: string
-  label: string
-  checked: boolean
-  onChangeRadioInput: (id: string, checked: boolean) => void
+  name: string;
+  id: string;
+  label: string;
+  checked: boolean;
+  onChangeRadioInput: (id: string, checked: boolean) => void;
 }
 
 export const RadioInput = (props: RIProps) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    props.onChangeRadioInput(props.id, event.target.checked)
-  }
+    props.onChangeRadioInput(props.id, event.target.checked);
+  };
 
   return (
     <div className="input__radio">
@@ -25,5 +25,5 @@ export const RadioInput = (props: RIProps) => {
       />
       <label htmlFor={props.id}>{props.label}</label>
     </div>
-  )
-}
+  );
+};

@@ -1,4 +1,4 @@
 export type Association = {
-  Name: string
-  id: number
-}
+  Name: string;
+  id: number;
+};

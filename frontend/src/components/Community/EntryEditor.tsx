@@ -1,44 +1,44 @@
-import * as React from 'react'
-import { TextInput } from '../TextInput/TextInput'
-import { TextArea } from '../TextInput/TextArea'
-import { DateInput } from '../TextInput/DateInput'
-import { Entry } from '../../models/Entry'
-import { Select } from '../Select/Select'
-import { getAllCategories } from '../../api/Category'
-import { Category } from '../../models/Category'
-import { Button } from '../Button/Button'
-import { ButtonDefault } from '../Button/ButtonDefault'
-import './EntryEditor.scss'
+import * as React from 'react';
+import { TextInput } from '../TextInput/TextInput';
+import { TextArea } from '../TextInput/TextArea';
+import { DateInput } from '../TextInput/DateInput';
+import { Entry } from '../../models/Entry';
+import { Select } from '../Select/Select';
+import { getAllCategories } from '../../api/Category';
+import { Category } from '../../models/Category';
+import { Button } from '../Button/Button';
+import { ButtonDefault } from '../Button/ButtonDefault';
+import './EntryEditor.scss';
 
 type EntryEditorProps = {
-  entry: Entry
-  onSave: (entry: Entry) => void
-  onCancel: () => void
-}
+  entry: Entry;
+  onSave: (entry: Entry) => void;
+  onCancel: () => void;
+};
 
 export const EntryEditor = ({
   entry,
   onSave: onCreateEntry,
   onCancel,
 }: EntryEditorProps) => {
-  const [date, setDate] = React.useState(entry.date)
-  const [time, setTime] = React.useState(entry.time)
-  const [title, setTitle] = React.useState(entry.Title)
-  const [description, setDescription] = React.useState(entry.Description)
-  const [selectedCategory, selectCategory] = React.useState(entry.categoryId)
-  const [link, setLink] = React.useState(entry.Link)
-  const [categories, setCategories] = React.useState<Category[]>([])
+  const [date, setDate] = React.useState(entry.date);
+  const [time, setTime] = React.useState(entry.time);
+  const [title, setTitle] = React.useState(entry.Title);
+  const [description, setDescription] = React.useState(entry.Description);
+  const [selectedCategory, selectCategory] = React.useState(entry.categoryId);
+  const [link, setLink] = React.useState(entry.Link);
+  const [categories, setCategories] = React.useState<Category[]>([]);
 
   const handleDateChange = React.useCallback((date: string) => {
-    setDate(date)
-  }, [])
+    setDate(date);
+  }, []);
   const handleTimeChange = React.useCallback((time: string) => {
-    setTime(time)
-  }, [])
+    setTime(time);
+  }, []);
 
   React.useEffect(() => {
-    getAllCategories().then(setCategories)
-  }, [])
+    getAllCategories().then(setCategories);
+  }, []);
 
   const handleCreateEntry = () => {
     onCreateEntry({
@@ -49,8 +49,8 @@ export const EntryEditor = ({
       Title: title,
       date,
       time,
-    })
-  }
+    });
+  };
 
   return (
     <>
@@ -105,5 +105,5 @@ export const EntryEditor = ({
         </div>
       </div>
     </>
-  )
-}
+  );
+};

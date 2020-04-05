@@ -1,12 +1,12 @@
-import { getUser } from './User'
-import { strapiGet } from './strapiRequest'
-import { Community } from '../models/Community'
-import { postRequestWithAuth } from './AWSGateway'
-import { AuthenticationService } from '../services/AuthenticationService'
+import { getUser } from './User';
+import { strapiGet } from './strapiRequest';
+import { Community } from '../models/Community';
+import { postRequestWithAuth } from './AWSGateway';
+import { AuthenticationService } from '../services/AuthenticationService';
 
 export const createCommunity = async (community: Community) => {
-  const token = await AuthenticationService.getToken()
-  const cognitoId = AuthenticationService.getCognitoId()
+  const token = await AuthenticationService.getToken();
+  const cognitoId = AuthenticationService.getCognitoId();
 
   return postRequestWithAuth('/communities', token, {
     community: {
@@ -21,19 +21,23 @@ export const createCommunity = async (community: Community) => {
   })
     .then((res) => {
       if (res.length) {
-        return res[0]
+        return res[0];
       }
     })
-    .catch((e) => console.error(e.message))
-}
+    .catch((e) => console.error(e.message));
+};
 
 export const getCommunitiesForAssociation = async (associationId: number) =>
-  strapiGet<Community[]>('communities?Association.id=' + (associationId || -1)) ?? []
+  strapiGet<Community[]>(
+    'communities?Association.id=' + associationId,
+    'communities for a given association'
+  ) ?? [];
 
-export const getAllCommunities = async () => strapiGet('communities')
+export const getAllCommunities = async () =>
+  strapiGet('communities', 'all communities');
 
-export const getLoggedInCommunity = async () => (await getUser())?.Community || null
+export const getLoggedInCommunity = async () => (await getUser())?.Community || null;
 
-export const updateCommunity = () => {}
+export const updateCommunity = () => {};
 
-export const deleteCommunity = () => {}
+export const deleteCommunity = () => {};

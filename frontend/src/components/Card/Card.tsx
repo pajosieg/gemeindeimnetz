@@ -1,15 +1,15 @@
-import React from 'react'
-import './Card.scss'
-import { Button } from '../Button/Button'
-import { Entry } from '../../models/Entry'
-import { ButtonDefault } from '../Button/ButtonDefault'
-import { ButtonDanger } from '../Button/ButtonDanger'
+import React from 'react';
+import './Card.scss';
+import { Button } from '../Button/Button';
+import { Entry } from '../../models/Entry';
+import { ButtonDefault } from '../Button/ButtonDefault';
+import { ButtonDanger } from '../Button/ButtonDanger';
 
 type EditableCardProps = {
-  editable?: boolean
-  onEdit?: () => void
-  onDelete?: () => void
-}
+  editable?: boolean;
+  onEdit?: () => void;
+  onDelete?: () => void;
+};
 
 export const Card = ({
   category,
@@ -47,4 +47,4 @@ export const Card = ({
       )}
     </div>
   </div>
-)
+);

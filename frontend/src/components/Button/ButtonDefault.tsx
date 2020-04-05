@@ -1,9 +1,9 @@
-import React from 'react'
-import { Button } from './Button'
-import colors from '../../scss/_colors.scss'
+import React from 'react';
+import { Button } from './Button';
+import colors from '../../scss/_colors.scss';
 
 export interface ButtonInterface {
-  [key: string]: any
+  [key: string]: any;
 }
 
 export const ButtonDefault: React.FC<ButtonInterface> = ({
@@ -14,5 +14,5 @@ export const ButtonDefault: React.FC<ButtonInterface> = ({
     <Button {...restProps} style={{ backgroundColor: colors.gray_light }}>
       {children}
     </Button>
-  )
-}
+  );
+};

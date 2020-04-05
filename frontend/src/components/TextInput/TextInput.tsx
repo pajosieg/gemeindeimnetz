@@ -1,10 +1,10 @@
-import * as React from 'react'
-import './TextInput.scss'
+import * as React from 'react';
+import './TextInput.scss';
 
 interface ITextInputProps {
-  onTextChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  label: string
-  [key: string]: any
+  onTextChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  label: string;
+  [key: string]: any;
 }
 
 export const TextInput: React.FunctionComponent<ITextInputProps> = ({
@@ -17,5 +17,5 @@ export const TextInput: React.FunctionComponent<ITextInputProps> = ({
       <label htmlFor={restProps.id ?? ''}>{label}</label>
       <input type="text" onChange={onTextChange} {...restProps} />
     </div>
-  )
-}
+  );
+};

@@ -1,26 +1,26 @@
-import React, { useState } from 'react'
-import { Link, withRouter } from 'react-router-dom'
-import Authentication from '../../Stores/Authentication'
-import './Header.scss'
-import { Auth } from 'aws-amplify'
+import React, { useState } from 'react';
+import { Link, withRouter } from 'react-router-dom';
+import Authentication from '../../Stores/Authentication';
+import './Header.scss';
+import { Auth } from 'aws-amplify';
 
 export const Header = withRouter(({ history }) => {
-  const [authenticated, setAuthenticated] = useState(false)
-  const [user, setUser] = useState<any>(null)
+  const [authenticated, setAuthenticated] = useState(false);
+  const [user, setUser] = useState<any>(null);
 
   const changeAuthentication = (authenticationState: any) => {
-    setAuthenticated(authenticationState.authenticated)
-    setUser(authenticationState.user)
-  }
+    setAuthenticated(authenticationState.authenticated);
+    setUser(authenticationState.user);
+  };
 
-  Authentication.subscribe(changeAuthentication)
+  Authentication.subscribe(changeAuthentication);
 
   const logout = () => {
     Auth.signOut().then(() => {
-      Authentication.logout()
-      history.push('/')
-    })
-  }
+      Authentication.logout();
+      history.push('/');
+    });
+  };
 
   return (
     <div className="header">
@@ -58,5 +58,5 @@ export const Header = withRouter(({ history }) => {
         )}
       </div>
     </div>
-  )
-})
+  );
+});
