@@ -1,4 +1,4 @@
-import { AuthenticationService } from "../services/Auth";
+import { AuthenticationService } from "../services/AuthenticationService";
 import { getRequestWithAuth, postRequestWithAuth } from "./AWSGateway";
 
 export const getUser = async () => {

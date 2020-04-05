@@ -6,7 +6,7 @@ import {
   deleteRequestWithAuth,
   putRequestWithAuth
 } from "./AWSGateway";
-import { AuthenticationService } from "../services/Auth";
+import { AuthenticationService } from "../services/AuthenticationService";
 
 export const deleteEntry = async (entryId: number) => {
   const token = await AuthenticationService.getToken();

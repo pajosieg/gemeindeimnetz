@@ -2,7 +2,7 @@ import { getUser } from "./User";
 import { strapiGet } from "./strapiRequest";
 import { Community } from "../models/Community";
 import { postRequestWithAuth } from "./AWSGateway";
-import { AuthenticationService } from "../services/Auth";
+import { AuthenticationService } from "../services/AuthenticationService";
 
 export const createCommunity = async (community: Community) => {
   const token = await AuthenticationService.getToken();
