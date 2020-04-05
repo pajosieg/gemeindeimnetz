@@ -8,6 +8,8 @@ import { getAllCategories } from "../../api/Category";
 import { getAllAssociations } from "../../api/Association";
 import { Association } from "../../models/Association";
 import { TextInput } from "../TextInput/TextInput";
+import { getCommunitiesForAssociation } from "../../api/Community";
+import { Community } from "../../models/Community";
 
 const defaultDates = [
   { id: "today", name: "Heute" },
@@ -16,9 +18,11 @@ const defaultDates = [
 ];
 
 export type FilterType = {
-  association: string;
+  association: number;
+  community: number;
   date: string;
   categories: Category[];
+  location: number;
 };
 
 export interface ICategoryFilterProps {
@@ -31,10 +35,12 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
     []
   );
 
-  const [association, setAssociation] = React.useState("");
+  const [association, setAssociation] = React.useState(-1);
   const [associations, setAssociations] = React.useState<SelectOptionType[]>(
     []
   );
+  const [community, setCommunity] = React.useState(-1);
+  const [communities, setCommunities] = React.useState<SelectOptionType[]>([]);
 
   const handleCategoriesChange = (identifier: string, checked: boolean) => {
     setCheckedCategory(previousCheckedCategories =>
@@ -55,7 +61,20 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
     setAssociations(
       (await getAllAssociations()).map((a: Association) => ({
         label: a.Name,
-        value: a.Name.toLowerCase()
+        value: a.id.toString()
+      }))
+    );
+  };
+
+  React.useEffect(() => {
+    loadCommunities();
+  }, [association]);
+
+  const loadCommunities = async () => {
+    setAssociations(
+      (await getCommunitiesForAssociation(association)).map((c: Community) => ({
+        label: c.Name,
+        value: c.id.toString()
       }))
     );
   };
@@ -74,8 +93,10 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
     onFilterChange &&
       onFilterChange({
         association,
-        categories: checkedCategories,
-        date: checkedDate
+        categories: checkedCategories.filter(c => c.checked),
+        date: checkedDate,
+        community,
+        location: -1
       });
   }, [onFilterChange, association, checkedCategories, checkedDate]);
 
@@ -93,8 +114,15 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
           name="association"
           headline="Bistum oder Landeskirche"
           options={associations}
-          value={association}
-          onChangeSelect={setAssociation}
+          value={association === -1 ? "" : association.toString()}
+          onChangeSelect={v => setAssociation(parseInt(v))}
+        />
+        <Select
+          name="community"
+          headline="Gemeinde"
+          options={communities}
+          value={community === -1 ? "" : community.toString()}
+          onChangeSelect={v => setCommunity(parseInt(v))}
         />
       </div>
       <div className="col col-lg-4">
