@@ -22,7 +22,7 @@ export const Select = (props: CbProps) => {
   const items =
     props.value === ""
       ? [
-          <option key={-1} value="-1" disabled>
+          <option key={-1} value="" disabled>
             Bitte wählen
           </option>
         ]

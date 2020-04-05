@@ -9,7 +9,7 @@
     position: absolute;
     right: 15px;
     bottom: 17px;
-    content: '';
+    content: "";
     width: 0;
     height: 0;
     border-style: solid;
@@ -37,7 +37,7 @@
     outline: none;
     padding: 5px;
     width: 100%;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 300;
 
     option {
@@ -50,6 +50,10 @@
 
     &:focus::-ms-value {
       background-color: transparent;
+    }
+
+    &:focus {
+      border-color: $green;
     }
   }
 }

@@ -128,7 +128,7 @@ export const RegisterToCommunity = ({
         <NumberInput
           disabled={!checkedNewCommunity}
           label="PLZ"
-          onTextChange={e => setNewCommunityZipCode(e.target.valueAsNumber)}
+          onBlur={e => setNewCommunityZipCode(e.target.valueAsNumber)}
           id="newCommunityZipCode"
           value={newCommunityZipCode?.toString() || ""}
         />

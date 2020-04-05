@@ -1,13 +1,12 @@
 import { FilterType } from "../components/CategoryFilter/CategoryFilter";
 import { Entry } from "../models/Entry";
-import { strapiGet } from "./strapiRequest";
+import { AuthenticationService } from "../services/AuthenticationService";
 import {
-  postRequestWithAuth,
   deleteRequestWithAuth,
+  postRequestWithAuth,
   putRequestWithAuth
 } from "./AWSGateway";
-import { AuthenticationService } from "../services/AuthenticationService";
-import { Category } from "../models/Category";
+import { strapiGet } from "./strapiRequest";
 
 export const deleteEntry = async (entryId: number) => {
   const token = await AuthenticationService.getToken();
@@ -51,7 +50,7 @@ const createQueryFromFilter = ({
   const query = [];
   if (association >= 0) query.push("Community.Association.id=" + association);
   if (community >= 0) query.push("Community.id=" + community);
-  if (location >= 0) query.push("ZipCode=" + location);
+  if (location >= 0) query.push("Community.ZipCode=" + location);
   categories.forEach(category => query.push(`category.id=${category.id}`));
 
   return query.join("&");
