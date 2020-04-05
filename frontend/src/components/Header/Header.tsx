@@ -29,8 +29,11 @@ export const Header = withRouter(({ history }) => {
       </div>
       <div className="header__login">
         {authenticated && user ? (
-          <span>
-            <Link to={'/community'}>{user.username}</Link> |
+          <>
+            <Link to={'/community'} className="username">
+              {user.username}
+            </Link>{' '}
+            |
             <button onClick={logout}>
               Logout
               <svg width="24" height="22" xmlns="http://www.w3.org/2000/svg">
@@ -42,19 +45,21 @@ export const Header = withRouter(({ history }) => {
                 </g>
               </svg>
             </button>
-          </span>
+          </>
         ) : (
-          <Link to="/community">
-            Login
-            <svg width="22" height="22" xmlns="http://www.w3.org/2000/svg">
-              <g fill="none" fillRule="evenodd">
-                <g stroke="#FFF" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M8.5 3.48V.5h13v21h-13v-4M.5 10.5h17" />
-                  <path d="M12.5 15.508l5-5-5-5" />
+          <span>
+            <Link to="/community">
+              Login
+              <svg width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+                <g fill="none" fillRule="evenodd">
+                  <g stroke="#FFF" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M8.5 3.48V.5h13v21h-13v-4M.5 10.5h17" />
+                    <path d="M12.5 15.508l5-5-5-5" />
+                  </g>
                 </g>
-              </g>
-            </svg>
-          </Link>
+              </svg>
+            </Link>
+          </span>
         )}
       </div>
     </div>

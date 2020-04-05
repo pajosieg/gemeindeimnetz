@@ -29,6 +29,9 @@
 
   &__login {
     position: absolute;
+    display: block;
+    flex-direction: row;
+    flex-wrap: nowrap;
     right: 20px;
 
     a,
@@ -38,11 +41,14 @@
       color: $white;
       font-weight: 300;
       text-decoration: none;
-      display: inline-block;
 
       svg {
         margin: 0 5px;
       }
+    }
+
+    a.username {
+      display: inline-block;
     }
   }
 
