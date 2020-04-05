@@ -4,6 +4,7 @@ import { Button } from '../Button/Button';
 import { Entry } from '../../models/Entry';
 import { ButtonDefault } from '../Button/ButtonDefault';
 import { ButtonDanger } from '../Button/ButtonDanger';
+import { Icon } from '../Icon/Icon';
 
 type EditableCardProps = {
   editable?: boolean;
@@ -24,7 +25,9 @@ export const Card = ({
   onDelete,
 }: Entry & EditableCardProps) => (
   <div className="card">
-    <div className="card__category">{category.name}</div>
+    <div className="card__category" title={category.name}>
+      <Icon name={category.name} />
+    </div>
     <div className="card__community">{Community.Name}</div>
     <div className="card__title">{Title}</div>
     <div className="card__description">

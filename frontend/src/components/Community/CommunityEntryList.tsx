@@ -10,7 +10,8 @@ import { Button } from '../Button/Button';
 import { Card } from '../Card/Card';
 import { UserWithCommunity } from './CommunityOverview';
 import { EntryEditor } from './EntryEditor';
-import Authentication from '../../stores/Authentication';
+import Authentication from '../../Stores/Authentication';
+import { Modal } from '../Modal/Modal';
 
 type CommunityEntryListProps = {
   account: UserWithCommunity;
@@ -85,13 +86,13 @@ export const CommunityEntryList = ({
         <div className="col col-lg-3">
           <Button icon="plus" onClick={() => openEntryEditor()}>
             <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg">
-              <g fill="none" fill-rule="evenodd">
+              <g fill="none" fillRule="evenodd">
                 <path fill="#52B25E" d="M-12-14h138v40H-12z" />
                 <path
                   d="M11 4.478H7.522V1H4.478v3.478H1v3.044h3.478V11h3.044V7.522H11z"
                   stroke="#FFF"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </g>
             </svg>
@@ -126,11 +127,13 @@ export const CommunityEntryList = ({
         })}
       </div>
       {entryToEdit && (
-        <EntryEditor
-          entry={entryToEdit}
-          onSave={handleCreateEntry}
-          onCancel={handleCancelEditing}
-        />
+        <Modal onClose={handleCancelEditing}>
+          <EntryEditor
+            entry={entryToEdit}
+            onSave={handleCreateEntry}
+            onCancel={handleCancelEditing}
+          />
+        </Modal>
       )}
     </div>
   );

@@ -11,9 +11,8 @@
   height: calc(100% - 20px);
 
   &__category {
-    background-color: $green;
-    color: #ffffff;
-    padding: 5px 15px;
+    color: $green;
+    padding: 15px 15px;
     font-weight: 600;
     position: absolute;
     top: 0;
@@ -29,12 +28,14 @@
 
   &__title {
     font-weight: 600;
-    font-size: 24px;
+    @include font-size(24px);
+    @include line-height(40px);
   }
 
   &__description {
     font-weight: 300;
-    font-size: 14px;
+    @include font-size(14px);
+    @include line-height(22px);
   }
 
   &__action {

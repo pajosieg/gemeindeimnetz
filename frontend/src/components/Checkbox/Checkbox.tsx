@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './Checkbox.scss';
+import { Icon } from '../Icon/Icon';
 
 interface CbState {
   value: string;
@@ -11,6 +12,7 @@ interface CbProps {
   id: string;
   checked: boolean;
   onCheckboxChange: (name: string, checked: boolean) => void;
+  showIcon?: boolean;
 }
 
 export const Checkbox = (props: CbProps) => {
@@ -27,7 +29,12 @@ export const Checkbox = (props: CbProps) => {
         checked={props.checked}
         onChange={handleChange}
       />
-      <label htmlFor={props.id}>{props.name}</label>
+      <label htmlFor={props.id}>
+        { props.showIcon ? (
+          <Icon name={props.name.toString()} />
+        ): null}
+        {props.name}
+      </label>
     </div>
   );
 };

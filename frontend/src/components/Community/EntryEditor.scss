@@ -1,5 +1,16 @@
+@import "../../scss/global-styles";
+
 .form-footer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.entry-editor {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($gray-dark, .7);
+  top: 0;
+  left: 0;
 }
