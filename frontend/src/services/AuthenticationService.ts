@@ -1,5 +1,5 @@
 import { Auth } from 'aws-amplify';
-import Authentication from '../Stores/Authentication';
+import Authentication from '../stores/Authentication';
 
 export class AuthenticationService {
   public static getToken = async () => {

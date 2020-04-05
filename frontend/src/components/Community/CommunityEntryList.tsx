@@ -10,7 +10,7 @@ import { Button } from '../Button/Button';
 import { Card } from '../Card/Card';
 import { UserWithCommunity } from './CommunityOverview';
 import { EntryEditor } from './EntryEditor';
-import Authentication from '../../Stores/Authentication';
+import Authentication from '../../stores/Authentication';
 
 type CommunityEntryListProps = {
   account: UserWithCommunity;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import Authentication from '../../Stores/Authentication';
+import Authentication from '../../stores/Authentication';
 import './Header.scss';
 import { Auth } from 'aws-amplify';
 

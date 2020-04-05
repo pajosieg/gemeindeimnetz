@@ -7,7 +7,7 @@ import App from './App';
 import aws_settings from './aws_settings.js';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-import Authentication from './Stores/Authentication';
+import Authentication from './stores/Authentication';
 
 Amplify.configure(aws_settings);
 
