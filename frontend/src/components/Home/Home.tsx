@@ -8,8 +8,17 @@ export const Home = () => {
   const [filteredEntries, setFilteredEntries] = React.useState<Entry[]>([]);
 
   const handleFilterChange = React.useCallback(async (filter: FilterType) => {
-    console.log("load filtered entries");
-    setFilteredEntries(await getFilteredEntries(filter));
+    const sortEntriesByDateAndTime = (e1: Entry, e2: Entry) => {
+      const compareDate = e1.date.localeCompare(e2.date);
+      if (compareDate === 0) {
+        return e1.time.localeCompare(e2.time);
+      }
+      return compareDate;
+    };
+
+    setFilteredEntries(
+      (await getFilteredEntries(filter)).sort(sortEntriesByDateAndTime)
+    );
   }, []);
 
   return (

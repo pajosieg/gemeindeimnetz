@@ -19,7 +19,7 @@
 
     // Box.
     & + label:before {
-      content: '';
+      content: "";
       margin-right: 10px;
       display: inline-block;
       vertical-align: text-top;
@@ -32,18 +32,23 @@
       background: $green;
       border-color: $green;
     }
+
+    &:focus + label:before {
+      outline: 1px solid $green;
+      outline-offset: 1px;
+    }
   }
 
   input + label:before {
-    border-radius: 100%;
+    border-radius: 50%;
   }
 
   // Checkmark. Could be replaced with an image
   input:checked + label:after {
-    content: '';
+    content: "";
     position: absolute;
     left: 8px;
-    top: 9px;
+    top: 8px;
     background: white;
     width: 6px;
     height: 6px;

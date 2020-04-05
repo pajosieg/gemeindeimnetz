@@ -1,22 +1,20 @@
 import { FilterType } from "../components/CategoryFilter/CategoryFilter";
 import { Entry } from "../models/Entry";
-import { strapiGet } from "./strapiRequest";
+import { AuthenticationService } from "../services/AuthenticationService";
 import {
-  postRequestWithAuth,
   deleteRequestWithAuth,
+  postRequestWithAuth,
   putRequestWithAuth
 } from "./AWSGateway";
-import { AuthenticationService } from "../services/AuthenticationService";
+import { strapiGet } from "./strapiRequest";
 
 export const deleteEntry = async (entryId: number) => {
   const token = await AuthenticationService.getToken();
-
   return deleteRequestWithAuth("/entries/" + entryId, token);
 };
 
 export const createEntry = async (entry: Entry) => {
   const token = await AuthenticationService.getToken();
-
   return postRequestWithAuth(
     "/entries",
     token,
@@ -24,35 +22,8 @@ export const createEntry = async (entry: Entry) => {
   );
 };
 
-export const getFilteredEntries = async (filter: FilterType) => {
-  const request = async (query: string) => {
-    return await strapiGet<Entry[]>("entries?" + query);
-  };
-
-  return mapFilterToQueries(filter, request);
-};
-
-const mapFilterToQueries = async (
-  filter: FilterType,
-  request: (query: string) => Promise<Entry[]>
-) => {
-  const queriesFromCategories = convertCategoryToQuery(filter);
-
-  const entries = await queriesFromCategories.reduce<Promise<Entry[]>>(
-    async (promise, query) => {
-      return promise.then(async result =>
-        Promise.resolve(result.concat(await request(query)))
-      );
-    },
-    Promise.resolve([])
-  );
-
-  return entries;
-};
-
 export const updateEntry = async (entry: Entry) => {
   const token = await AuthenticationService.getToken();
-
   return putRequestWithAuth(
     "/entries/" + entry.id,
     token,
@@ -60,18 +31,30 @@ export const updateEntry = async (entry: Entry) => {
   );
 };
 
-const convertCategoryToQuery = ({ categories }: FilterType) => {
-  const queries = categories
-    .filter(category => category.checked)
-    .map(category => `category.name=${category.name}`);
-
-  return queries.length ? queries : [""];
-};
-
 export const getEntriesForCommunity = async (communityId: number) =>
   await strapiGet<Entry[]>("entries?Community.id=" + communityId).then(
     addIdsToEntries
   );
+
+export const getFilteredEntries = async (filter: FilterType) => {
+  const query = createQueryFromFilter(filter);
+  return await strapiGet<Entry[]>("entries?" + query);
+};
+
+const createQueryFromFilter = ({
+  association,
+  community,
+  location,
+  categories
+}: FilterType) => {
+  const query = [];
+  if (association >= 0) query.push("Community.Association.id=" + association);
+  if (community >= 0) query.push("Community.id=" + community);
+  if (location >= 0) query.push("Community.ZipCode=" + location);
+  categories.forEach(category => query.push(`category.id=${category.id}`));
+
+  return query.join("&");
+};
 
 const addIdsToEntries = (entries: Entry[]): Entry[] => {
   return entries.map(entry => ({
