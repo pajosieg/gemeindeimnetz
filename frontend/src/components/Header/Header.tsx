@@ -28,8 +28,18 @@ export const Header = withRouter(({ history }) => {
       <div className="header__login">
         {authenticated && user ? (
           <span>
-            {user.username}
-            <button onClick={logout}>Logout</button>
+            {user.username} |
+            <button onClick={logout}>
+              Logout
+              <svg width="24" height="22" xmlns="http://www.w3.org/2000/svg">
+                <g fill="none" fillRule="evenodd">
+                  <path d="M0-1h24v24H0z" />
+                  <g stroke="#fff" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M13.5 17.5v4H.5V.5h13v4M5.5 11.5h18M18.5 6.5l5 5-5 5" />
+                  </g>
+                </g>
+              </svg>
+            </button>
           </span>
         ) : (
           <Link to="/community">

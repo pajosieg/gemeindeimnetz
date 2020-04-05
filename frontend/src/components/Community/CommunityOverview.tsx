@@ -41,14 +41,9 @@ export const CommunityOverview = withAuthenticator(
 
     const communityInfos = (community: Community | null) =>
       community && (
-        <dl>
-          <dt>Gemeinde</dt>
-          <dd>{community.Name}</dd>
-          <dt>Organisation</dt>
-          <dd>{community.Association}</dd>
-          <dt>PLZ</dt>
-          <dd>{community.ZipCode}</dd>
-        </dl>
+        <h4>
+          Gemeinde {community.Name}
+        </h4>
       );
 
     return account ? (
@@ -57,6 +52,7 @@ export const CommunityOverview = withAuthenticator(
           <div className="grid">
             <div className="col col-lg-6">
               {communityInfos(account.Community)}
+              <h2>Willkommen</h2>
             </div>
           </div>
           <CommunityEntryList
@@ -66,10 +62,10 @@ export const CommunityOverview = withAuthenticator(
         </div>
       ) : (
         <div>
-          <h2>
+          <h3>
             Gemeinde konnte nicht geladen werden. Bitte wenden Sie sich an den
             Support.
-          </h2>
+          </h3>
         </div>
       )
     ) : noCommunityRegistered ? (

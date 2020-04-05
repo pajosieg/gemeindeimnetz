@@ -9,9 +9,14 @@
   outline: 0;
   border: none;
   cursor: pointer;
+  margin-bottom: 30px;
 
   &:not(:first-of-type) {
     margin-left: 1em;
+  }
+
+  svg {
+    margin-right: 10px;
   }
 }
 button[disabled].btn {
