@@ -24,11 +24,13 @@ export const Header = withRouter(({ history }) => {
 
   return (
     <div className="header">
-      <div className="header__slogan">Gemeinde im Netz</div>
+      <div className="header__slogan">
+        <Link to={"/"}>Gemeinde im Netz</Link>
+      </div>
       <div className="header__login">
         {authenticated && user ? (
           <span>
-            {user.username} |
+            <Link to={"/community"}>{user.username}</Link> |
             <button onClick={logout}>
               Logout
               <svg width="24" height="22" xmlns="http://www.w3.org/2000/svg">
