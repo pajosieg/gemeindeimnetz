@@ -82,11 +82,19 @@ export const CommunityEntryList = ({
   return (
     <div key="community">
       <div className="grid">
+        <div className="col col-lg-3">
+          <Button icon="plus" onClick={() => openEntryEditor()}>
+            <svg width="12" height="12" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path fill="#52B25E" d="M-12-14h138v40H-12z"/><path d="M11 4.478H7.522V1H4.478v3.478H1v3.044h3.478V11h3.044V7.522H11z" stroke="#FFF" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+            Neuer Eintrag
+          </Button>
+        </div>
+      </div>
+      <div className="grid">
         <div className="col col-lg-6">
           {entries.length ? (
-            <h2>Alle Aktivitäten der Gemeinde</h2>
+            <h3>Alle Aktivitäten der Gemeinde</h3>
           ) : (
-            <h2>Noch keine Aktivitäten vorhanden</h2>
+            <h3>Noch keine Aktivitäten vorhanden</h3>
           )}
         </div>
       </div>
@@ -106,13 +114,6 @@ export const CommunityEntryList = ({
             </div>
           );
         })}
-      </div>
-      <div className="grid">
-        <div className="col col-lg-3">
-          <Button icon="plus" onClick={() => openEntryEditor()}>
-            Neuer Eintrag
-          </Button>
-        </div>
       </div>
       {entryToEdit && (
         <EntryEditor

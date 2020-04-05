@@ -14,6 +14,10 @@
   &:not(:first-of-type) {
     margin-left: 1em;
   }
+
+  svg {
+    margin-right: 10px;
+  }
 }
 button[disabled].btn {
   opacity: 0.5;
