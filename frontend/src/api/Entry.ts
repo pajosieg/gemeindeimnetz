@@ -7,6 +7,7 @@ import {
   putRequestWithAuth,
 } from './AWSGateway';
 import { strapiGet } from './strapiRequest';
+import { getISODate } from '../utilities/DateUtilities';
 
 export const deleteEntry = async (entryId: number) => {
   const token = await AuthenticationService.getToken();
@@ -46,11 +47,14 @@ const createQueryFromFilter = ({
   date,
 }: FilterType) => {
   const query = [];
+
+  categories.forEach(category => query.push(`category.id=${category.id}`));
+  date.forEach(dateEntry => query.push(`date=${dateEntry}`));
+
+  if (!date.length) query.push('date_gte=' + getISODate(new Date()));
   if (association >= 0) query.push('Community.Association.id=' + association);
   if (community >= 0) query.push('Community.id=' + community);
   if (location >= 0) query.push('Community.ZipCode=' + location);
-  date.forEach(dateEntry => query.push(`date=${dateEntry}`));
-  categories.forEach(category => query.push(`category.id=${category.id}`));
 
   return query.join('&');
 };

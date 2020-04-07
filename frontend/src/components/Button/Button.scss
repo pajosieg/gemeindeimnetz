@@ -10,6 +10,11 @@
   border: none;
   cursor: pointer;
   text-decoration: none;
+  opacity: 0.85;
+
+  &:hover {
+    opacity: 1;
+  }
 
   &:not(:first-of-type) {
     margin-left: 1em;

@@ -1,8 +1,9 @@
 @import '../../scss/global-styles';
+@import '../../scss/colors';
 
 .text-input,
 .date-input {
-  margin-bottom: 30px;
+  position: relative;
 
   label {
     display: block;
@@ -24,6 +25,25 @@
     &:focus {
       border-color: $green;
       box-shadow: none;
+      outline: none;
+    }
+  }
+
+  button[type='reset'] {
+    position: absolute;
+    right: 8px;
+    bottom: 9px;
+    border-radius: 50%;
+    height: 22px;
+    width: 22px;
+    background-color: $green;
+    color: $white;
+    display: flex;
+    justify-content: center;
+    border-color: transparent;
+
+    &:focus,
+    &:active {
       outline: none;
     }
   }

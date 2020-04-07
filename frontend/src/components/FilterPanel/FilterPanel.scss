@@ -1,16 +1,52 @@
 @import '../../scss/global-styles';
+@import '../../scss/colors';
 
-.category-filter {
-  margin: 40px 0 40px;
+.filter-panel {
+  margin-top: 1em;
+  padding-bottom: 1em;
 }
-
 .filter__input {
+  margin-top: 1em;
+
   > label {
-    margin-bottom: 10px;
     display: block;
   }
+}
 
-  .input__checkbox {
-    margin-bottom: 5px;
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dates {
+  margin-top: 0.5em;
+}
+
+.filter-panel__title {
+  cursor: pointer;
+  padding: 0.5em;
+  background-color: $gray-extra-light;
+  width: 100%;
+  margin-top: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 100%;
+  }
+
+  svg {
+    transition: transform 0.25s;
+
+    &.rotate {
+      transform: rotate(180deg);
+    }
   }
 }

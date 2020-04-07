@@ -9,8 +9,10 @@ import { Checkbox } from '../Checkbox/Checkbox';
 import { RadioInput } from '../RadioInput/RadioInput';
 import { Select, SelectOptionType } from '../Select/Select';
 import { NumberInput } from '../TextInput/NumberInput';
-import './FilterPanel.scss';
 import { getISODate } from '../../utilities/DateUtilities';
+import { ReactComponent as ArrowDown } from '../../assets/icons/arrow.svg';
+import AnimateHeight from 'react-animate-height';
+import './FilterPanel.scss';
 
 const defaultDates = [
   { id: 'all', name: 'Alle' },
@@ -54,6 +56,7 @@ export interface IFilterPanelProps {
 }
 
 export const FilterPanel = ({ onFilterChange }: IFilterPanelProps) => {
+  const [expanded, setExpanded] = React.useState(false);
   const [communities, setCommunities] = React.useState<SelectOptionType[]>([]);
   const [associations, setAssociations] = React.useState<SelectOptionType[]>([]);
   const [categories, setCategories] = React.useState<Category[]>([]);
@@ -133,60 +136,84 @@ export const FilterPanel = ({ onFilterChange }: IFilterPanelProps) => {
   ]);
 
   return (
-    <div className="category-filter grid">
+    <>
+      <div className="filter-panel grid">
+        <div className="col col-lg-12">
+          <div
+            className="filter-panel__title"
+            onClick={() => setExpanded(oldState => !oldState)}
+          >
+            <h2>Filter auswählen</h2>
+            <ArrowDown className={expanded ? 'rotate' : ''} />
+          </div>
+        </div>
+      </div>
       {/* 3 cols: 4 4 2 */}
-      <div className="col col-lg-4 col-lg-offset-1">
-        <Select
-          name="association"
-          headline="Bistum oder Landeskirche"
-          options={associations}
-          value={selectedAssociation === -1 ? '-1' : selectedAssociation.toString()}
-          onChangeSelect={v => selectAssociation(parseInt(v))}
-        />
-        <Select
-          name="community"
-          headline="Gemeinde"
-          options={communities}
-          value={selectedCommunity === -1 ? '-1' : selectedCommunity.toString()}
-          onChangeSelect={v => selectCommunity(parseInt(v))}
-        />
-        <NumberInput
-          defaultValue={location >= 0 ? location.toString() : ''}
-          id="plz"
-          label="Postleitzahl"
-          onBlur={e => setLocation(e.target.valueAsNumber)}
-        />
-      </div>
-      <div className="col col-lg-4">
-        <div className="filter__input">
-          <label htmlFor="date">Datum</label>
-          {defaultDates.map(({ id, name }, index) => (
-            <RadioInput
-              key={index}
-              name="date"
-              id={id}
-              label={name}
-              checked={selectedDate === id}
-              onChangeRadioInput={selectDate}
+      <AnimateHeight height={expanded ? 'auto' : 0}>
+        <div className="grid">
+          <div className="col col-lg-4 filter__input">
+            <Select
+              name="association"
+              headline="Bistum oder Landeskirche"
+              options={associations}
+              value={
+                selectedAssociation === -1 ? '-1' : selectedAssociation.toString()
+              }
+              onChangeSelect={v => selectAssociation(parseInt(v))}
             />
-          ))}
-        </div>
-      </div>
-      <div className="col col-lg-3">
-        <div className="filter__input">
-          <label htmlFor="activity">Aktivitäten</label>
-          {categories.map(({ name, checked }, index) => (
-            <Checkbox
-              key={index}
-              id={name}
-              name={name}
-              checked={checked ?? false}
-              onCheckboxChange={handleCategoriesChange}
-              showIcon={true}
+          </div>
+          <div className="col col-lg-4 filter__input">
+            <Select
+              name="community"
+              headline="Gemeinde"
+              options={communities}
+              value={selectedCommunity === -1 ? '-1' : selectedCommunity.toString()}
+              onChangeSelect={v => selectCommunity(parseInt(v))}
             />
-          ))}
+          </div>
+          <div className="col col-lg-4 filter__input">
+            <NumberInput
+              defaultValue={location >= 0 ? location.toString() : ''}
+              id="plz"
+              label="Postleitzahl"
+              onBlur={e => setLocation(e.target.valueAsNumber)}
+            />
+          </div>
+          <div className="col col-lg-3 filter__input">
+            <label htmlFor="date">Datum</label>
+            <div className="dates">
+              {defaultDates.map(({ id, name }, index) => (
+                <RadioInput
+                  key={index}
+                  name="date"
+                  id={id}
+                  label={name}
+                  checked={selectedDate === id}
+                  onChangeRadioInput={selectDate}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="col col-lg-9">
+            <div className="col col-lg-12 filter__input">
+              <label htmlFor="activity">Aktivitäten</label>
+            </div>
+            <div className="categories">
+              {categories.map(({ name, checked }, index) => (
+                <div className="col col-lg-4" key={index} id="activity">
+                  <Checkbox
+                    id={name}
+                    name={name}
+                    checked={checked ?? false}
+                    onCheckboxChange={handleCategoriesChange}
+                    showIcon={true}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </AnimateHeight>
+    </>
   );
 };

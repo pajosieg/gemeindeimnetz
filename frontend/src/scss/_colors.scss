@@ -1,12 +1,15 @@
 $green: #52b25e;
 $gray-dark: #494949;
 $gray-light: #afafaf;
+$gray-extra-light: #eee;
 $white: #ffffff;
+$red: #e6706a;
 
 :export {
-  green: #52b25e;
-  red: #e6706a;
-  gray_dark: #494949;
-  gray_light: #afafaf;
-  white: #ffffff;
+  green: $green;
+  gray_dark: $gray-dark;
+  gray_light: $gray-light;
+  gray-extra-light: $gray-extra-light;
+  white: $white;
+  red: $red;
 }

@@ -157,8 +157,8 @@ $browser-context: 16;
 @for $i from 1 through 12 {
   .col-lg-#{$i} {
     @media only screen and (min-width: 769px) {
-      flex-basis: calc(#{get-col-percent($i)} - 20px);
-      max-width: calc(#{get-col-percent($i)} - 20px);
+      flex-basis: calc(#{get-col-percent($i)} - 0px);
+      max-width: calc(#{get-col-percent($i)} - 0px);
       padding: 0 10px;
     }
   }
