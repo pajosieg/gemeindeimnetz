@@ -1,16 +1,42 @@
 import { Auth } from 'aws-amplify';
 import Authentication from '../stores/Authentication';
 import colors from '../scss/_colors.scss';
+import { CognitoIdToken, CognitoUserSession } from 'amazon-cognito-identity-js';
 
 export class AuthenticationService {
   public static getToken = async () => {
-    let token = '';
-    try {
-      token = `Bearer ${(await Auth.currentSession()).getIdToken().getJwtToken()}`;
-    } catch (e) {
-      console.error(e);
+    const idToken = await AuthenticationService.getTokenOrRefresh();
+    return `Bearer ${idToken}`;
+  };
+
+  private static getTokenOrRefresh = async () => {
+    const signInUserSession = await Auth.currentSession();
+    const activeUser = await Auth.currentAuthenticatedUser();
+    const idToken: CognitoIdToken = (await Auth.currentSession()).getIdToken();
+
+    if (
+      !idToken ||
+      (idToken as CognitoIdToken).getExpiration() * 1000 <= Date.now()
+    ) {
+      if (!signInUserSession.isValid()) {
+        const refreshToken = signInUserSession.getRefreshToken();
+        return new Promise<string>(resolve => {
+          activeUser.refreshSession(
+            refreshToken,
+            (err: Error, newSession: CognitoUserSession) => {
+              if (err) {
+                console.error(err);
+                resolve(Auth.signOut());
+              }
+              activeUser.setSignInUserSession(newSession);
+              resolve(newSession.getIdToken().getJwtToken());
+            }
+          );
+        });
+      }
+      return Promise.resolve(idToken.getJwtToken());
     }
-    return token;
+    return Promise.resolve((idToken as CognitoIdToken).getJwtToken());
   };
 
   public static getCognitoId = () =>
