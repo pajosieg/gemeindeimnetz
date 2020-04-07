@@ -50,21 +50,21 @@ export type FilterType = {
 };
 
 export interface IFilterPanelProps {
-  onFilterChange?: (filter: FilterType) => void;
+  onFilterChange: (filter: FilterType) => void;
 }
 
 export const FilterPanel = ({ onFilterChange }: IFilterPanelProps) => {
-  const [selectedDate, selectDate] = React.useState(defaultDates[0].id);
-  const [checkedCategories, setCheckedCategory] = React.useState<Category[]>([]);
-
-  const [association, setAssociation] = React.useState(-1);
-  const [associations, setAssociations] = React.useState<SelectOptionType[]>([]);
-  const [community, setCommunity] = React.useState(-1);
   const [communities, setCommunities] = React.useState<SelectOptionType[]>([]);
+  const [associations, setAssociations] = React.useState<SelectOptionType[]>([]);
+  const [categories, setCategories] = React.useState<Category[]>([]);
+
+  const [selectedAssociation, selectAssociation] = React.useState(-1);
+  const [selectedCommunity, selectCommunity] = React.useState(-1);
+  const [selectedDate, selectDate] = React.useState(defaultDates[0].id);
   const [location, setLocation] = React.useState(-1);
 
   const handleCategoriesChange = (identifier: string, checked: boolean) => {
-    setCheckedCategory(previousCheckedCategories =>
+    setCategories(previousCheckedCategories =>
       previousCheckedCategories.map(category =>
         category.name === identifier ? { ...category, checked } : { ...category }
       )
@@ -88,23 +88,25 @@ export const FilterPanel = ({ onFilterChange }: IFilterPanelProps) => {
   };
 
   const loadCommunities = React.useCallback(async () => {
-    setCommunity(-1);
+    selectCommunity(-1);
     setCommunities(
       [{ label: 'Alle anzeigen', value: '-1' }].concat(
-        (await getCommunitiesForAssociation(association)).map((c: Community) => ({
-          label: c.Name,
-          value: c.id.toString(),
-        }))
+        (await getCommunitiesForAssociation(selectedAssociation)).map(
+          (c: Community) => ({
+            label: c.Name,
+            value: c.id.toString(),
+          })
+        )
       )
     );
-  }, [association]);
+  }, [selectedAssociation]);
 
   React.useEffect(() => {
     loadCommunities();
-  }, [association, loadCommunities]);
+  }, [selectedAssociation, loadCommunities]);
 
   const loadCategories = async () => {
-    setCheckedCategory(
+    setCategories(
       (await getAllCategories()).map(category => ({
         name: category.name,
         checked: false,
@@ -114,22 +116,20 @@ export const FilterPanel = ({ onFilterChange }: IFilterPanelProps) => {
   };
 
   React.useEffect(() => {
-    onFilterChange &&
-      onFilterChange({
-        association,
-        categories: checkedCategories.filter(c => c.checked),
-        community,
-        location,
-        date: getDateMapping(selectedDate),
-      });
+    onFilterChange({
+      association: selectedAssociation,
+      categories: categories.filter(c => c.checked),
+      community: selectedCommunity,
+      location,
+      date: getDateMapping(selectedDate),
+    });
   }, [
     onFilterChange,
-    association,
-    checkedCategories,
+    selectedAssociation,
+    categories,
     selectedDate,
-    community,
+    selectedCommunity,
     location,
-    selectedDate,
   ]);
 
   return (
@@ -140,15 +140,15 @@ export const FilterPanel = ({ onFilterChange }: IFilterPanelProps) => {
           name="association"
           headline="Bistum oder Landeskirche"
           options={associations}
-          value={association === -1 ? '-1' : association.toString()}
-          onChangeSelect={v => setAssociation(parseInt(v))}
+          value={selectedAssociation === -1 ? '-1' : selectedAssociation.toString()}
+          onChangeSelect={v => selectAssociation(parseInt(v))}
         />
         <Select
           name="community"
           headline="Gemeinde"
           options={communities}
-          value={community === -1 ? '-1' : community.toString()}
-          onChangeSelect={v => setCommunity(parseInt(v))}
+          value={selectedCommunity === -1 ? '-1' : selectedCommunity.toString()}
+          onChangeSelect={v => selectCommunity(parseInt(v))}
         />
         <NumberInput
           defaultValue={location >= 0 ? location.toString() : ''}
@@ -175,7 +175,7 @@ export const FilterPanel = ({ onFilterChange }: IFilterPanelProps) => {
       <div className="col col-lg-3">
         <div className="filter__input">
           <label htmlFor="activity">Aktivitäten</label>
-          {checkedCategories.map(({ name, checked }, index) => (
+          {categories.map(({ name, checked }, index) => (
             <Checkbox
               key={index}
               id={name}

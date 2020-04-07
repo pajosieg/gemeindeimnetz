@@ -13,6 +13,7 @@ import { Button } from '../Button/Button';
 import { Card } from '../Card/Card';
 import { Modal } from '../Modal/Modal';
 import { EntryEditor } from './EntryEditor';
+import './EntryList.scss';
 
 type EntryListProps = {
   account: UserWithCommunity;
@@ -70,6 +71,10 @@ export const EntryList = ({ account, onFinish, loading }: EntryListProps) => {
     console.log(entries);
   }, [entries]);
 
+  const userAllowedToEdit = (entry: Entry) =>
+    entry.account?.CognitoId ===
+    (Authentication.getUser()?.user as any).attributes.sub;
+
   return (
     <div key="community">
       <div className="grid">
@@ -80,31 +85,31 @@ export const EntryList = ({ account, onFinish, loading }: EntryListProps) => {
           </Button>
         </div>
       </div>
-      <div className="grid">
-        <div className="col col-lg-6">
-          {entries.length ? (
-            <h3>Alle Aktivitäten der Gemeinde</h3>
-          ) : (
-            <h3>Noch keine Aktivitäten vorhanden</h3>
-          )}
+      <div className="entry-list__entries">
+        <div className="grid">
+          <div className="col col-lg-6">
+            {entries.length ? (
+              <h3>Alle Aktivitäten der Gemeinde</h3>
+            ) : (
+              <h3>Noch keine Aktivitäten vorhanden</h3>
+            )}
+          </div>
         </div>
-      </div>
-      <div className="grid">
-        {entries.map((entry, index) => {
-          const editable =
-            entry.account?.CognitoId ===
-            (Authentication.getUser()?.user as any).attributes.sub;
-          return (
-            <div className="col col-lg-6" key={index}>
-              <Card
-                {...entry}
-                editable={editable}
-                onEdit={() => editable && handleEntryEditClick(entry)}
-                onDelete={() => editable && handleEntryDelete(entry)}
-              />
-            </div>
-          );
-        })}
+        <div className="grid">
+          {entries.map((entry, index) => {
+            const editable = userAllowedToEdit(entry);
+            return (
+              <div className="col col-lg-6" key={index}>
+                <Card
+                  {...entry}
+                  editable={editable}
+                  onEdit={() => editable && handleEntryEditClick(entry)}
+                  onDelete={() => editable && handleEntryDelete(entry)}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
       {entryToEdit && (
         <Modal onClose={handleCancelEditing}>

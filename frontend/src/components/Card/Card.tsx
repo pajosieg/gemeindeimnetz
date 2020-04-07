@@ -1,11 +1,11 @@
 import * as React from 'react';
-import './Card.scss';
-import { Button } from '../Button/Button';
 import { Entry } from '../../models/Entry';
-import { ButtonDefault } from '../Button/ButtonDefault';
 import { ButtonDanger } from '../Button/ButtonDanger';
+import { ButtonDefault } from '../Button/ButtonDefault';
+import { ButtonLink } from '../Button/ButtonLink';
 import { Icon } from '../Icon/Icon';
-import { Modal } from '../Modal/Modal';
+import { ConfirmModal } from '../Modal/ConfirmModal';
+import './Card.scss';
 
 type EditableCardProps = {
   editable?: boolean;
@@ -54,9 +54,12 @@ export const Card = ({
         </div>
         <div className="card__description">{Description}</div>
         <div className="card__action">
-          <Button icon="arrow-left" link={Link}>
+          <ButtonLink
+            icon="arrow-left"
+            link={Link.startsWith('http') ? Link : 'http://' + Link}
+          >
             Ansehen
-          </Button>
+          </ButtonLink>
           {editable && (
             <div>
               <ButtonDefault onClick={onEdit}>Bearbeiten</ButtonDefault>
@@ -66,13 +69,11 @@ export const Card = ({
         </div>
       </div>
       {deleteModal && (
-        <Modal onClose={handleDeleteCancel}>
-          <p>Diese Aktivität wirklich löschen?</p>
-          <div>
-            <ButtonDefault onClick={handleDeleteCancel}>Abbrechen</ButtonDefault>
-            <ButtonDanger onClick={handleDeleteConfirmation}>Löschen</ButtonDanger>
-          </div>
-        </Modal>
+        <ConfirmModal
+          onCancel={handleDeleteCancel}
+          onConfirm={handleDeleteConfirmation}
+          text={'Diese Aktivität wirklich löschen?'}
+        />
       )}
     </>
   );

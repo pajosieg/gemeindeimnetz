@@ -46,6 +46,12 @@
   }
 }
 
+@mixin for-phone-and-tablet-only {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
 @mixin for-tablet-portrait-up {
   @media (min-width: 481px) {
     @content;
