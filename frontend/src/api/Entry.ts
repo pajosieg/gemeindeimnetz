@@ -1,4 +1,4 @@
-import { FilterType } from '../components/CategoryFilter/CategoryFilter';
+import { FilterType } from '../components/FilterPanel/FilterPanel';
 import { Entry } from '../models/Entry';
 import { AuthenticationService } from '../services/AuthenticationService';
 import {
@@ -43,11 +43,13 @@ const createQueryFromFilter = ({
   community,
   location,
   categories,
+  date,
 }: FilterType) => {
   const query = [];
   if (association >= 0) query.push('Community.Association.id=' + association);
   if (community >= 0) query.push('Community.id=' + community);
   if (location >= 0) query.push('Community.ZipCode=' + location);
+  date.forEach(dateEntry => query.push(`date=${dateEntry}`));
   categories.forEach(category => query.push(`category.id=${category.id}`));
 
   return query.join('&');

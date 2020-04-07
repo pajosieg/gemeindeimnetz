@@ -1,6 +1,7 @@
 import { Community } from './Community';
 import { Category } from './Category';
 import { User, UserWithCommunity } from './User';
+import { getISODate } from '../utilities/DateUtilities';
 
 export type Entry = {
   category: Category;
@@ -26,7 +27,7 @@ export const createEmptyEntry = (account: UserWithCommunity) => ({
   communityId: account.Community.id,
   account: account,
   accountId: account.id,
-  date: new Date().toISOString().substring(0, 10),
+  date: getISODate(new Date()),
   time: '12:00',
   Link: '',
   id: -1,

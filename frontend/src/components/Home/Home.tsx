@@ -2,7 +2,7 @@ import * as React from 'react';
 import { getFilteredEntries } from '../../api/Entry';
 import { Entry } from '../../models/Entry';
 import { Card } from '../Card/Card';
-import { CategoryFilter, FilterType } from '../CategoryFilter/CategoryFilter';
+import { FilterPanel, FilterType } from '../FilterPanel/FilterPanel';
 
 export const Home = () => {
   const [filteredEntries, setFilteredEntries] = React.useState<Entry[]>([]);
@@ -23,8 +23,11 @@ export const Home = () => {
 
   return (
     <div className="App">
-      <CategoryFilter onFilterChange={handleFilterChange} />
+      <FilterPanel onFilterChange={handleFilterChange} />
       <div className="grid">
+        <div className="col col-lg-12">
+          <h2>Gefundene Aktivitäten ({filteredEntries.length})</h2>
+        </div>
         {filteredEntries.map((entry, index) => (
           <div className="col col-lg-6" key={index}>
             <Card {...entry} />

@@ -9,28 +9,52 @@ import { Checkbox } from '../Checkbox/Checkbox';
 import { RadioInput } from '../RadioInput/RadioInput';
 import { Select, SelectOptionType } from '../Select/Select';
 import { NumberInput } from '../TextInput/NumberInput';
-import './CategoryFilter.scss';
+import './FilterPanel.scss';
+import { getISODate } from '../../utilities/DateUtilities';
 
 const defaultDates = [
+  { id: 'all', name: 'Alle' },
   { id: 'today', name: 'Heute' },
   { id: 'tomorrow', name: 'Morgen' },
-  { id: 'week', name: 'Nächste Woche' },
+  { id: 'week', name: 'Diese Woche' },
 ];
+
+const getDateMapping = (value: string) => {
+  const getISODay = (delay: number) => {
+    const day = new Date(Date.now() + delay * 24 * 60 * 60 * 1000);
+    return getISODate(day);
+  };
+
+  const todayISO = getISODay(0);
+  const tomorrowISO = getISODay(1);
+
+  switch (value) {
+    case 'today':
+      return [todayISO];
+    case 'tomorrow':
+      return [tomorrowISO];
+    case 'week':
+      return [...new Array(7 + 1)].map((_, i) => getISODay(i));
+
+    default:
+      return [];
+  }
+};
 
 export type FilterType = {
   association: number;
   community: number;
-  date: string;
+  date: string[];
   categories: Category[];
   location: number;
 };
 
-export interface ICategoryFilterProps {
+export interface IFilterPanelProps {
   onFilterChange?: (filter: FilterType) => void;
 }
 
-export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
-  const [checkedDate, setDate] = React.useState(defaultDates[0].id);
+export const FilterPanel = ({ onFilterChange }: IFilterPanelProps) => {
+  const [selectedDate, selectDate] = React.useState(defaultDates[0].id);
   const [checkedCategories, setCheckedCategory] = React.useState<Category[]>([]);
 
   const [association, setAssociation] = React.useState(-1);
@@ -94,29 +118,24 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
       onFilterChange({
         association,
         categories: checkedCategories.filter(c => c.checked),
-        date: checkedDate,
         community,
         location,
+        date: getDateMapping(selectedDate),
       });
   }, [
     onFilterChange,
     association,
     checkedCategories,
-    checkedDate,
+    selectedDate,
     community,
     location,
+    selectedDate,
   ]);
 
   return (
     <div className="category-filter grid">
       {/* 3 cols: 4 4 2 */}
       <div className="col col-lg-4 col-lg-offset-1">
-        <NumberInput
-          defaultValue={location >= 0 ? location.toString() : ''}
-          id="plz"
-          label="Postleitzahl oder Ort"
-          onBlur={e => setLocation(e.target.valueAsNumber)}
-        />
         <Select
           name="association"
           headline="Bistum oder Landeskirche"
@@ -131,6 +150,12 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
           value={community === -1 ? '-1' : community.toString()}
           onChangeSelect={v => setCommunity(parseInt(v))}
         />
+        <NumberInput
+          defaultValue={location >= 0 ? location.toString() : ''}
+          id="plz"
+          label="Postleitzahl"
+          onBlur={e => setLocation(e.target.valueAsNumber)}
+        />
       </div>
       <div className="col col-lg-4">
         <div className="filter__input">
@@ -141,8 +166,8 @@ export const CategoryFilter = ({ onFilterChange }: ICategoryFilterProps) => {
               name="date"
               id={id}
               label={name}
-              checked={checkedDate === id}
-              onChangeRadioInput={setDate}
+              checked={selectedDate === id}
+              onChangeRadioInput={selectDate}
             />
           ))}
         </div>

@@ -15,7 +15,7 @@ type RegisterToCommunityProps = {
   loading: (flag: boolean) => void;
 };
 
-export const RegisterToCommunity = ({
+export const CommunityRegistration = ({
   onRegistered,
   loading,
 }: RegisterToCommunityProps) => {
@@ -25,8 +25,6 @@ export const RegisterToCommunity = ({
   const [selectedCommunity, selectCommunity] = React.useState<number>(-1);
 
   const [registerNewCommunity, setRegisterNewCommunity] = React.useState(false);
-  const [communityName, setCommunityName] = React.useState('');
-  const [zipCode, setZipCode] = React.useState<number>(-1);
 
   React.useEffect(() => {
     loading(true);
@@ -53,15 +51,15 @@ export const RegisterToCommunity = ({
     }
   };
 
-  const handleCreateNewCommunity = async () => {
-    const newCommunity = createEmptyCommunity(
-      communityName,
-      zipCode,
-      selectedAssociation
-    );
+  const handleCreateNewCommunity = async (name: string, zipCode: number) => {
+    loading(true);
+    const newCommunity = createEmptyCommunity(name, zipCode, selectedAssociation);
     await createCommunity(newCommunity);
     onRegistered();
   };
+
+  const getAssociationName = () =>
+    associations.find(a => a.id === selectedAssociation)?.Name || '';
 
   return associations.length ? (
     <div className="grid">
@@ -108,43 +106,48 @@ export const RegisterToCommunity = ({
               checked={registerNewCommunity}
               name={
                 <span>
-                  Neue Gemeinde anlegen:{' '}
-                  <b>
-                    {associations.find(a => a.id === selectedAssociation)?.Name ||
-                      ''}
-                  </b>
+                  Neue Gemeinde anlegen: <b>{getAssociationName()}</b>
                 </span>
               }
               id="newCommunity"
               onCheckboxChange={(_, checked) => setRegisterNewCommunity(checked)}
             />
             {registerNewCommunity ? (
-              <div>
-                <TextInput
-                  disabled={!registerNewCommunity}
-                  label="Name"
-                  onTextChange={e => setCommunityName(e.target.value)}
-                  id="newCommunityName"
-                  value={communityName}
-                />
-                <NumberInput
-                  disabled={!registerNewCommunity}
-                  label="PLZ"
-                  onBlur={e => setZipCode(e.target.valueAsNumber)}
-                  id="newCommunityZipCode"
-                  defaultValue={zipCode >= 0 ? zipCode.toString() : ''}
-                />
-                <Button
-                  disabled={!registerNewCommunity}
-                  onClick={handleCreateNewCommunity}
-                >
-                  Neue Gemeinde anlegen
-                </Button>
-              </div>
+              <CommunityCreator onCreate={handleCreateNewCommunity} />
             ) : null}
           </>
         )}
       </div>
     </div>
   ) : null;
+};
+
+type CommunityCreatorProps = {
+  onCreate: (name: string, zipCode: number) => void;
+};
+const CommunityCreator = ({ onCreate }: CommunityCreatorProps) => {
+  const [communityName, setCommunityName] = React.useState('');
+  const [zipCode, setZipCode] = React.useState(-1);
+
+  const handleCreateNewCommunity = () => {
+    onCreate(communityName, zipCode);
+  };
+
+  return (
+    <div>
+      <TextInput
+        label="Name"
+        onTextChange={e => setCommunityName(e.target.value)}
+        id="newCommunityName"
+        value={communityName}
+      />
+      <NumberInput
+        label="PLZ"
+        onBlur={e => setZipCode(e.target.valueAsNumber)}
+        id="newCommunityZipCode"
+        defaultValue={zipCode >= 0 ? zipCode.toString() : ''}
+      />
+      <Button onClick={handleCreateNewCommunity}>Neue Gemeinde anlegen</Button>
+    </div>
+  );
 };

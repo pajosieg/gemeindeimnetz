@@ -5,7 +5,7 @@ import { Community } from '../../models/Community';
 import { User, UserWithCommunity } from '../../models/User';
 import { AuthenticationService } from '../../services/AuthenticationService';
 import { EntryList } from './EntryList';
-import { RegisterToCommunity } from './RegisterToCommunity';
+import { CommunityRegistration } from './CommunityRegistration';
 import { LoadingAnimation } from '../Loader/LoadingAnimation';
 
 interface ICommunityOverviewProps {
@@ -77,7 +77,7 @@ export const CommunityOverview = withAuthenticator(
             </div>
           )
         ) : noCommunityRegistered ? (
-          <RegisterToCommunity
+          <CommunityRegistration
             onRegistered={handleViewRefresh}
             loading={handleLoading}
           />
