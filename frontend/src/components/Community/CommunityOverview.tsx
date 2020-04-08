@@ -52,10 +52,10 @@ export const CommunityOverview = withAuthenticator(
       community && <h4>Gemeinde {community.Name}</h4>;
 
     return (
-      <>
+      <div className="community">
         {account ? (
           account.Community ? (
-            <div key="community">
+            <>
               <div className="grid">
                 <div className="col col-lg-6">
                   {communityInfos(account.Community)}
@@ -67,7 +67,7 @@ export const CommunityOverview = withAuthenticator(
                 onFinish={handleViewRefresh}
                 loading={handleLoading}
               />
-            </div>
+            </>
           ) : (
             <div>
               <h3>
@@ -83,7 +83,7 @@ export const CommunityOverview = withAuthenticator(
           />
         ) : null}
         {loadingAnimation && <LoadingAnimation />}
-      </>
+      </div>
     );
   },
   false,

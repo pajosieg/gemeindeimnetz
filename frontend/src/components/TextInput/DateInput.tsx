@@ -7,6 +7,7 @@ interface IDateInputProps {
   label: string;
   date: string;
   time: string;
+  className?: string;
   [key: string]: any;
 }
 
@@ -16,10 +17,12 @@ export const DateInput: React.FunctionComponent<IDateInputProps> = ({
   label,
   date,
   time,
+  className = '',
   ...restProps
 }) => {
+  const classList = ['date-input', className].join(' ').trim();
   return (
-    <div className="date-input">
+    <div className={classList}>
       <label htmlFor={restProps.id ?? ''}>{label}</label>
       <input
         type="date"

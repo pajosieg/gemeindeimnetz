@@ -21,8 +21,8 @@ export type Entry = {
 export const createEmptyEntry = (account: UserWithCommunity) => ({
   Title: '',
   Description: '',
-  category: { name: '', id: -1 },
-  categoryId: -1,
+  category: { name: 'Sonstiges', id: 6 },
+  categoryId: 6,
   Community: account.Community,
   communityId: account.Community.id,
   account: account,

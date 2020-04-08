@@ -79,7 +79,11 @@ export const EntryList = ({ account, onFinish, loading }: EntryListProps) => {
     <div key="community">
       <div className="grid">
         <div className="col col-lg-3">
-          <Button icon="plus" onClick={() => openEntryEditor()}>
+          <Button
+            className="margin-top-1_5em"
+            icon="plus"
+            onClick={() => openEntryEditor()}
+          >
             <IconPlus />
             Neuer Eintrag
           </Button>

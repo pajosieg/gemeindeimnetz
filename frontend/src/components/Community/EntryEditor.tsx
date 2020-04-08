@@ -17,17 +17,19 @@ type EntryEditorProps = {
 };
 
 export const EntryEditor = ({ entry, onSave, onCancel }: EntryEditorProps) => {
+  console.log(entry);
   const [date, setDate] = React.useState(entry.date);
   const [time, setTime] = React.useState(entry.time);
   const [title, setTitle] = React.useState(entry.Title);
   const [description, setDescription] = React.useState(entry.Description);
-  const [selectedCategory, selectCategory] = React.useState(entry.categoryId);
+  const [selectedCategory, selectCategory] = React.useState(entry.categoryId || -1);
   const [link, setLink] = React.useState(entry.Link);
   const [categories, setCategories] = React.useState<Category[]>([]);
 
   const handleDateChange = React.useCallback((date: string) => {
     setDate(date);
   }, []);
+
   const handleTimeChange = React.useCallback((time: string) => {
     setTime(time);
   }, []);
@@ -50,46 +52,54 @@ export const EntryEditor = ({ entry, onSave, onCancel }: EntryEditorProps) => {
 
   return (
     <>
-      {entry.id === -1 ? <h2>Aktivität anlegen</h2> : <h2>Aktivität bearbeiten</h2>}
-
-      <TextInput
-        label="Titel"
-        onTextChange={e => setTitle(e.target.value)}
-        id="title"
-        value={title}
-      />
-      <TextInput
-        label="Link"
-        onTextChange={e => setLink(e.target.value)}
-        id="link"
-        placeholder="https://www.youtube.com/xy1a23bc"
-        value={link}
-      />
-      <TextArea
-        label="Beschreibung"
-        onTextChange={e => setDescription(e.target.value)}
-        id="title"
-        value={description}
-      />
-      <Select
-        name="category"
-        headline="Kategorie"
-        options={categories.map(c => ({
-          value: c.id.toString() ?? '-1',
-          label: c.name,
-        }))}
-        value={selectedCategory.toString()}
-        onChangeSelect={value => selectCategory(parseInt(value))}
-      />
-      <DateInput
-        label="Datum"
-        onDateChange={handleDateChange}
-        onTimeChange={handleTimeChange}
-        id="date"
-        date={date}
-        time={time}
-      />
-      <div className="form-footer">
+      <h2 className="margin-top-0">
+        {entry.id === -1 ? 'Aktivität anlegen' : 'Aktivität bearbeiten'}
+      </h2>
+      <div className="margin-top-1_5em">
+        <TextInput
+          className="margin-top-1em"
+          label="Titel"
+          onTextChange={e => setTitle(e.target.value)}
+          id="title"
+          value={title}
+        />
+        <TextInput
+          className="margin-top-1em"
+          label="Link"
+          onTextChange={e => setLink(e.target.value)}
+          id="link"
+          placeholder="https://www.youtube.com/xy1a23bc"
+          value={link}
+        />
+        <TextArea
+          className="margin-top-1em"
+          label="Beschreibung"
+          onTextChange={e => setDescription(e.target.value)}
+          id="title"
+          value={description}
+        />
+        <Select
+          className="margin-top-1em"
+          name="category"
+          headline="Kategorie"
+          options={categories.map(c => ({
+            value: c.id.toString() ?? '-1',
+            label: c.name,
+          }))}
+          value={selectedCategory < 0 ? '' : selectedCategory.toString()}
+          onChangeSelect={value => selectCategory(parseInt(value))}
+        />
+        <DateInput
+          className="margin-top-1em"
+          label="Datum"
+          onDateChange={handleDateChange}
+          onTimeChange={handleTimeChange}
+          id="date"
+          date={date}
+          time={time}
+        />
+      </div>
+      <div className="form-footer margin-top-1_5em">
         <ButtonDefault onClick={onCancel}>Abbrechen</ButtonDefault>
         <Button onClick={handleCreateEntry}>Speichern</Button>
       </div>

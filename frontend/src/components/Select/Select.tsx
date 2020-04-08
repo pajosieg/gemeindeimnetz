@@ -13,6 +13,7 @@ interface CbProps {
   value: string;
   onChangeSelect: (value: string) => void;
   disabled?: boolean;
+  className?: string;
 }
 
 export const Select = (props: CbProps) => {
@@ -37,8 +38,12 @@ export const Select = (props: CbProps) => {
     );
   });
 
+  const classList = ['select-wrapper', props.className ? props.className : '']
+    .join(' ')
+    .trim();
+
   return (
-    <div className="select-wrapper">
+    <div className={classList}>
       <label htmlFor={props.name}>{props.headline}</label>
       <select
         id={props.name}

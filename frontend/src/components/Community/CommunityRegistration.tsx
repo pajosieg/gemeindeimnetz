@@ -66,8 +66,9 @@ export const CommunityRegistration = ({
       <div className="col col-lg-12">
         <h1>Wähle deine Gemeinde aus</h1>
       </div>
-      <div className="col col-lg-6 col-lg-offset-3">
+      <div className="col col-lg-6 col-lg-offset-3 margin-top-1_5em">
         <Select
+          className="margin-top-1em"
           name="association"
           headline="Bistum oder Landeskirche auswählen"
           options={associations.map(({ Name, id }) => ({
@@ -82,6 +83,7 @@ export const CommunityRegistration = ({
         />
 
         <Select
+          className="margin-top-1em"
           name="association"
           headline="Gemeinde"
           options={communities.map(({ Name, id }) => ({
@@ -95,6 +97,7 @@ export const CommunityRegistration = ({
           disabled={registerNewCommunity}
         />
         <Button
+          className="margin-top-1em"
           onClick={registerUserToCommunity}
           disabled={selectedCommunity < 0 || registerNewCommunity}
         >
