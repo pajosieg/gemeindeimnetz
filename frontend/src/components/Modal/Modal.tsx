@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ReactComponent as IconCross } from '../../assets/icons/cross.svg';
-import './Modal.scss';
+import './modal.scss';
 
 interface ModalProps {
   onClose?: (close: boolean) => void;
