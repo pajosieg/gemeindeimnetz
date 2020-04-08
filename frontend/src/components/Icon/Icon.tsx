@@ -37,5 +37,5 @@ export const Icon = ({ name }: IconProps) => {
     }
   };
 
-  return <>{iconSelect(name)}</>;
+  return iconSelect(name);
 };
