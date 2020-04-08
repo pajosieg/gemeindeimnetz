@@ -88,3 +88,9 @@ button {
 .margin-top-0 {
   margin-top: 0;
 }
+
+.intro {
+  margin-bottom: 2em;
+  text-align: center;
+  @include line-height(28px);
+}

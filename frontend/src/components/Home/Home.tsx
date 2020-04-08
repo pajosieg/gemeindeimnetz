@@ -24,6 +24,20 @@ export const Home = () => {
 
   return (
     <div className="App">
+      <div className="grid">
+        <div className="col col-lg-12">
+          <div className="intro margin-top-2em">
+            Finde das <strong>Online-Angebot Deiner Gemeinde</strong> oder stöbere in
+            den Angeboten anderer Gemeinden.
+            <br />
+            <small>
+              Filtere dabei nach <strong>Kategorien</strong> die Dich interessieren,
+              nach <strong>Datum</strong> oder nach bestimmten{' '}
+              <strong>Orten und Gemeinden</strong>.
+            </small>
+          </div>
+        </div>
+      </div>
       <FilterPanel onFilterChange={handleFilterChange} />
       <div className="grid">
         <div className="col col-lg-12">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, NavLink, withRouter } from 'react-router-dom';
 import Authentication, { AuthenticationState } from '../../stores/Authentication';
 import './Header.scss';
 import { Auth } from 'aws-amplify';
@@ -36,11 +36,26 @@ export const Header = withRouter(({ history }) => {
       <div className="header__login">
         {authenticated && user ? (
           <>
-            <Link to={'/community'} className="username">
-              {user.username}
-            </Link>{' '}
+            <NavLink
+              to={'/'}
+              activeClassName={'is-active'}
+              exact={true}
+              title={'Startseite'}
+              className="nav__link"
+            >
+              Startseite
+            </NavLink>{' '}
+            |{' '}
+            <NavLink
+              to={'/community'}
+              activeClassName={'is-active'}
+              title={'Meine Gemeinde'}
+              className="nav__link"
+            >
+              Meine Gemeinde
+            </NavLink>{' '}
             |
-            <button onClick={logout}>
+            <button onClick={logout} title={'Logout'}>
               Logout
               <LogoutIcon />
             </button>
