@@ -5,6 +5,7 @@ import './Header.scss';
 import { Auth } from 'aws-amplify';
 import { ReactComponent as LogoutIcon } from '../../assets/icons/logout.svg';
 import { ReactComponent as LoginIcon } from '../../assets/icons/login.svg';
+import { ReactComponent as Logo } from '../../assets/svg/logo.svg';
 
 export const Header = withRouter(({ history }) => {
   const [authenticated, setAuthenticated] = useState(false);
@@ -27,7 +28,10 @@ export const Header = withRouter(({ history }) => {
   return (
     <div className="header">
       <div className="header__slogan">
-        <Link to={'/'}>Gemeinde im Netz</Link>
+        <Link to={'/'}>
+          <Logo />
+          Gemeinde im Netz
+        </Link>
       </div>
       <div className="header__login">
         {authenticated && user ? (

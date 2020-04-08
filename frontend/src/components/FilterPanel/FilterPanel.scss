@@ -24,21 +24,27 @@
 .filter-panel__title {
   cursor: pointer;
   padding: 0.5em;
-  background-color: $gray-extra-light;
-  width: 100%;
+  //background-color: $gray-extra-light;
+  //width: 100%;
   margin-top: 0.5em;
   display: flex;
   align-items: center;
   justify-content: space-between;
   opacity: 0.7;
+  background: none;
+  outline: none;
+  border: 2px solid $green;
+  align-self: flex-start;
+  @include font-size(14px);
+  color: $gray-dark;
+  font-family: 'Poppins', sans-serif;
 
   &:hover {
     opacity: 1;
   }
 
-  h2 {
-    margin: 0;
-    font-size: 100%;
+  span {
+    margin: 0 10px;
   }
 
   svg {

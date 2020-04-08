@@ -11,6 +11,7 @@ import { Select, SelectOptionType } from '../Select/Select';
 import { NumberInput } from '../TextInput/NumberInput';
 import { getISODate } from '../../utilities/DateUtilities';
 import { ReactComponent as ArrowDown } from '../../assets/icons/arrow.svg';
+import { ReactComponent as FilterIcon } from '../../assets/icons/filter.svg';
 import AnimateHeight from 'react-animate-height';
 import './FilterPanel.scss';
 
@@ -139,13 +140,14 @@ export const FilterPanel = ({ onFilterChange }: IFilterPanelProps) => {
     <>
       <div className="filter-panel grid">
         <div className="col col-lg-12">
-          <div
+          <button
             className="filter-panel__title"
             onClick={() => setExpanded(oldState => !oldState)}
           >
-            <h2>Filter auswählen</h2>
+            <FilterIcon />
+            <span>Filter auswählen</span>
             <ArrowDown className={expanded ? 'rotate' : ''} />
-          </div>
+          </button>
         </div>
       </div>
       {/* 3 cols: 4 4 2 */}

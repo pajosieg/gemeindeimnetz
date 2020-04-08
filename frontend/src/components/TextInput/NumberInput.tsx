@@ -1,5 +1,6 @@
 import * as React from 'react';
 import './TextInput.scss';
+import { ReactComponent as ResetIcon } from '../../assets/icons/reset.svg';
 
 interface INumberInputProps {
   onBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
@@ -27,7 +28,7 @@ export const NumberInput: React.FunctionComponent<INumberInputProps> = ({
             >);
           }}
         >
-          <b>X</b>
+          <ResetIcon />
         </button>
       </form>
     </div>

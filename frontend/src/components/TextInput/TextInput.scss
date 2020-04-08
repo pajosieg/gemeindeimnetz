@@ -35,9 +35,9 @@
     bottom: 9px;
     border-radius: 50%;
     height: 22px;
-    width: 22px;
-    background-color: $green;
-    color: $white;
+    //width: 22px;
+    color: $green;
+    padding: 0;
     display: flex;
     justify-content: center;
     border-color: transparent;
@@ -45,6 +45,11 @@
     &:focus,
     &:active {
       outline: none;
+    }
+
+    svg {
+      width: 15px;
+      height: 15px;
     }
   }
 }
