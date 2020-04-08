@@ -35,12 +35,15 @@ export const CommunityRegistration = ({
   }, [loading]);
 
   React.useEffect(() => {
-    loading(true);
-    selectCommunity(-1);
-    getCommunitiesForAssociation(selectedAssociation || -1).then(communities => {
-      setCommunities(communities);
-      loading(false);
-    });
+    if (selectedAssociation >= 0) {
+      loading(true);
+      console.log('load comms');
+      selectCommunity(-1);
+      getCommunitiesForAssociation(selectedAssociation || -1).then(communities => {
+        setCommunities(communities);
+        loading(false);
+      });
+    }
   }, [selectedAssociation, loading]);
 
   const registerUserToCommunity = async () => {
@@ -115,14 +118,18 @@ export const CommunityRegistration = ({
               id="newCommunity"
               onCheckboxChange={(_, checked) => setRegisterNewCommunity(checked)}
             />
-            {registerNewCommunity ? (
+            {registerNewCommunity && (
               <CommunityCreator onCreate={handleCreateNewCommunity} />
-            ) : null}
+            )}
           </>
         )}
       </div>
     </div>
-  ) : null;
+  ) : (
+    <div className="grid">
+      <h2>noch keine Bistümer/Landeskirchen vorhanden</h2>
+    </div>
+  );
 };
 
 type CommunityCreatorProps = {

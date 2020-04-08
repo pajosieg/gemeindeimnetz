@@ -2,6 +2,7 @@ service: gemeinde-im-netz
 
 provider:
   name: aws
+  stage: ${env:STAGE}
   runtime: nodejs10.x
 
 custom:
@@ -30,7 +31,7 @@ custom:
       - AWS_REGION
 
 functions:
-  user:
+  getUser:
     handler: user.getUser
     events:
       - http:
@@ -113,6 +114,7 @@ functions:
           cors: true
           origins:
             - "*"
+    env: ${self:custom.env}
 
 resources:
   Resources:
