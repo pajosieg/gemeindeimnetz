@@ -36,7 +36,7 @@ export const Modal: React.FC<ModalProps> = ({
               <IconCross />
             </button>
           )}
-          {children}
+          <div className="body">{children}</div>
         </div>
       )}
     </div>

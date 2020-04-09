@@ -4,13 +4,16 @@
   background-color: $green;
   min-height: 50px;
   width: 100%;
-  color: $white;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
   box-sizing: border-box;
+
+  * {
+    color: $white;
+  }
 
   @include for-phone-and-tablet-only {
     padding-bottom: 10px;
@@ -47,29 +50,34 @@
     @include for-large-tablet-portrait-up {
       position: absolute;
     }
+  }
+}
 
-    a,
-    button {
-      display: flex;
-      align-items: center;
-      color: $white;
-      font-weight: 300;
-      text-decoration: none;
+.header__login,
+.footer {
+  a,
+  button {
+    display: flex;
+    align-items: center;
+    color: $white;
+    font-weight: 300;
+    text-decoration: none;
 
-      svg {
-        margin: 0 5px;
-      }
-    }
-
-    a.nav__link {
-      display: inline-block;
-
-      &.is-active {
-        border-bottom: 2px solid $white;
-      }
+    svg {
+      margin: 0 5px;
     }
   }
 
+  a.nav__link {
+    display: inline-block;
+
+    &.is-active {
+      border-bottom: 2px solid $white;
+    }
+  }
+}
+
+.header {
   button {
     display: inline-flex;
     background: none;

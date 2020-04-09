@@ -1,0 +1,18 @@
+@import '../../scss/global-styles';
+
+.impressum {
+  padding: 0 30px 0 10px;
+
+  a {
+    display: flex;
+    align-items: center;
+    color: $gray-dark;
+    font-weight: 300;
+    text-decoration: none;
+  }
+
+  a:hover,
+  a:focus {
+    text-decoration: underline;
+  }
+}

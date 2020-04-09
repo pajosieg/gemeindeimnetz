@@ -1,3 +1,16 @@
+const apiUrls = {
+  prod: 'https://vpf31jl656.execute-api.eu-central-1.amazonaws.com/prod',
+  dev: 'https://ly1bd4rpe3.execute-api.eu-central-1.amazonaws.com/dev',
+};
+
+const getApiUrl = () => {
+  const hostName = window.location.hostname;
+  if (hostName === 'www.gemeinde-im-netz.de' || hostName === 'gemeinde-im-netz.de') {
+    return apiUrls.prod;
+  }
+  return apiUrls.dev;
+};
+
 export default {
   Auth: {
     // REQUIRED - Amazon Cognito Region
@@ -22,7 +35,7 @@ export default {
     endpoints: [
       {
         name: 'gemeinde-im-netz-api',
-        endpoint: window.env.apiUrl,
+        endpoint: getApiUrl(),
       },
     ],
   },

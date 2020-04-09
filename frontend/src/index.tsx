@@ -25,12 +25,6 @@ const authenticationListener = (data: any) => {
 Auth.currentAuthenticatedUser()
   .then(user => {
     Authentication.authenticate(user);
-    setInterval(async () => {
-      Auth.currentSession().then(session => {
-        const expiration = session.getIdToken().getExpiration();
-        console.log('expires in ms:', (expiration * 1000 - Date.now()) / 1000 + 's');
-      });
-    }, 5000);
   })
   .catch(() => console.log('no user is logged in'));
 
