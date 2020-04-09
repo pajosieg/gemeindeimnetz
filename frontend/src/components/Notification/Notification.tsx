@@ -1,18 +1,20 @@
 import * as React from 'react';
 import { ReactComponent as ResetIcon } from '../../assets/icons/reset.svg';
 import './notification.scss';
-import { useState } from 'react';
 
 export const Notification: React.FC = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isClosed, setIsClosed] = React.useState(
+    localStorage.getItem('notificationWasShown') === 'true' || false
+  );
 
   const handleClose = () => {
-    setIsOpen(false);
+    setIsClosed(true);
+    localStorage.setItem('notificationWasShown', 'true');
   };
 
   return (
     <>
-      {isOpen ? (
+      {!isClosed ? (
         <div className="notification">
           <button className="notification__close" onClick={handleClose}>
             <ResetIcon />
