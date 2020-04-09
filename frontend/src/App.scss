@@ -14,6 +14,7 @@ body {
   margin: 0 auto;
   padding: 0 20px;
   padding-bottom: 42px;
+  flex-grow: 1;
 }
 
 .all-bistums {
@@ -94,4 +95,11 @@ button {
   margin-bottom: 2em;
   text-align: center;
   @include line-height(28px);
+}
+
+.app-body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
 }
