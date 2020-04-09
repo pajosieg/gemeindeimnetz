@@ -4,6 +4,8 @@ import { Entry } from '../../models/Entry';
 import { Card } from '../Card/Card';
 import { FilterPanel, FilterType } from '../FilterPanel/FilterPanel';
 import './Home.scss';
+import { Notification } from '../Notification/Notification';
+import { Link } from 'react-router-dom';
 
 export const Home = () => {
   const [filteredEntries, setFilteredEntries] = React.useState<Entry[]>([]);
@@ -24,6 +26,15 @@ export const Home = () => {
 
   return (
     <div className="App">
+      <Notification>
+        <p>
+          Sie sind in Ihrer Gemeinde aktiv und möchten Ihre Inhalte hier
+          präsentieren? Registrieren Sie sich und Ihre Gemeinde.
+        </p>
+        <Link to={'/community'} className="btn--inverted">
+          Registrieren
+        </Link>
+      </Notification>
       <div className="grid">
         <div className="col col-lg-12">
           <div className="intro margin-top-2em">

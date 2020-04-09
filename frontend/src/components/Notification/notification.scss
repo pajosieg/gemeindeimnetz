@@ -1,0 +1,44 @@
+@import '../../scss/global-styles';
+
+.notification {
+  background-color: $green;
+  box-shadow: 0 1px 8px -1px rgba(0, 0, 0, 0.5);
+  position: fixed;
+  right: 10px;
+  top: 60px;
+  padding: 30px 10px 10px;
+  border-radius: 3px;
+  color: $white;
+  max-width: 400px;
+  animation-name: notificationIn;
+  animation-duration: 0.4s;
+  animation-direction: normal;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  animation-delay: 4s;
+  transform: translateY(-200%);
+
+  &.is-closed {
+    display: none;
+  }
+}
+
+@keyframes notificationIn {
+  0% {
+    transform: translateY(-200%);
+  }
+
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.notification__close {
+  color: $white;
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  outline: 0;
+}
