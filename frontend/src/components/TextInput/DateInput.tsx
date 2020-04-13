@@ -4,17 +4,19 @@ import './TextInput.scss';
 interface IDateInputProps {
   onDateChange: (d: string) => void;
   onTimeChange: (t: string) => void;
-  label: string;
+  labelDate: string;
+  labelTime: string;
   date: string;
   time: string;
   className?: string;
   [key: string]: any;
 }
 
-export const DateInput: React.FunctionComponent<IDateInputProps> = ({
+export const DateInput: React.FC<IDateInputProps> = ({
   onDateChange,
   onTimeChange,
-  label,
+  labelDate,
+  labelTime,
   date,
   time,
   className = '',
@@ -23,7 +25,8 @@ export const DateInput: React.FunctionComponent<IDateInputProps> = ({
   const classList = ['date-input', className].join(' ').trim();
   return (
     <div className={classList}>
-      <label htmlFor={restProps.id ?? ''}>{label}</label>
+      <label htmlFor={restProps.id ?? ''}>{labelDate}</label>
+      <label htmlFor={restProps.id ?? ''}>{labelTime}</label>
       <input
         type="date"
         onChange={e => {

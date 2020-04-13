@@ -2,7 +2,8 @@
 @import '../../scss/colors';
 
 .text-input,
-.date-input {
+.date-input,
+.date-time-input {
   position: relative;
 
   label {
@@ -55,6 +56,15 @@
 }
 
 .date-input {
+  label {
+    display: inline-block;
+    &:nth-child(1) {
+      width: 66%;
+    }
+    &:nth-child(2) {
+      width: 34%;
+    }
+  }
   input {
     display: inline-block;
   }

@@ -7,6 +7,7 @@ interface RIProps {
   label: string;
   checked: boolean;
   onChangeRadioInput: (id: string, checked: boolean) => void;
+  className?: string;
 }
 
 export const RadioInput = (props: RIProps) => {
@@ -14,8 +15,10 @@ export const RadioInput = (props: RIProps) => {
     props.onChangeRadioInput(props.id, event.target.checked);
   };
 
+  const classList = ['input__radio', props.className || ''].join(' ').trim();
+
   return (
-    <div className="input__radio">
+    <div className={classList}>
       <input
         type="radio"
         name={props.name}

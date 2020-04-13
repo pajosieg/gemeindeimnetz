@@ -17,7 +17,6 @@ type EntryEditorProps = {
 };
 
 export const EntryEditor = ({ entry, onSave, onCancel }: EntryEditorProps) => {
-  console.log(entry);
   const [date, setDate] = React.useState(entry.date);
   const [time, setTime] = React.useState(entry.time);
   const [title, setTitle] = React.useState(entry.Title);
@@ -91,7 +90,8 @@ export const EntryEditor = ({ entry, onSave, onCancel }: EntryEditorProps) => {
         />
         <DateInput
           className="margin-top-1em"
-          label="Datum"
+          labelDate="Datum"
+          labelTime="Uhrzeit"
           onDateChange={handleDateChange}
           onTimeChange={handleTimeChange}
           id="date"

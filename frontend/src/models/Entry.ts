@@ -32,3 +32,11 @@ export const createEmptyEntry = (account: UserWithCommunity) => ({
   Link: '',
   id: -1,
 });
+
+export const sortEntriesByDateAndTime = (e1: Entry, e2: Entry) => {
+  const compareDate = e1.date.localeCompare(e2.date);
+  if (compareDate === 0) {
+    return e1.time.localeCompare(e2.time);
+  }
+  return compareDate;
+};

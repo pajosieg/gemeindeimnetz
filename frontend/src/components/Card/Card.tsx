@@ -11,6 +11,7 @@ type EditableCardProps = {
   editable?: boolean;
   onEdit?: () => void;
   onDelete?: () => void;
+  onCopy?: () => void;
 };
 
 export const Card = ({
@@ -24,6 +25,7 @@ export const Card = ({
   editable,
   onEdit,
   onDelete,
+  onCopy,
 }: Entry & EditableCardProps) => {
   const [deleteModal, setDeleteModal] = React.useState(false);
 
@@ -63,6 +65,7 @@ export const Card = ({
           {editable && (
             <div>
               <ButtonDefault onClick={onEdit}>Bearbeiten</ButtonDefault>
+              <ButtonDefault onClick={onCopy}>Kopieren</ButtonDefault>
               <ButtonDanger onClick={handleDeleteIntention}>Löschen</ButtonDanger>
             </div>
           )}

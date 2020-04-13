@@ -6,12 +6,17 @@ import {
   updateEntry,
 } from '../../api/Entry';
 import { ReactComponent as IconPlus } from '../../assets/icons/plus.svg';
-import { createEmptyEntry, Entry } from '../../models/Entry';
+import {
+  createEmptyEntry,
+  Entry,
+  sortEntriesByDateAndTime,
+} from '../../models/Entry';
 import { UserWithCommunity } from '../../models/User';
 import Authentication from '../../stores/Authentication';
 import { Button } from '../Button/Button';
 import { Card } from '../Card/Card';
 import { Modal } from '../Modal/Modal';
+import EntryCopier from './EntrieCopier';
 import { EntryEditor } from './EntryEditor';
 import './EntryList.scss';
 
@@ -24,12 +29,13 @@ type EntryListProps = {
 export const EntryList = ({ account, onFinish, loading }: EntryListProps) => {
   const [entries, setEntries] = React.useState<Entry[]>([]);
   const [entryToEdit, setEntryToEdit] = React.useState<Entry | null>(null);
+  const [entryToCopy, setEntryToCopy] = React.useState<Entry | null>(null);
 
   React.useEffect(() => {
     if (account) {
       loading(true);
       getEntriesForCommunity(account.Community?.id || -1).then(entries => {
-        setEntries(entries);
+        setEntries(entries.sort(sortEntriesByDateAndTime));
         loading(false);
       });
     }
@@ -67,9 +73,26 @@ export const EntryList = ({ account, onFinish, loading }: EntryListProps) => {
     onFinish();
   };
 
-  React.useEffect(() => {
+  const handleEntryCopyClick = async (entry: Entry) => {
+    setEntryToCopy(entry);
+  };
+
+  const handleCopyEntry = async (entries: Entry[]) => {
+    setEntryToCopy(null);
     console.log(entries);
-  }, [entries]);
+    loading(true);
+
+    await entries.reduce(async (promise, entry, index) => {
+      return promise.then(() => {
+        console.log('creating index:', index);
+        return createEntry(entry).then(() => {
+          console.log('finished', index);
+          return Promise.resolve();
+        });
+      });
+    }, Promise.resolve());
+    onFinish();
+  };
 
   const userAllowedToEdit = (entry: Entry) =>
     entry.account?.CognitoId ===
@@ -109,6 +132,7 @@ export const EntryList = ({ account, onFinish, loading }: EntryListProps) => {
                   editable={editable}
                   onEdit={() => editable && handleEntryEditClick(entry)}
                   onDelete={() => editable && handleEntryDelete(entry)}
+                  onCopy={() => editable && handleEntryCopyClick(entry)}
                 />
               </div>
             );
@@ -124,6 +148,7 @@ export const EntryList = ({ account, onFinish, loading }: EntryListProps) => {
           />
         </Modal>
       )}
+      {entryToCopy && <EntryCopier entry={entryToCopy} onClose={handleCopyEntry} />}
     </div>
   );
 };
