@@ -26,10 +26,9 @@ jobs:
       uses: serverless/github-action@v1.53.0
 
     - run: npm i -g serverless
-    - name: Deploy api and lambda funcitons
-      run: echo Hello, world!
     - run: cd api
     - run: npm i
+      working-directory: api
     - run: env NODE_ENV=development serverless deploy --debug --region eu-central-1 --env development
       env:
         STRAPI_BASE_URL: https://cmd-dev.gemeinde-im-netz.de
@@ -38,14 +37,14 @@ jobs:
         STAGE: dev
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    - run: cd ..
-      
+      working-directory: api
 
     # Runs a set of commands using the runners shell
     - name: Build and deploy frontend
-      run: cd frontend
-    - run: npm i
+      run: npm i
+      working-directory: frontend
     - run: serverless --debug --region eu-central-1 --bucketName gemeinde-im-netz-frontend-dev --env development
+      working-directory: frontend
       env:
         REACT_APP_USER_POOL_CLIENT_ID: ${{ secrets.REACT_APP_USER_POOL_CLIENT_ID }}
         REACT_APP_USER_POOL_ID: ${{ secrets.REACT_APP_USER_POOL_ID }}
