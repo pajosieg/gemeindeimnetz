@@ -25,8 +25,6 @@ jobs:
     - name: Serverless
       uses: serverless/github-action@v1.53.0
 
-    - run: npm i -g serverless
-    - run: cd api
     - run: npm i
       working-directory: api
     - run: env NODE_ENV=development serverless deploy --debug --region eu-central-1 --env development
@@ -46,7 +44,5 @@ jobs:
     - run: serverless --debug --region eu-central-1 --bucketName gemeinde-im-netz-frontend-dev --env development
       working-directory: frontend
       env:
-        REACT_APP_USER_POOL_CLIENT_ID: ${{ secrets.REACT_APP_USER_POOL_CLIENT_ID }}
-        REACT_APP_USER_POOL_ID: ${{ secrets.REACT_APP_USER_POOL_ID }}
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
