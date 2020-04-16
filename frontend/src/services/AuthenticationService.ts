@@ -1,5 +1,5 @@
 import { Auth } from 'aws-amplify';
-import Authentication from '../stores/Authentication';
+import Authentication from '../storesS/Authentication';
 import colors from '../scss/_colors.scss';
 import { CognitoIdToken, CognitoUserSession } from 'amazon-cognito-identity-js';
 

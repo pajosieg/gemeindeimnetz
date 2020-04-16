@@ -1,11 +1,7 @@
 import axios from 'axios';
 import { getEnvironmentConfig } from './config';
 
-const baseUrl =
-  window.location.hostname === 'gemeinde-im-netz.de' ||
-  window.location.hostname === 'www.gemeinde-im-netz.de'
-    ? getEnvironmentConfig().cmsBaseUrl
-    : getEnvironmentConfig().cmsBaseUrl;
+const baseUrl = getEnvironmentConfig().cmsBaseUrl;
 
 export const strapiGet = async <T>(
   path: string,
