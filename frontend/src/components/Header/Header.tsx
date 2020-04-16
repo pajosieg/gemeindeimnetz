@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, NavLink, withRouter } from 'react-router-dom';
-import Authentication, { AuthenticationState } from '../../storesS/Authentication';
+import Authentication, { AuthenticationState } from '../../stores/Authentication';
 import './Header.scss';
 import { Auth } from 'aws-amplify';
 import { ReactComponent as LogoutIcon } from '../../assets/icons/logout.svg';

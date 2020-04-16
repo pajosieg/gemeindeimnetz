@@ -12,7 +12,7 @@ import {
   sortEntriesByDateAndTime,
 } from '../../models/Entry';
 import { UserWithCommunity } from '../../models/User';
-import Authentication from '../../storesS/Authentication';
+import Authentication from '../../stores/Authentication';
 import { Button } from '../Button/Button';
 import { Card } from '../Card/Card';
 import { Modal } from '../Modal/Modal';
