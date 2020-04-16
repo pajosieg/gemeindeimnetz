@@ -42,9 +42,6 @@ jobs:
     - name: install dependencies
       run: npm ci
       working-directory: frontend
-    - name: Build react app
-      run: npm run build
-      working-directory: frontend
     - run: serverless --debug --region eu-central-1 --bucketName gemeinde-im-netz-frontend-dev
       working-directory: frontend
       env:
