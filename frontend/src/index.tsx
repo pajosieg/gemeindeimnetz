@@ -1,10 +1,8 @@
-// first import ./env.js
-import './env.js';
 import Amplify, { Auth, Hub } from 'aws-amplify';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import aws_settings from './aws_settings.js';
+import aws_settings from './aws_settings';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import Authentication from './stores/Authentication';

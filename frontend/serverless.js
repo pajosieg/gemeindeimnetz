@@ -13,11 +13,6 @@ class Frontend extends Component {
 
     const frontendInputs = { ...inputs, ...settings };
 
-    frontendInputs.env = {
-      apiUrl: require('../api/output.json').ServiceEndpoint,
-      environment: inputs.env,
-    };
-
     const website = await this.load('@serverless/website');
     const outputs = await website(frontendInputs);
     outputs.url = outputs.url

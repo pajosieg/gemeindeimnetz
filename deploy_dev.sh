@@ -8,5 +8,5 @@ env NODE_ENV=development serverless deploy --debug --region eu-central-1 --env d
 echo "Building and deploying frontend"
 cd ../frontend
 rm -rf .serverless/
-serverless --debug --region eu-central-1 --bucketName gemeinde-im-netz-frontend-dev --env development
+serverless --debug --region eu-central-1 --bucketName gemeinde-im-netz-frontend-dev
 cd ..

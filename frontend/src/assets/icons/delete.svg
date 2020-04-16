@@ -1,1 +1,14 @@
-<svg width="22" height="23" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><filter x="-2.4%" y="-3%" width="104.8%" height="106.7%" filterUnits="objectBoundingBox" id="a"><feMorphology radius=".5" in="SourceAlpha" result="shadowSpreadOuter1"/><feOffset dy="1" in="shadowSpreadOuter1" result="shadowOffsetOuter1"/><feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0" in="shadowBlurOuter1"/></filter><path id="b" d="M0 0h460v328H0z"/></defs><g fill="none" fill-rule="evenodd"><g transform="translate(-12 -47)"><use fill="#000" filter="url(#a)" xlink:href="#b"/><use fill="#FFF" xlink:href="#b"/></g><g stroke="#52B25E" stroke-linecap="round" stroke-linejoin="round"><path d="M3.273 22.364h14.545V4.182H3.273zM6.91 4.182h7.272V1.455H6.909zM1 4.182h20M6.909 7.364v10.909M10.545 7.364v10.909M14.182 7.364v10.909"/></g></g></svg>
+<svg viewbox="0 0 22 23" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      svg {
+        stroke: #52b25e;
+      }
+    </style>
+  </defs>
+  <g fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+    <path
+      d="M3.273 22.364h14.545V4.182H3.273zM6.91 4.182h7.272V1.455H6.909zM1 4.182h20M6.909 7.364v10.909M10.545 7.364v10.909M14.182 7.364v10.909"
+    />
+  </g>
+</svg>

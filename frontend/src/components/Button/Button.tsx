@@ -7,6 +7,7 @@ export interface ButtonInterface {
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
   [key: string]: any;
+  bordered?: boolean;
 }
 
 export const Button: React.FC<ButtonInterface> = ({
@@ -15,9 +16,16 @@ export const Button: React.FC<ButtonInterface> = ({
   link,
   onClick,
   className,
+  bordered = false,
   ...restProps
 }) => {
-  const classList = ['btn', className ? className : ''].join(' ').trim();
+  const classList = [
+    'btn',
+    className ? className : '',
+    bordered ? 'btn--bordered' : '',
+  ]
+    .join(' ')
+    .trim();
   return (
     <button className={classList} onClick={onClick} {...restProps}>
       {/*iconsvg rein*/}

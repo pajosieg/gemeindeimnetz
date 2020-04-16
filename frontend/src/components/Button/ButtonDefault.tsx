@@ -1,10 +1,6 @@
 import React from 'react';
-import { Button } from './Button';
+import { Button, ButtonInterface } from './Button';
 import colors from '../../scss/_colors.scss';
-
-export interface ButtonInterface {
-  [key: string]: any;
-}
 
 export const ButtonDefault: React.FC<ButtonInterface> = ({
   children,

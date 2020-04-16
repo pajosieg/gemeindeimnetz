@@ -1,7 +1,8 @@
 <svg width="24" height="22" xmlns="http://www.w3.org/2000/svg">
   <g stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linejoin="round">
-    <path stroke-linecap="round" d="M23.5 17.482h-12l-4 4v-4h-7v-16h23z"/>
+    <path stroke-linecap="round" d="M23.5 17.482h-12l-4 4v-4h-7v-16h23z" />
     <path
-      d="M7.5 8.982a1.5 1.5 0 11-3.001 0 1.5 1.5 0 013.001 0h0zM13.5 8.982a1.5 1.5 0 11-3.001 0 1.5 1.5 0 013.001 0h0zM19.5 8.982a1.5 1.5 0 11-3.001 0 1.5 1.5 0 013.001 0h0z"/>
+      d="M7.5 8.982a1.5 1.5 0 11-3.001 0 1.5 1.5 0 013.001 0h0zM13.5 8.982a1.5 1.5 0 11-3.001 0 1.5 1.5 0 013.001 0h0zM19.5 8.982a1.5 1.5 0 11-3.001 0 1.5 1.5 0 013.001 0h0z"
+    />
   </g>
 </svg>

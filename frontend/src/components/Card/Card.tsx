@@ -1,7 +1,11 @@
 import * as React from 'react';
+import { ReactComponent as CopyIcon } from '../../assets/icons/copy.svg';
+import { ReactComponent as DeleteIcon } from '../../assets/icons/delete.svg';
+import { ReactComponent as EditIcon } from '../../assets/icons/edit.svg';
 import { Entry } from '../../models/Entry';
-import { ButtonDanger } from '../Button/ButtonDanger';
-import { ButtonDefault } from '../Button/ButtonDefault';
+import colors from '../../scss/_colors.scss';
+import { ButtonDangerIcon } from '../Button/ButtonDangerIcon';
+import { ButtonIcon } from '../Button/ButtonIcon';
 import { ButtonLink } from '../Button/ButtonLink';
 import { Icon } from '../Icon/Icon';
 import { ConfirmModal } from '../Modal/ConfirmModal';
@@ -56,18 +60,39 @@ export const Card = ({
         </div>
         <div className="card__description">{Description}</div>
         <div className="card__action">
-          <ButtonLink
-            icon="arrow-left"
-            link={Link.startsWith('http') ? Link : 'http://' + Link}
-          >
-            Ansehen
-          </ButtonLink>
+          <div style={{ display: 'flex' }}>
+            <ButtonLink
+              icon="arrow-left"
+              link={Link.startsWith('http') ? Link : 'http://' + Link}
+            >
+              Ansehen
+            </ButtonLink>
+            {editable && (
+              <>
+                <ButtonIcon onClick={onEdit} style={{ marginLeft: '1em' }}>
+                  <EditIcon
+                    style={{ height: '22px', width: '22px', marginRight: 0 }}
+                  />
+                </ButtonIcon>
+                <ButtonIcon onClick={onCopy}>
+                  <CopyIcon
+                    style={{ height: '22px', width: '22px', marginRight: 0 }}
+                  />
+                </ButtonIcon>
+              </>
+            )}
+          </div>
           {editable && (
-            <div>
-              <ButtonDefault onClick={onEdit}>Bearbeiten</ButtonDefault>
-              <ButtonDefault onClick={onCopy}>Kopieren</ButtonDefault>
-              <ButtonDanger onClick={handleDeleteIntention}>Löschen</ButtonDanger>
-            </div>
+            <ButtonDangerIcon onClick={handleDeleteIntention}>
+              <DeleteIcon
+                style={{
+                  height: '22px',
+                  width: '22px',
+                  marginRight: 0,
+                  stroke: colors.red,
+                }}
+              />
+            </ButtonDangerIcon>
           )}
         </div>
       </div>
