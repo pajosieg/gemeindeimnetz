@@ -2,6 +2,7 @@ import * as React from 'react';
 import { ReactComponent as CopyIcon } from '../../assets/icons/copy.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/icons/delete.svg';
 import { ReactComponent as EditIcon } from '../../assets/icons/edit.svg';
+import { ReactComponent as LinkOutIcon } from '../../assets/icons/link-out.svg';
 import { Entry } from '../../models/Entry';
 import colors from '../../scss/_colors.scss';
 import { ButtonDangerIcon } from '../Button/ButtonDangerIcon';
@@ -62,10 +63,11 @@ export const Card = ({
         <div className="card__action">
           <div style={{ display: 'flex' }}>
             <ButtonLink
-              icon="arrow-left"
+              icon="link-out"
               link={Link.startsWith('http') ? Link : 'http://' + Link}
             >
               Ansehen
+              <LinkOutIcon className="card__link-icon" />
             </ButtonLink>
             {editable && (
               <>

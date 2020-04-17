@@ -48,6 +48,12 @@
 
     .btn {
       margin-bottom: 0;
+
+      .card__link-icon {
+        margin: 0 0 0 10px;
+        height: 14px;
+        vertical-align: bottom;
+      }
     }
   }
 }

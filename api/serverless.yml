@@ -17,18 +17,15 @@ custom:
     name: cognito-authorizer
     arn: arn:aws:cognito-idp:eu-central-1:953031679657:userpool/eu-central-1_6WjHy69OW
     identitySource: method.request.header.Authorization
-  # output:
-  #   handle: scripts/output.process
-  #   file: output.json
   env:
     STRAPI_BASE_URL: ${env:STRAPI_BASE_URL}
     STRAPI_PASSWORD: ${env:STRAPI_PASSWORD}
     STRAPI_LOGIN: ${env:STRAPI_LOGIN}
-  # dotenv:
-  #   exclude:
-  #     - AWS_ACCESS_KEY_ID
-  #     - AWS_SECRET_ACCESS_KEY
-  #     - AWS_REGION
+  dotenv:
+    exclude:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_REGION
 
 functions:
   getUser:
@@ -128,6 +125,5 @@ resources:
         RestApiId:
           Ref: "ApiGatewayRestApi"
 
-# plugins:
-#   - serverless-stack-output
-#   - serverless-dotenv-plugin
+plugins:
+  - serverless-dotenv-plugin
