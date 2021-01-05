@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "serverless-dotenv-plugin": "^2.3.2",
     "serverless-stack-output": "^0.2.3"
   }
